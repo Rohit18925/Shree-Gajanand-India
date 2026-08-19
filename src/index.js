@@ -1,6 +1,6 @@
 const SESSION_COOKIE = "sgi_session";
 const SESSION_DAYS = 7;
-const PBKDF2_ITERATIONS = 120000;
+const PBKDF2_ITERATIONS = 100000;
 
 export default {
   async fetch(request, env) {
