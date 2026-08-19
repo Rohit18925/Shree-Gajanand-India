@@ -1,7 +1,7 @@
 const path=location.pathname;
-if(path.endsWith("/login.html"))initLogin();
-if(path.endsWith("/setup.html"))initSetup();
-if(path.endsWith("/dashboard.html"))initDashboard();
+if(path.endsWith("/login")||path.endsWith("/login.html"))initLogin();
+if(path.endsWith("/setup")||path.endsWith("/setup.html"))initSetup();
+if(path.endsWith("/dashboard")||path.endsWith("/dashboard.html"))initDashboard();
 
 async function initLogin(){
   const status=await api("/portal/api/setup-status",{method:"GET"},false);
