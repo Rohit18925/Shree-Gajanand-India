@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "shree-gajanand-india",
+  "compatibility_date": "2026-08-19",
+  "assets": {
+    "directory": "./public/"
+  }
+}
