@@ -49,9 +49,112 @@ async function handlePortalApi(request, env, url) {
     return apiOk({ user: publicUser(auth.user) });
   }
 
-  if (url.pathname === "/portal/api/dashboard" && request.method === "GET") {
-    return dashboard(env, auth.user);
+  if (url.pathname === "/portal/api/sites" && request.method === "GET") {
+  let result;
+
+  if (auth.user.role === "supervisor") {
+    if (!auth.user.site_id) {
+      return apiOk({ sites: [] });
+    }
+
+    result = await env.DB.prepare(
+      `SELECT id, site_code, name, location, is_active, created_at
+       FROM sites
+       WHERE id = ?
+       ORDER BY name COLLATE NOCASE ASC`
+    ).bind(auth.user.site_id).all();
+  } else {
+    result = await env.DB.prepare(
+      `SELECT id, site_code, name, location, is_active, created_at
+       FROM sites
+       ORDER BY is_active DESC, name COLLATE NOCASE ASC`
+    ).all();
   }
+
+  return apiOk({ sites: result.results || [] });
+}
+
+if (url.pathname === "/portal/api/sites" && request.method === "POST") {
+  if (auth.user.role !== "admin") {
+    return apiError("Only Admin can create sites.", 403);
+  }
+
+  const body = await readJson(request);
+  if (!body) return apiError("Invalid request.", 400);
+
+  const siteCode = clean(body.siteCode, 30).toUpperCase();
+  const name = clean(body.name, 120);
+  const location = clean(body.location, 200);
+
+  if (!siteCode || !name) {
+    return apiError("Site code and site name are required.", 400);
+  }
+
+  try {
+    const result = await env.DB.prepare(
+      "INSERT INTO sites (site_code, name, location, is_active, created_at) VALUES (?, ?, ?, 1, ?)"
+    ).bind(
+      siteCode,
+      name,
+      location || null,
+      new Date().toISOString()
+    ).run();
+
+    return apiOk({
+      message: "Site created successfully.",
+      siteId: result.meta?.last_row_id
+    }, 201);
+  } catch (error) {
+    if (String(error).toLowerCase().includes("unique")) {
+      return apiError("This site code already exists.", 409);
+    }
+    throw error;
+  }
+}
+
+if (url.pathname === "/portal/api/sites" && request.method === "PUT") {
+  if (auth.user.role !== "admin") {
+    return apiError("Only Admin can update sites.", 403);
+  }
+
+  const body = await readJson(request);
+  if (!body) return apiError("Invalid request.", 400);
+
+  const id = Number(body.id);
+  const siteCode = clean(body.siteCode, 30).toUpperCase();
+  const name = clean(body.name, 120);
+  const location = clean(body.location, 200);
+  const isActive = Number(body.isActive) === 0 ? 0 : 1;
+
+  if (!Number.isInteger(id) || id <= 0 || !siteCode || !name) {
+    return apiError("Valid site ID, site code and site name are required.", 400);
+  }
+
+  try {
+    const result = await env.DB.prepare(
+      `UPDATE sites
+       SET site_code = ?, name = ?, location = ?, is_active = ?
+       WHERE id = ?`
+    ).bind(
+      siteCode,
+      name,
+      location || null,
+      isActive,
+      id
+    ).run();
+
+    if (!result.meta?.changes) {
+      return apiError("Site not found.", 404);
+    }
+
+    return apiOk({ message: "Site updated successfully." });
+  } catch (error) {
+    if (String(error).toLowerCase().includes("unique")) {
+      return apiError("This site code already exists.", 409);
+    }
+    throw error;
+  }
+}
 
   return apiError("Not found.", 404);
 }

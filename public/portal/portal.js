@@ -2,6 +2,7 @@ const path=location.pathname;
 if(path.endsWith("/login")||path.endsWith("/login.html"))initLogin();
 if(path.endsWith("/setup")||path.endsWith("/setup.html"))initSetup();
 if(path.endsWith("/dashboard")||path.endsWith("/dashboard.html"))initDashboard();
+if(path.endsWith("/sites")||path.endsWith("/sites.html"))initSites();
 
 async function initLogin(){
   const status=await api("/portal/api/setup-status",{method:"GET"},false);
@@ -44,6 +45,208 @@ async function initDashboard(){
   document.getElementById("logoutButton").addEventListener("click",async()=>{await api("/portal/api/logout",{method:"POST"},false);location.replace("/portal/login.html")});
 }
 
+async function initSites(){
+  const data=await api("/portal/api/dashboard",{method:"GET"},false);
+
+  if(!data?.ok){
+    location.replace("/portal/login.html");
+    return;
+  }
+
+  const user=data.user;
+  const isAdmin=user.role==="admin";
+
+  document.getElementById("userName").textContent=user.fullName;
+  document.getElementById("userRole").textContent=roleLabel(user.role);
+
+  renderSidebar(data.modules);
+
+  document.getElementById("logoutButton").addEventListener("click",async()=>{
+    await api("/portal/api/logout",{method:"POST"},false);
+    location.replace("/portal/login.html");
+  });
+
+  const form=document.getElementById("siteForm");
+  const message=document.getElementById("siteMessage");
+  const saveButton=document.getElementById("saveSiteButton");
+  const cancelButton=document.getElementById("cancelEditButton");
+  const managementCard=form.closest(".management-card");
+
+  let sites=[];
+
+  if(!isAdmin){
+    managementCard.hidden=true;
+  }
+
+  async function loadSites(){
+    const result=await api("/portal/api/sites",{method:"GET"},false);
+
+    if(!result?.ok){
+      document.getElementById("sitesTableBody").innerHTML=
+        `<tr><td colspan="6" class="table-empty">Unable to load sites.</td></tr>`;
+      return;
+    }
+
+    sites=result.sites||[];
+    renderSitesTable();
+  }
+
+  function renderSitesTable(){
+    const tbody=document.getElementById("sitesTableBody");
+
+    if(!sites.length){
+      tbody.innerHTML=
+        `<tr><td colspan="6" class="table-empty">No sites added yet.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML=sites.map(site=>{
+      const active=Number(site.is_active)===1;
+
+      return `
+        <tr>
+          <td><strong>${escapeHtml(site.site_code)}</strong></td>
+          <td>${escapeHtml(site.name)}</td>
+          <td>${escapeHtml(site.location||"-")}</td>
+          <td>
+            <span class="status-badge ${active?"active":"inactive"}">
+              ${active?"Active":"Inactive"}
+            </span>
+          </td>
+          <td>${escapeHtml(formatPortalDate(site.created_at))}</td>
+          <td>
+            ${
+              isAdmin
+                ? `
+                  <button class="table-action-btn edit-site-btn" type="button" data-id="${site.id}">
+                    Edit
+                  </button>
+                  <button class="table-action-btn toggle-site-btn" type="button" data-id="${site.id}">
+                    ${active?"Deactivate":"Activate"}
+                  </button>
+                `
+                : "-"
+            }
+          </td>
+        </tr>
+      `;
+    }).join("");
+
+    if(isAdmin){
+      document.querySelectorAll(".edit-site-btn").forEach(button=>{
+        button.addEventListener("click",()=>startEdit(Number(button.dataset.id)));
+      });
+
+      document.querySelectorAll(".toggle-site-btn").forEach(button=>{
+        button.addEventListener("click",()=>toggleSite(Number(button.dataset.id)));
+      });
+    }
+  }
+
+  function startEdit(id){
+    const site=sites.find(item=>Number(item.id)===id);
+    if(!site)return;
+
+    form.siteId.value=site.id;
+    form.siteCode.value=site.site_code;
+    form.siteName.value=site.name;
+    form.siteLocation.value=site.location||"";
+
+    saveButton.textContent="Update Site";
+    cancelButton.hidden=false;
+    setMessage(message,"");
+
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  function resetForm(){
+    form.reset();
+    form.siteId.value="";
+    saveButton.textContent="Add Site";
+    cancelButton.hidden=true;
+    setMessage(message,"");
+  }
+
+  async function toggleSite(id){
+    const site=sites.find(item=>Number(item.id)===id);
+    if(!site)return;
+
+    const result=await api("/portal/api/sites",{
+      method:"PUT",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        id:site.id,
+        siteCode:site.site_code,
+        name:site.name,
+        location:site.location||"",
+        isActive:Number(site.is_active)===1?0:1
+      })
+    },false);
+
+    if(!result?.ok){
+      alert(result?.error||"Unable to update site.");
+      return;
+    }
+
+    await loadSites();
+  }
+
+  if(isAdmin){
+    cancelButton.addEventListener("click",resetForm);
+
+    form.addEventListener("submit",async event=>{
+      event.preventDefault();
+
+      setMessage(message,"");
+
+      const editingId=Number(form.siteId.value)||0;
+      const existingSite=sites.find(item=>Number(item.id)===editingId);
+
+      saveButton.disabled=true;
+      saveButton.textContent=editingId?"Updating...":"Adding...";
+
+      const result=await api("/portal/api/sites",{
+        method:editingId?"PUT":"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+          id:editingId||undefined,
+          siteCode:form.siteCode.value,
+          name:form.siteName.value,
+          location:form.siteLocation.value,
+          isActive:existingSite?Number(existingSite.is_active):1
+        })
+      },false);
+
+      saveButton.disabled=false;
+
+      if(!result?.ok){
+        saveButton.textContent=editingId?"Update Site":"Add Site";
+        setMessage(message,result?.error||"Unable to save site.","error");
+        return;
+      }
+
+      resetForm();
+      setMessage(message,result.message||"Site saved successfully.","success");
+      await loadSites();
+    });
+  }
+
+  await loadSites();
+}
+
+function formatPortalDate(value){
+  if(!value)return "-";
+
+  const date=new Date(value);
+  if(Number.isNaN(date.getTime()))return "-";
+
+  return date.toLocaleDateString("en-IN",{
+    day:"2-digit",
+    month:"short",
+    year:"numeric"
+  });
+}
+
 function renderStats(stats,role){
   const cards=[["Active Employees",stats.employees],["Active Sites",stats.sites],["Present Today",stats.presentToday],["Absent Today",stats.absentToday]];
   if(role!=="supervisor")cards.push(["Salary Pending",stats.salaryPending]);
@@ -52,7 +255,16 @@ function renderStats(stats,role){
 
 function renderModules(modules){
   document.getElementById("moduleGrid").innerHTML=modules.map(m=>`<button class="module-card" type="button" data-module="${escapeHtml(m.key)}"><span class="module-icon">${escapeHtml(m.icon)}</span><strong>${escapeHtml(m.label)}</strong><small>${escapeHtml(moduleDescription(m.key))}</small></button>`).join("");
-  document.querySelectorAll(".module-card").forEach(b=>b.addEventListener("click",()=>alert(`${b.dataset.module} module will be connected in the next phase.`)));
+  document.querySelectorAll(".module-card").forEach(b=>{
+  b.addEventListener("click",()=>{
+    if(b.dataset.module==="sites"){
+      location.href="/portal/sites.html";
+      return;
+    }
+
+    alert(`${b.dataset.module} module will be connected in the next phase.`);
+  });
+});
 }
 
 function renderSidebar(modules){

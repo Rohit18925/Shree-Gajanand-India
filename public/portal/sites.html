@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Site Management | SGI Portal</title>
+  <link rel="stylesheet" href="/portal/portal.css">
+</head>
+
+<body>
+<div class="portal-shell">
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <strong>Shree Gajanand India</strong>
+      <span>Employee Management Portal</span>
+    </div>
+
+    <nav class="side-nav" id="sideNav"></nav>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <h1>Site Management</h1>
+
+      <div class="user-menu">
+        <div class="user-meta">
+          <strong id="userName">Loading...</strong>
+          <span id="userRole"></span>
+        </div>
+
+        <button class="logout-btn" id="logoutButton" type="button">
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <section class="management-card">
+        <div class="management-header">
+          <div>
+            <h2>Add New Site</h2>
+            <p>Create a new project or work-site record.</p>
+          </div>
+        </div>
+
+        <form id="siteForm" class="site-form">
+
+          <input type="hidden" id="siteId" name="siteId">
+
+          <div class="form-group">
+            <label for="siteCode">Site Code *</label>
+            <input
+              id="siteCode"
+              name="siteCode"
+              type="text"
+              maxlength="30"
+              placeholder="Example: SGI-PAT-01"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="siteName">Site Name *</label>
+            <input
+              id="siteName"
+              name="siteName"
+              type="text"
+              maxlength="120"
+              placeholder="Example: Patna Project Site"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="siteLocation">Location</label>
+            <input
+              id="siteLocation"
+              name="siteLocation"
+              type="text"
+              maxlength="200"
+              placeholder="City / District / State"
+            >
+          </div>
+
+          <div class="form-actions">
+            <button class="primary-btn site-save-btn" id="saveSiteButton" type="submit">
+              Add Site
+            </button>
+
+            <button class="secondary-btn" id="cancelEditButton" type="button" hidden>
+              Cancel Edit
+            </button>
+          </div>
+
+          <p class="form-message" id="siteMessage"></p>
+        </form>
+      </section>
+
+
+      <div class="section-title">
+        <h3>Company Sites</h3>
+        <p>Manage active and inactive project locations.</p>
+      </div>
+
+      <section class="management-card">
+        <div class="table-wrap">
+
+          <table class="portal-table">
+            <thead>
+              <tr>
+                <th>Site Code</th>
+                <th>Site Name</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody id="sitesTableBody">
+              <tr>
+                <td colspan="6" class="table-empty">
+                  Loading sites...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+</div>
+
+<script src="/portal/portal.js"></script>
+</body>
+</html>
