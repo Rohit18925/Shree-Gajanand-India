@@ -48,6 +48,9 @@ async function handlePortalApi(request, env, url) {
   if (url.pathname === "/portal/api/me" && request.method === "GET") {
     return apiOk({ user: publicUser(auth.user) });
   }
+  if (url.pathname === "/portal/api/dashboard" && request.method === "GET") {
+  return dashboard(env, auth.user);
+}
 
   if (url.pathname === "/portal/api/sites" && request.method === "GET") {
   let result;
