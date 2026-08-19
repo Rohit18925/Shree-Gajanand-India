@@ -269,7 +269,40 @@ function renderModules(modules){
 
 function renderSidebar(modules){
   const items=[{key:"dashboard",label:"Dashboard",icon:"HOME"},...modules];
-  document.getElementById("sideNav").innerHTML=items.map(i=>`<button class="nav-item ${i.key==="dashboard"?"active":""}" type="button"><span class="nav-badge">${escapeHtml(i.icon)}</span><span>${escapeHtml(i.label)}</span></button>`).join("");
+
+  document.getElementById("sideNav").innerHTML=items.map(i=>`
+    <button
+      class="nav-item ${
+        (i.key==="dashboard" && path.includes("/dashboard")) ||
+        (i.key==="sites" && path.includes("/sites"))
+          ? "active"
+          : ""
+      }"
+      type="button"
+      data-nav="${escapeHtml(i.key)}"
+    >
+      <span class="nav-badge">${escapeHtml(i.icon)}</span>
+      <span>${escapeHtml(i.label)}</span>
+    </button>
+  `).join("");
+
+  document.querySelectorAll("[data-nav]").forEach(button=>{
+    button.addEventListener("click",()=>{
+      const key=button.dataset.nav;
+
+      if(key==="dashboard"){
+        location.href="/portal/dashboard.html";
+        return;
+      }
+
+      if(key==="sites"){
+        location.href="/portal/sites.html";
+        return;
+      }
+
+      alert(`${key} module will be connected in the next phase.`);
+    });
+  });
 }
 
 function moduleDescription(key){
