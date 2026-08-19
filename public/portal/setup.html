@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SGI Portal Setup</title><link rel="stylesheet" href="/portal/portal.css"></head>
+<body><main class="auth-page"><section class="auth-panel">
+<div class="auth-brand"><strong>Shree Gajanand India</strong><span>First Admin Setup</span></div>
+<h1 class="auth-title">Create Admin</h1><p class="auth-subtitle">This page works only before the first portal user is created.</p>
+<form id="setupForm">
+<div class="form-group"><label for="setupKey">Setup Key</label><input id="setupKey" name="setupKey" type="password" required></div>
+<div class="form-group"><label for="fullName">Admin Name</label><input id="fullName" name="fullName" required></div>
+<div class="form-group"><label for="username">Username</label><input id="username" name="username" autocomplete="username" required></div>
+<div class="form-group"><label for="password">Password</label><input id="password" name="password" type="password" minlength="10" autocomplete="new-password" required></div>
+<button class="primary-btn" id="setupButton" type="submit">Create Admin Account</button><p class="form-message" id="message" aria-live="polite"></p>
+</form></section>
+<section class="auth-visual"><div class="auth-visual-content"><h2>Secure the portal before adding company records.</h2>
+<p>The first account is always Admin. HR/Office and Supervisor accounts will be added from the Admin area.</p></div></section>
+</main><script src="/portal/portal.js"></script></body></html>

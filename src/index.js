@@ -1,168 +1,344 @@
+const SESSION_COOKIE = "sgi_session";
+const SESSION_DAYS = 7;
+const PBKDF2_ITERATIONS = 120000;
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    if (url.pathname === "/portal") {
+      return Response.redirect(`${url.origin}/portal/login.html`, 302);
+    }
+
+    if (url.pathname.startsWith("/portal/api/")) {
+      return handlePortalApi(request, env, url);
+    }
+
     if (url.pathname === "/submit-form") {
-      if (request.method !== "POST") {
-        return jsonResponse(
-          { result: "error", error: "Method not allowed." },
-          405
-        );
-      }
-
-      let body;
-
-      try {
-        const contentType = request.headers.get("content-type") || "";
-
-        if (contentType.includes("application/json")) {
-          body = await request.json();
-        } else {
-          body = Object.fromEntries((await request.formData()).entries());
-        }
-      } catch {
-        return jsonResponse(
-          { result: "error", error: "Invalid form data." },
-          400
-        );
-      }
-
-      const name = clean(body.name, 100);
-      const phone = clean(body.phone, 20);
-      const email = clean(body.email, 254);
-      const subject = clean(body.subject, 160);
-      const message = clean(body.message, 3000);
-      const website = clean(body.website, 200);
-
-      if (website) {
-        return jsonResponse({ result: "success" });
-      }
-
-      if (!name || !phone || !email || !subject || !message) {
-        return jsonResponse(
-          { result: "error", error: "Please fill in all required fields." },
-          400
-        );
-      }
-
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        return jsonResponse(
-          { result: "error", error: "Please enter a valid email address." },
-          400
-        );
-      }
-
-      if (!/^[+0-9()\-\s]{7,20}$/.test(phone)) {
-        return jsonResponse(
-          { result: "error", error: "Please enter a valid phone number." },
-          400
-        );
-      }
-
-      if (!env.RESEND_API_KEY) {
-        console.error("RESEND_API_KEY is missing");
-
-        return jsonResponse(
-          { result: "error", error: "Email service is not configured." },
-          500
-        );
-      }
-
-      const recipient =
-        env.EMAIL_TO || "shreegajanandindia751@gmail.com";
-
-      const from =
-        env.RESEND_FROM ||
-        "Shree Gajanand India Website <onboarding@resend.dev>";
-
-      const emailText = [
-        "New enquiry from Shree Gajanand India website",
-        "",
-        `Name: ${name}`,
-        `Phone: ${phone}`,
-        `Email: ${email}`,
-        `Subject: ${subject}`,
-        "",
-        "Message:",
-        message
-      ].join("\n");
-
-      try {
-        const resendResponse = await fetch(
-          "https://api.resend.com/emails",
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${env.RESEND_API_KEY}`,
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              from,
-              to: [recipient],
-              reply_to: email,
-              subject: `Website Enquiry: ${safeHeader(subject)}`,
-              text: emailText
-            })
-          }
-        );
-
-        const resendData = await resendResponse
-          .json()
-          .catch(() => ({}));
-
-        if (!resendResponse.ok) {
-          console.error("Resend error:", resendData);
-
-          return jsonResponse(
-            {
-              result: "error",
-              error: "Unable to send enquiry right now."
-            },
-            502
-          );
-        }
-
-        console.log("Email sent:", resendData.id || "success");
-
-        return jsonResponse({
-          result: "success"
-        });
-      } catch (error) {
-        console.error("Email send failed:", error);
-
-        return jsonResponse(
-          {
-            result: "error",
-            error: "Unable to send enquiry right now."
-          },
-          500
-        );
-      }
+      return handleContactForm(request, env);
     }
 
     return env.ASSETS.fetch(request);
   }
 };
 
+async function handlePortalApi(request, env, url) {
+  if (!env.DB) return apiError("Portal database is not configured.", 503);
+
+  if (url.pathname === "/portal/api/setup-status" && request.method === "GET") {
+    const row = await env.DB.prepare("SELECT COUNT(*) AS count FROM users").first();
+    return apiOk({ setupRequired: Number(row?.count || 0) === 0 });
+  }
+
+  if (url.pathname === "/portal/api/setup" && request.method === "POST") {
+    return setupFirstAdmin(request, env);
+  }
+
+  if (url.pathname === "/portal/api/login" && request.method === "POST") {
+    return login(request, env);
+  }
+
+  if (url.pathname === "/portal/api/logout" && request.method === "POST") {
+    return logout(request, env);
+  }
+
+  const auth = await authenticate(request, env);
+  if (!auth) return apiError("Unauthorized.", 401);
+
+  if (url.pathname === "/portal/api/me" && request.method === "GET") {
+    return apiOk({ user: publicUser(auth.user) });
+  }
+
+  if (url.pathname === "/portal/api/dashboard" && request.method === "GET") {
+    return dashboard(env, auth.user);
+  }
+
+  return apiError("Not found.", 404);
+}
+
+async function setupFirstAdmin(request, env) {
+  const existing = await env.DB.prepare("SELECT COUNT(*) AS count FROM users").first();
+  if (Number(existing?.count || 0) > 0) return apiError("Portal setup is already complete.", 409);
+  if (!env.PORTAL_SETUP_KEY) return apiError("PORTAL_SETUP_KEY is not configured.", 500);
+
+  const body = await readJson(request);
+  if (!body) return apiError("Invalid request.", 400);
+
+  const setupKey = clean(body.setupKey, 200);
+  const fullName = clean(body.fullName, 120);
+  const username = clean(body.username, 80).toLowerCase();
+  const password = String(body.password || "");
+
+  if (setupKey !== env.PORTAL_SETUP_KEY) return apiError("Invalid setup key.", 403);
+  if (!fullName || !/^[a-z0-9._-]{3,80}$/.test(username) || password.length < 10) {
+    return apiError("Enter a valid name, username and a password of at least 10 characters.", 400);
+  }
+
+  const salt = randomBase64(16);
+  const passwordHash = await hashPassword(password, salt);
+
+  await env.DB.prepare(
+    "INSERT INTO users (full_name, username, password_hash, password_salt, role, is_active, created_at) VALUES (?, ?, ?, ?, 'admin', 1, ?)"
+  ).bind(fullName, username, passwordHash, salt, new Date().toISOString()).run();
+
+  return apiOk({ message: "Admin account created." }, 201);
+}
+
+async function login(request, env) {
+  const body = await readJson(request);
+  if (!body) return apiError("Invalid request.", 400);
+
+  const username = clean(body.username, 80).toLowerCase();
+  const password = String(body.password || "");
+  if (!username || !password) return apiError("Username and password are required.", 400);
+
+  const user = await env.DB.prepare(
+    "SELECT id, full_name, username, password_hash, password_salt, role, site_id, is_active FROM users WHERE username = ? LIMIT 1"
+  ).bind(username).first();
+
+  if (!user || !Number(user.is_active)) return apiError("Invalid username or password.", 401);
+
+  const candidate = await hashPassword(password, user.password_salt);
+  if (!timingSafeStringEqual(candidate, user.password_hash)) return apiError("Invalid username or password.", 401);
+
+  const token = randomBase64(32);
+  const tokenHash = await sha256(token);
+  const now = new Date();
+  const expires = new Date(now.getTime() + SESSION_DAYS * 86400000);
+
+  await env.DB.prepare(
+    "INSERT INTO sessions (token_hash, user_id, created_at, expires_at) VALUES (?, ?, ?, ?)"
+  ).bind(tokenHash, user.id, now.toISOString(), expires.toISOString()).run();
+
+  await env.DB.prepare("DELETE FROM sessions WHERE expires_at < ?").bind(now.toISOString()).run();
+
+  return new Response(JSON.stringify({ ok: true, user: publicUser(user) }), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "no-store",
+      "Set-Cookie": `${SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${SESSION_DAYS * 86400}`
+    }
+  });
+}
+
+async function logout(request, env) {
+  const token = getCookie(request, SESSION_COOKIE);
+  if (token) {
+    const tokenHash = await sha256(token);
+    await env.DB.prepare("DELETE FROM sessions WHERE token_hash = ?").bind(tokenHash).run();
+  }
+  return new Response(JSON.stringify({ ok: true }), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "no-store",
+      "Set-Cookie": `${SESSION_COOKIE}=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0`
+    }
+  });
+}
+
+async function authenticate(request, env) {
+  const token = getCookie(request, SESSION_COOKIE);
+  if (!token) return null;
+  const tokenHash = await sha256(token);
+  const user = await env.DB.prepare(
+    "SELECT u.id, u.full_name, u.username, u.role, u.site_id, u.is_active FROM sessions s JOIN users u ON u.id = s.user_id WHERE s.token_hash = ? AND s.expires_at > ? AND u.is_active = 1 LIMIT 1"
+  ).bind(tokenHash, new Date().toISOString()).first();
+  return user ? { user } : null;
+}
+
+async function dashboard(env, user) {
+  const today = new Date().toISOString().slice(0, 10);
+  const supervisor = user.role === "supervisor" && user.site_id;
+  const employeeRow = supervisor
+    ? await env.DB.prepare("SELECT COUNT(*) AS count FROM employees WHERE status='active' AND site_id=?").bind(user.site_id).first()
+    : await env.DB.prepare("SELECT COUNT(*) AS count FROM employees WHERE status='active'").first();
+  const siteRow = supervisor
+    ? { count: 1 }
+    : await env.DB.prepare("SELECT COUNT(*) AS count FROM sites WHERE is_active=1").first();
+  const presentRow = supervisor
+    ? await env.DB.prepare("SELECT COUNT(*) AS count FROM attendance WHERE work_date=? AND status='present' AND site_id=?").bind(today, user.site_id).first()
+    : await env.DB.prepare("SELECT COUNT(*) AS count FROM attendance WHERE work_date=? AND status='present'").bind(today).first();
+  const absentRow = supervisor
+    ? await env.DB.prepare("SELECT COUNT(*) AS count FROM attendance WHERE work_date=? AND status='absent' AND site_id=?").bind(today, user.site_id).first()
+    : await env.DB.prepare("SELECT COUNT(*) AS count FROM attendance WHERE work_date=? AND status='absent'").bind(today).first();
+
+  let salaryPending = 0;
+  if (user.role !== "supervisor") {
+    const salaryRow = await env.DB.prepare("SELECT COUNT(*) AS count FROM salary_records WHERE payment_status='pending'").first();
+    salaryPending = Number(salaryRow?.count || 0);
+  }
+
+  return apiOk({
+    user: publicUser(user),
+    stats: {
+      employees: Number(employeeRow?.count || 0),
+      sites: Number(siteRow?.count || 0),
+      presentToday: Number(presentRow?.count || 0),
+      absentToday: Number(absentRow?.count || 0),
+      salaryPending
+    },
+    modules: modulesForRole(user.role)
+  });
+}
+
+function modulesForRole(role) {
+  const all = [
+    { key: "employees", label: "Employees", icon: "EMP" },
+    { key: "sites", label: "Sites", icon: "SITE" },
+    { key: "attendance", label: "Daily Attendance", icon: "ATT" },
+    { key: "photos", label: "Daily Photos", icon: "PHOTO" },
+    { key: "salary", label: "Salary", icon: "PAY" },
+    { key: "reports", label: "Reports", icon: "REP" },
+    { key: "users", label: "Users & Roles", icon: "USER" },
+    { key: "settings", label: "Settings", icon: "SET" }
+  ];
+  const allowed = {
+    admin: all.map((x) => x.key),
+    hr: ["employees", "sites", "attendance", "salary", "reports"],
+    supervisor: ["attendance", "photos"]
+  };
+  return all.filter((item) => (allowed[role] || []).includes(item.key));
+}
+
+async function handleContactForm(request, env) {
+  if (request.method !== "POST") return jsonResponse({ result: "error", error: "Method not allowed." }, 405);
+
+  let body;
+  try {
+    const contentType = request.headers.get("content-type") || "";
+    body = contentType.includes("application/json")
+      ? await request.json()
+      : Object.fromEntries((await request.formData()).entries());
+  } catch {
+    return jsonResponse({ result: "error", error: "Invalid form data." }, 400);
+  }
+
+  const name = clean(body.name, 100);
+  const phone = clean(body.phone, 20);
+  const email = clean(body.email, 254);
+  const subject = clean(body.subject, 160);
+  const message = clean(body.message, 3000);
+  const website = clean(body.website, 200);
+
+  if (website) return jsonResponse({ result: "success" });
+  if (!name || !phone || !email || !subject || !message) return jsonResponse({ result: "error", error: "Please fill in all required fields." }, 400);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return jsonResponse({ result: "error", error: "Please enter a valid email address." }, 400);
+  if (!/^[+0-9()\-\s]{7,20}$/.test(phone)) return jsonResponse({ result: "error", error: "Please enter a valid phone number." }, 400);
+  if (!env.RESEND_API_KEY) return jsonResponse({ result: "error", error: "Email service is not configured." }, 500);
+
+  const recipient = env.EMAIL_TO || "shreegajanandindia751@gmail.com";
+  const from = env.RESEND_FROM || "Shree Gajanand India Website <onboarding@resend.dev>";
+  const emailText = [
+    "New enquiry from Shree Gajanand India website",
+    "",
+    `Name: ${name}`,
+    `Phone: ${phone}`,
+    `Email: ${email}`,
+    `Subject: ${subject}`,
+    "",
+    "Message:",
+    message
+  ].join("\n");
+
+  try {
+    const resendResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ from, to: [recipient], reply_to: email, subject: `Website Enquiry: ${safeHeader(subject)}`, text: emailText })
+    });
+    if (!resendResponse.ok) return jsonResponse({ result: "error", error: "Unable to send enquiry right now." }, 502);
+    return jsonResponse({ result: "success" });
+  } catch {
+    return jsonResponse({ result: "error", error: "Unable to send enquiry right now." }, 500);
+  }
+}
+
+async function hashPassword(password, saltBase64) {
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey("raw", encoder.encode(password), "PBKDF2", false, ["deriveBits"]);
+  const bits = await crypto.subtle.deriveBits(
+    { name: "PBKDF2", hash: "SHA-256", salt: base64ToBytes(saltBase64), iterations: PBKDF2_ITERATIONS },
+    key,
+    256
+  );
+  return bytesToBase64(new Uint8Array(bits));
+}
+
+async function sha256(value) {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
+  return bytesToBase64(new Uint8Array(digest));
+}
+
+function randomBase64(length) {
+  const bytes = new Uint8Array(length);
+  crypto.getRandomValues(bytes);
+  return bytesToBase64(bytes);
+}
+
+function bytesToBase64(bytes) {
+  let binary = "";
+  for (const b of bytes) binary += String.fromCharCode(b);
+  return btoa(binary);
+}
+
+function base64ToBytes(value) {
+  const binary = atob(value);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes;
+}
+
+function timingSafeStringEqual(a, b) {
+  if (typeof a !== "string" || typeof b !== "string" || a.length !== b.length) return false;
+  let result = 0;
+  for (let i = 0; i < a.length; i++) result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return result === 0;
+}
+
+function getCookie(request, name) {
+  const cookie = request.headers.get("Cookie") || "";
+  for (const part of cookie.split(";")) {
+    const [key, ...rest] = part.trim().split("=");
+    if (key === name) return decodeURIComponent(rest.join("="));
+  }
+  return "";
+}
+
+function publicUser(user) {
+  return {
+    id: Number(user.id),
+    fullName: user.full_name,
+    username: user.username,
+    role: user.role,
+    siteId: user.site_id ? Number(user.site_id) : null
+  };
+}
+
 function clean(value, maxLength) {
-  return String(value || "")
-    .trim()
-    .replace(/\0/g, "")
-    .slice(0, maxLength);
+  return String(value || "").trim().replace(/\0/g, "").slice(0, maxLength);
 }
 
 function safeHeader(value) {
-  return String(value || "")
-    .replace(/[\r\n]+/g, " ")
-    .slice(0, 160);
+  return String(value || "").replace(/[\r\n]+/g, " ").slice(0, 160);
 }
 
 function jsonResponse(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "no-store"
-    }
+    headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" }
   });
+}
+
+function apiOk(data, status = 200) {
+  return jsonResponse({ ok: true, ...data }, status);
+}
+
+function apiError(error, status = 400) {
+  return jsonResponse({ ok: false, error }, status);
+}
+
+async function readJson(request) {
+  try { return await request.json(); } catch { return null; }
 }

@@ -8,6 +8,14 @@
     "required": ["RESEND_API_KEY"]
   },
 
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "sgi-ecms",
+      "database_id": "82e6dec8-39f8-4d48-b195-74952a9f84e8"
+    }
+  ],
+
   "assets": {
     "directory": "./public/",
     "binding": "ASSETS"
