@@ -191,8 +191,6 @@ async function initSites(){
 
     await loadSites();
   }
-  
-
   if(isAdmin){
     cancelButton.addEventListener("click",resetForm);
 
