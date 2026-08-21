@@ -159,6 +159,311 @@ if (url.pathname === "/portal/api/sites" && request.method === "PUT") {
   }
 }
 
+if (url.pathname === "/portal/api/employees" && request.method === "GET") {
+  if (auth.user.role !== "admin" && auth.user.role !== "hr") {
+    return apiError("You do not have access to employee records.", 403);
+  }
+
+  const result = await env.DB.prepare(
+    `SELECT
+      e.id,
+      e.employee_code,
+      e.full_name,
+      e.mobile,
+      e.designation,
+      e.joining_date,
+      e.shift,
+      e.monthly_salary,
+      e.status,
+      e.site_id,
+      s.site_code,
+      s.name AS site_name
+    FROM employees e
+    LEFT JOIN sites s ON s.id = e.site_id
+    ORDER BY
+      CASE e.status
+        WHEN 'active' THEN 1
+        WHEN 'suspended' THEN 2
+        ELSE 3
+      END,
+      e.full_name COLLATE NOCASE ASC`
+  ).all();
+
+  return apiOk({ employees: result.results || [] });
+}
+if (url.pathname === "/portal/api/employees" && request.method === "POST") {
+  if (auth.user.role !== "admin" && auth.user.role !== "hr") {
+    return apiError("You do not have permission to add employees.", 403);
+  }
+
+  const body = await readJson(request);
+  if (!body) return apiError("Invalid request.", 400);
+
+  const fullName = clean(body.fullName, 120);
+  const fatherName = clean(body.fatherName, 120);
+  const dateOfBirth = clean(body.dateOfBirth, 20);
+  const mobile = clean(body.mobile, 20);
+  const address = clean(body.address, 500);
+  const aadhaarLast4 = clean(body.aadhaarLast4, 4);
+  const pan = clean(body.pan, 20).toUpperCase();
+  const bankAccount = clean(body.bankAccount, 50);
+  const ifsc = clean(body.ifsc, 20).toUpperCase();
+  const uan = clean(body.uan, 30);
+  const esic = clean(body.esic, 30);
+  const joiningDate = clean(body.joiningDate, 20);
+  const designation = clean(body.designation, 120);
+  const siteId = body.siteId ? Number(body.siteId) : null;
+  const shift = clean(body.shift, 50);
+  const monthlySalary = Number(body.monthlySalary || 0);
+
+  if (!fullName) {
+    return apiError("Employee name is required.", 400);
+  }
+
+  if (mobile && !/^[0-9+\-\s]{7,20}$/.test(mobile)) {
+    return apiError("Enter a valid mobile number.", 400);
+  }
+
+  if (aadhaarLast4 && !/^[0-9]{4}$/.test(aadhaarLast4)) {
+    return apiError("Aadhaar last 4 digits must contain exactly 4 numbers.", 400);
+  }
+
+  if (!Number.isFinite(monthlySalary) || monthlySalary < 0) {
+    return apiError("Enter a valid monthly salary.", 400);
+  }
+
+  if (siteId !== null) {
+    if (!Number.isInteger(siteId) || siteId <= 0) {
+      return apiError("Select a valid site.", 400);
+    }
+
+    const site = await env.DB.prepare(
+      "SELECT id FROM sites WHERE id = ? AND is_active = 1 LIMIT 1"
+    ).bind(siteId).first();
+
+    if (!site) {
+      return apiError("Selected site does not exist or is inactive.", 400);
+    }
+  }
+
+  const nextRow = await env.DB.prepare(
+    "SELECT COALESCE(MAX(id), 0) + 1 AS next_id FROM employees"
+  ).first();
+
+  const nextId = Number(nextRow?.next_id || 1);
+  const employeeCode = `SGI-${String(nextId).padStart(4, "0")}`;
+  const now = new Date().toISOString();
+
+  try {
+    const result = await env.DB.prepare(
+      `INSERT INTO employees (
+        employee_code,
+        full_name,
+        father_name,
+        date_of_birth,
+        mobile,
+        address,
+        aadhaar_last4,
+        pan,
+        bank_account,
+        ifsc,
+        uan,
+        esic,
+        joining_date,
+        designation,
+        site_id,
+        shift,
+        monthly_salary,
+        status,
+        created_at,
+        updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', ?, ?)`
+    ).bind(
+      employeeCode,
+      fullName,
+      fatherName || null,
+      dateOfBirth || null,
+      mobile || null,
+      address || null,
+      aadhaarLast4 || null,
+      pan || null,
+      bankAccount || null,
+      ifsc || null,
+      uan || null,
+      esic || null,
+      joiningDate || null,
+      designation || null,
+      siteId,
+      shift || null,
+      monthlySalary,
+      now,
+      now
+    ).run();
+
+    return apiOk({
+      message: "Employee added successfully.",
+      employeeId: result.meta?.last_row_id,
+      employeeCode
+    }, 201);
+  } catch (error) {
+    if (String(error).toLowerCase().includes("unique")) {
+      return apiError("Unable to generate employee code. Please try again.", 409);
+    }
+
+    throw error;
+  }
+}
+if (url.pathname === "/portal/api/employees" && request.method === "PUT") {
+  if (auth.user.role !== "admin" && auth.user.role !== "hr") {
+    return apiError("You do not have permission to update employees.", 403);
+  }
+
+  const body = await readJson(request);
+  if (!body) return apiError("Invalid request.", 400);
+
+  const id = Number(body.id);
+  const fullName = clean(body.fullName, 120);
+  const fatherName = clean(body.fatherName, 120);
+  const dateOfBirth = clean(body.dateOfBirth, 20);
+  const mobile = clean(body.mobile, 20);
+  const address = clean(body.address, 500);
+  const aadhaarLast4 = clean(body.aadhaarLast4, 4);
+  const pan = clean(body.pan, 20).toUpperCase();
+  const bankAccount = clean(body.bankAccount, 50);
+  const ifsc = clean(body.ifsc, 20).toUpperCase();
+  const uan = clean(body.uan, 30);
+  const esic = clean(body.esic, 30);
+  const joiningDate = clean(body.joiningDate, 20);
+  const designation = clean(body.designation, 120);
+  const siteId = body.siteId ? Number(body.siteId) : null;
+  const shift = clean(body.shift, 50);
+  const monthlySalary = Number(body.monthlySalary || 0);
+  const status = clean(body.status, 20).toLowerCase();
+
+  if (!Number.isInteger(id) || id <= 0 || !fullName) {
+    return apiError("Valid employee ID and employee name are required.", 400);
+  }
+
+  if (!["active", "left", "suspended"].includes(status)) {
+    return apiError("Invalid employee status.", 400);
+  }
+
+  if (mobile && !/^[0-9+\-\s]{7,20}$/.test(mobile)) {
+    return apiError("Enter a valid mobile number.", 400);
+  }
+
+  if (aadhaarLast4 && !/^[0-9]{4}$/.test(aadhaarLast4)) {
+    return apiError("Aadhaar last 4 digits must contain exactly 4 numbers.", 400);
+  }
+
+  if (!Number.isFinite(monthlySalary) || monthlySalary < 0) {
+    return apiError("Enter a valid monthly salary.", 400);
+  }
+
+  if (siteId !== null) {
+    const site = await env.DB.prepare(
+      "SELECT id FROM sites WHERE id = ? LIMIT 1"
+    ).bind(siteId).first();
+
+    if (!site) {
+      return apiError("Selected site does not exist.", 400);
+    }
+  }
+
+  const result = await env.DB.prepare(
+    `UPDATE employees SET
+      full_name = ?,
+      father_name = ?,
+      date_of_birth = ?,
+      mobile = ?,
+      address = ?,
+      aadhaar_last4 = ?,
+      pan = ?,
+      bank_account = ?,
+      ifsc = ?,
+      uan = ?,
+      esic = ?,
+      joining_date = ?,
+      designation = ?,
+      site_id = ?,
+      shift = ?,
+      monthly_salary = ?,
+      status = ?,
+      updated_at = ?
+    WHERE id = ?`
+  ).bind(
+    fullName,
+    fatherName || null,
+    dateOfBirth || null,
+    mobile || null,
+    address || null,
+    aadhaarLast4 || null,
+    pan || null,
+    bankAccount || null,
+    ifsc || null,
+    uan || null,
+    esic || null,
+    joiningDate || null,
+    designation || null,
+    siteId,
+    shift || null,
+    monthlySalary,
+    status,
+    new Date().toISOString(),
+    id
+  ).run();
+
+  if (!result.meta?.changes) {
+    return apiError("Employee not found.", 404);
+  }
+
+  return apiOk({ message: "Employee updated successfully." });
+}
+const employeeDetailMatch = url.pathname.match(/^\/portal\/api\/employees\/(\d+)$/);
+
+if (employeeDetailMatch && request.method === "GET") {
+  if (auth.user.role !== "admin" && auth.user.role !== "hr") {
+    return apiError("You do not have access to employee records.", 403);
+  }
+
+  const employeeId = Number(employeeDetailMatch[1]);
+
+  const employee = await env.DB.prepare(
+    `SELECT
+      id,
+      employee_code,
+      full_name,
+      father_name,
+      date_of_birth,
+      mobile,
+      address,
+      aadhaar_last4,
+      pan,
+      bank_account,
+      ifsc,
+      uan,
+      esic,
+      joining_date,
+      designation,
+      site_id,
+      shift,
+      monthly_salary,
+      status,
+      photo_url,
+      created_at,
+      updated_at
+    FROM employees
+    WHERE id = ?
+    LIMIT 1`
+  ).bind(employeeId).first();
+
+  if (!employee) {
+    return apiError("Employee not found.", 404);
+  }
+
+  return apiOk({ employee });
+}
+
   return apiError("Not found.", 404);
 }
 
