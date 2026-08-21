@@ -120,6 +120,45 @@ if (url.pathname === "/portal/api/sites" && request.method === "PUT") {
     return apiError("Only Admin can update sites.", 403);
   }
 
+  const body = await readJson(request);
+  if (!body) return apiError("Invalid request.", 400);
+
+  const id = Number(body.id);
+  const siteCode = clean(body.siteCode, 30).toUpperCase();
+  const name = clean(body.name, 120);
+  const location = clean(body.location, 200);
+  const isActive = Number(body.isActive) === 0 ? 0 : 1;
+
+  if (!Number.isInteger(id) || id <= 0 || !siteCode || !name) {
+    return apiError("Valid site ID, site code and site name are required.", 400);
+  }
+
+  try {
+    const result = await env.DB.prepare(
+      `UPDATE sites
+       SET site_code = ?, name = ?, location = ?, is_active = ?
+       WHERE id = ?`
+    ).bind(
+      siteCode,
+      name,
+      location || null,
+      isActive,
+      id
+    ).run();
+
+    if (!result.meta?.changes) {
+      return apiError("Site not found.", 404);
+    }
+
+    return apiOk({ message: "Site updated successfully." });
+  } catch (error) {
+    if (String(error).toLowerCase().includes("unique")) {
+      return apiError("This site code already exists.", 409);
+    }
+    throw error;
+  }
+}
+
 const siteDeleteMatch = url.pathname.match(/^\/portal\/api\/sites\/(\d+)$/);
 
 if (siteDeleteMatch && request.method === "DELETE") {
@@ -175,45 +214,6 @@ if (siteDeleteMatch && request.method === "DELETE") {
   });
 }
 
-  const body = await readJson(request);
-  if (!body) return apiError("Invalid request.", 400);
-
-  const id = Number(body.id);
-  const siteCode = clean(body.siteCode, 30).toUpperCase();
-  const name = clean(body.name, 120);
-  const location = clean(body.location, 200);
-  const isActive = Number(body.isActive) === 0 ? 0 : 1;
-
-  if (!Number.isInteger(id) || id <= 0 || !siteCode || !name) {
-    return apiError("Valid site ID, site code and site name are required.", 400);
-  }
-
-  try {
-    const result = await env.DB.prepare(
-      `UPDATE sites
-       SET site_code = ?, name = ?, location = ?, is_active = ?
-       WHERE id = ?`
-    ).bind(
-      siteCode,
-      name,
-      location || null,
-      isActive,
-      id
-    ).run();
-
-    if (!result.meta?.changes) {
-      return apiError("Site not found.", 404);
-    }
-
-    return apiOk({ message: "Site updated successfully." });
-  } catch (error) {
-    if (String(error).toLowerCase().includes("unique")) {
-      return apiError("This site code already exists.", 409);
-    }
-    throw error;
-  }
-}
-
 if (url.pathname === "/portal/api/employees" && request.method === "GET") {
   if (auth.user.role !== "admin" && auth.user.role !== "hr") {
     return apiError("You do not have access to employee records.", 403);
@@ -232,7 +232,7 @@ if (url.pathname === "/portal/api/employees" && request.method === "GET") {
       e.status,
       e.site_id,
       s.site_code,
-      s.name AS site_name
+      s.name AS site_name,
       s.is_active AS site_is_active
     FROM employees e
     LEFT JOIN sites s ON s.id = e.site_id
