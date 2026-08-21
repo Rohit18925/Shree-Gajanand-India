@@ -120,6 +120,61 @@ if (url.pathname === "/portal/api/sites" && request.method === "PUT") {
     return apiError("Only Admin can update sites.", 403);
   }
 
+const siteDeleteMatch = url.pathname.match(/^\/portal\/api\/sites\/(\d+)$/);
+
+if (siteDeleteMatch && request.method === "DELETE") {
+  if (auth.user.role !== "admin") {
+    return apiError("Only Admin can delete sites.", 403);
+  }
+
+  const siteId = Number(siteDeleteMatch[1]);
+
+  const site = await env.DB.prepare(
+    "SELECT id, site_code, name FROM sites WHERE id = ? LIMIT 1"
+  ).bind(siteId).first();
+
+  if (!site) {
+    return apiError("Site not found.", 404);
+  }
+
+  const employeeRow = await env.DB.prepare(
+    "SELECT COUNT(*) AS count FROM employees WHERE site_id = ?"
+  ).bind(siteId).first();
+
+  const userRow = await env.DB.prepare(
+    "SELECT COUNT(*) AS count FROM users WHERE site_id = ?"
+  ).bind(siteId).first();
+
+  const attendanceRow = await env.DB.prepare(
+    "SELECT COUNT(*) AS count FROM attendance WHERE site_id = ?"
+  ).bind(siteId).first();
+
+  const photoRow = await env.DB.prepare(
+    "SELECT COUNT(*) AS count FROM daily_photos WHERE site_id = ?"
+  ).bind(siteId).first();
+
+  const linked =
+    Number(employeeRow?.count || 0) +
+    Number(userRow?.count || 0) +
+    Number(attendanceRow?.count || 0) +
+    Number(photoRow?.count || 0);
+
+  if (linked > 0) {
+    return apiError(
+      "This site cannot be deleted because employees, users, attendance or photo records are linked. Deactivate the site instead.",
+      409
+    );
+  }
+
+  await env.DB.prepare(
+    "DELETE FROM sites WHERE id = ?"
+  ).bind(siteId).run();
+
+  return apiOk({
+    message: "Site deleted successfully."
+  });
+}
+
   const body = await readJson(request);
   if (!body) return apiError("Invalid request.", 400);
 
@@ -178,6 +233,7 @@ if (url.pathname === "/portal/api/employees" && request.method === "GET") {
       e.site_id,
       s.site_code,
       s.name AS site_name
+      s.is_active AS site_is_active
     FROM employees e
     LEFT JOIN sites s ON s.id = e.site_id
     ORDER BY
@@ -462,6 +518,48 @@ if (employeeDetailMatch && request.method === "GET") {
   }
 
   return apiOk({ employee });
+}
+
+if (employeeDetailMatch && request.method === "DELETE") {
+  if (auth.user.role !== "admin") {
+    return apiError("Only Admin can delete employees.", 403);
+  }
+
+  const employeeId = Number(employeeDetailMatch[1]);
+
+  const employee = await env.DB.prepare(
+    "SELECT id, employee_code, full_name FROM employees WHERE id = ? LIMIT 1"
+  ).bind(employeeId).first();
+
+  if (!employee) {
+    return apiError("Employee not found.", 404);
+  }
+
+  const attendanceRow = await env.DB.prepare(
+    "SELECT COUNT(*) AS count FROM attendance WHERE employee_id = ?"
+  ).bind(employeeId).first();
+
+  const salaryRow = await env.DB.prepare(
+    "SELECT COUNT(*) AS count FROM salary_records WHERE employee_id = ?"
+  ).bind(employeeId).first();
+
+  const attendanceCount = Number(attendanceRow?.count || 0);
+  const salaryCount = Number(salaryRow?.count || 0);
+
+  if (attendanceCount > 0 || salaryCount > 0) {
+    return apiError(
+      "This employee cannot be deleted because attendance or salary records are linked. Change the employee status instead.",
+      409
+    );
+  }
+
+  await env.DB.prepare(
+    "DELETE FROM employees WHERE id = ?"
+  ).bind(employeeId).run();
+
+  return apiOk({
+    message: "Employee deleted successfully."
+  });
 }
 
   return apiError("Not found.", 404);

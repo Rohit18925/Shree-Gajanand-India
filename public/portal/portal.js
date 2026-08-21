@@ -125,6 +125,9 @@ async function initSites(){
                   <button class="table-action-btn toggle-site-btn" type="button" data-id="${site.id}">
                     ${active?"Deactivate":"Activate"}
                   </button>
+                  <button class="table-action-btn delete-site-btn" type="button" data-id="${site.id}">
+                    Delete
+                  </button>
                 `
                 : "-"
             }
@@ -140,6 +143,10 @@ async function initSites(){
 
       document.querySelectorAll(".toggle-site-btn").forEach(button=>{
         button.addEventListener("click",()=>toggleSite(Number(button.dataset.id)));
+      });
+
+      document.querySelectorAll(".delete-site-btn").forEach(button=>{
+        button.addEventListener("click",()=>deleteSite(Number(button.dataset.id)));
       });
     }
   }
@@ -191,6 +198,35 @@ async function initSites(){
 
     await loadSites();
   }
+  async function deleteSite(id){
+  const site=sites.find(item=>Number(item.id)===id);
+  if(!site)return;
+
+  const confirmed=confirm(
+    `Delete ${site.name} (${site.site_code})?\n\nThis action cannot be undone.`
+  );
+
+  if(!confirmed)return;
+
+  const result=await api(`/portal/api/sites/${id}`,{
+    method:"DELETE"
+  },false);
+
+  if(!result?.ok){
+    alert(result?.error||"Unable to delete site.");
+    return;
+  }
+
+  resetForm();
+  await loadSites();
+
+  setMessage(
+    message,
+    result.message||"Site deleted successfully.",
+    "success"
+  );
+}
+
   if(isAdmin){
     cancelButton.addEventListener("click",resetForm);
 
@@ -242,6 +278,7 @@ async function initEmployees(){
   }
 
   const user=data.user;
+  const isAdmin=user.role==="admin";
 
   if(user.role!=="admin" && user.role!=="hr"){
     location.replace("/portal/dashboard.html");
@@ -322,11 +359,17 @@ async function initEmployees(){
           <td>${escapeHtml(employee.designation||"-")}</td>
 
           <td>
-            ${
-              employee.site_name
-                ? escapeHtml(employee.site_name)
-                : "-"
-            }
+            ${employee.site_name
+     ? `
+        ${escapeHtml(employee.site_name)}
+        ${
+          Number(employee.site_is_active)===0
+            ? `<span class="status-badge inactive">Site Inactive</span>`
+            : ""
+        }
+      `
+      : "-"
+  }
           </td>
 
           <td>${escapeHtml(employee.mobile||"-")}</td>
@@ -347,6 +390,19 @@ async function initEmployees(){
             >
               Edit
             </button>
+            ${
+    isAdmin
+      ? `
+        <button
+          class="table-action-btn delete-employee-btn"
+          type="button"
+          data-id="${employee.id}"
+        >
+          Delete
+        </button>
+      `
+      : ""
+  }
           </td>
         </tr>
       `;
@@ -357,6 +413,13 @@ async function initEmployees(){
         startEmployeeEdit(Number(button.dataset.id));
       });
     });
+    if(isAdmin){
+  document.querySelectorAll(".delete-employee-btn").forEach(button=>{
+    button.addEventListener("click",()=>{
+      deleteEmployee(Number(button.dataset.id));
+    });
+  });
+  }
   }
 
   async function startEmployeeEdit(id){
@@ -374,6 +437,34 @@ async function initEmployees(){
       );
       return;
     }
+    async function deleteEmployee(id){
+  const employee=employees.find(item=>Number(item.id)===id);
+  if(!employee)return;
+
+  const confirmed=confirm(
+    `Delete ${employee.full_name} (${employee.employee_code})?\n\nThis action cannot be undone.`
+  );
+
+  if(!confirmed)return;
+
+  const result=await api(`/portal/api/employees/${id}`,{
+    method:"DELETE"
+  },false);
+
+  if(!result?.ok){
+    alert(result?.error||"Unable to delete employee.");
+    return;
+  }
+
+  resetEmployeeForm();
+  await loadEmployees();
+
+  setMessage(
+    message,
+    result.message||"Employee deleted successfully.",
+    "success"
+  );
+}
 
     const employee=result.employee;
 
