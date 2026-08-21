@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Employee Management | SGI Portal</title>
+  <link rel="stylesheet" href="/portal/portal.css">
+</head>
+
+<body>
+<div class="portal-shell">
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <strong>Shree Gajanand India</strong>
+      <span>Employee Management Portal</span>
+    </div>
+
+    <nav class="side-nav" id="sideNav"></nav>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <h1>Employee Management</h1>
+
+      <div class="user-menu">
+        <div class="user-meta">
+          <strong id="userName">Loading...</strong>
+          <span id="userRole"></span>
+        </div>
+
+        <button class="logout-btn" id="logoutButton" type="button">
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <section class="management-card">
+
+        <div class="management-header">
+          <div>
+            <h2 id="employeeFormTitle">Add New Employee</h2>
+            <p>Employee code will be generated automatically.</p>
+          </div>
+        </div>
+
+        <form id="employeeForm" class="employee-form">
+
+          <input type="hidden" id="employeeId" name="employeeId">
+
+          <div class="form-group">
+            <label for="fullName">Employee Name *</label>
+            <input id="fullName" name="fullName" maxlength="120" required>
+          </div>
+
+          <div class="form-group">
+            <label for="fatherName">Father / Husband Name</label>
+            <input id="fatherName" name="fatherName" maxlength="120">
+          </div>
+
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input id="dateOfBirth" name="dateOfBirth" type="date">
+          </div>
+
+          <div class="form-group">
+            <label for="mobile">Mobile</label>
+            <input
+              id="mobile"
+              name="mobile"
+              type="tel"
+              maxlength="20"
+              placeholder="9876543210"
+            >
+          </div>
+
+          <div class="form-group employee-wide">
+            <label for="address">Address</label>
+            <textarea
+              id="address"
+              name="address"
+              maxlength="500"
+              rows="3"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="aadhaarLast4">Aadhaar Last 4 Digits</label>
+            <input
+              id="aadhaarLast4"
+              name="aadhaarLast4"
+              inputmode="numeric"
+              maxlength="4"
+              placeholder="1234"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="pan">PAN</label>
+            <input id="pan" name="pan" maxlength="20">
+          </div>
+
+          <div class="form-group">
+            <label for="bankAccount">Bank Account</label>
+            <input id="bankAccount" name="bankAccount" maxlength="50">
+          </div>
+
+          <div class="form-group">
+            <label for="ifsc">IFSC</label>
+            <input id="ifsc" name="ifsc" maxlength="20">
+          </div>
+
+          <div class="form-group">
+            <label for="uan">UAN / PF</label>
+            <input id="uan" name="uan" maxlength="30">
+          </div>
+
+          <div class="form-group">
+            <label for="esic">ESIC</label>
+            <input id="esic" name="esic" maxlength="30">
+          </div>
+
+          <div class="form-group">
+            <label for="joiningDate">Joining Date</label>
+            <input id="joiningDate" name="joiningDate" type="date">
+          </div>
+
+          <div class="form-group">
+            <label for="designation">Designation</label>
+            <input id="designation" name="designation" maxlength="120">
+          </div>
+
+          <div class="form-group">
+            <label for="siteId">Assigned Site</label>
+            <select id="siteId" name="siteId">
+              <option value="">No Site Assigned</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="shift">Shift</label>
+            <input
+              id="shift"
+              name="shift"
+              maxlength="50"
+              placeholder="Example: General / Night"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="monthlySalary">Monthly Salary</label>
+            <input
+              id="monthlySalary"
+              name="monthlySalary"
+              type="number"
+              min="0"
+              step="0.01"
+              value="0"
+            >
+          </div>
+
+          <div class="form-group" id="statusGroup" hidden>
+            <label for="status">Employee Status</label>
+            <select id="status" name="status">
+              <option value="active">Active</option>
+              <option value="suspended">Suspended</option>
+              <option value="left">Left Company</option>
+            </select>
+          </div>
+
+          <div class="form-actions">
+            <button
+              class="primary-btn employee-save-btn"
+              id="saveEmployeeButton"
+              type="submit"
+            >
+              Add Employee
+            </button>
+
+            <button
+              class="secondary-btn"
+              id="cancelEmployeeEditButton"
+              type="button"
+              hidden
+            >
+              Cancel Edit
+            </button>
+          </div>
+
+          <p class="form-message employee-message" id="employeeMessage"></p>
+
+        </form>
+      </section>
+
+
+      <div class="section-title">
+        <h3>Employee Records</h3>
+        <p>View and manage company employees.</p>
+      </div>
+
+      <section class="management-card">
+
+        <div class="table-wrap">
+          <table class="portal-table employee-table">
+
+            <thead>
+              <tr>
+                <th>Employee Code</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Site</th>
+                <th>Mobile</th>
+                <th>Salary</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody id="employeesTableBody">
+              <tr>
+                <td colspan="8" class="table-empty">
+                  Loading employees...
+                </td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+</div>
+
+<script src="/portal/portal.js"></script>
+</body>
+</html>
