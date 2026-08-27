@@ -562,7 +562,109 @@ if (employeeDetailMatch && request.method === "DELETE") {
   });
 }
 
-  return apiError("Not found.", 404);
+if (url.pathname === "/portal/api/attendance" && request.method === "GET") {
+
+  if (
+    auth.user.role !== "admin" &&
+    auth.user.role !== "hr" &&
+    auth.user.role !== "supervisor"
+  ) {
+    return apiError("You do not have access to attendance records.", 403);
+  }
+
+  const date = clean(url.searchParams.get("date"), 20);
+  const requestedSiteId = url.searchParams.get("siteId");
+
+  if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    return apiError("Valid attendance date is required.", 400);
+  }
+
+  let siteId = requestedSiteId ? Number(requestedSiteId) : null;
+
+  if (auth.user.role === "supervisor") {
+    if (!auth.user.site_id) {
+      return apiOk({ attendance: [] });
+    }
+
+    siteId = Number(auth.user.site_id);
+  }
+
+  if (siteId !== null) {
+    if (!Number.isInteger(siteId) || siteId <= 0) {
+      return apiError("Invalid site.", 400);
+    }
+
+    const site = await env.DB.prepare(
+      "SELECT id FROM sites WHERE id = ? LIMIT 1"
+    ).bind(siteId).first();
+
+    if (!site) {
+      return apiError("Site not found.", 404);
+    }
+  }
+
+  let result;
+
+  if (siteId !== null) {
+    result = await env.DB.prepare(
+      `SELECT
+        a.id,
+        a.employee_id,
+        a.site_id,
+        a.work_date,
+        a.status,
+        a.in_time,
+        a.out_time,
+        a.overtime_minutes,
+        a.remarks,
+        a.marked_by,
+        a.created_at,
+        a.updated_at,
+        e.employee_code,
+        e.full_name,
+        e.designation,
+        s.site_code,
+        s.name AS site_name
+      FROM attendance a
+      JOIN employees e ON e.id = a.employee_id
+      LEFT JOIN sites s ON s.id = a.site_id
+      WHERE a.work_date = ?
+        AND a.site_id = ?
+      ORDER BY e.full_name COLLATE NOCASE ASC`
+    ).bind(date, siteId).all();
+  } else {
+    result = await env.DB.prepare(
+      `SELECT
+        a.id,
+        a.employee_id,
+        a.site_id,
+        a.work_date,
+        a.status,
+        a.in_time,
+        a.out_time,
+        a.overtime_minutes,
+        a.remarks,
+        a.marked_by,
+        a.created_at,
+        a.updated_at,
+        e.employee_code,
+        e.full_name,
+        e.designation,
+        s.site_code,
+        s.name AS site_name
+      FROM attendance a
+      JOIN employees e ON e.id = a.employee_id
+      LEFT JOIN sites s ON s.id = a.site_id
+      WHERE a.work_date = ?
+      ORDER BY
+        s.name COLLATE NOCASE ASC,
+        e.full_name COLLATE NOCASE ASC`
+    ).bind(date).all();
+  }
+
+  return apiOk({
+    attendance: result.results || []
+  });
 }
 
 async function setupFirstAdmin(request, env) {
@@ -850,4 +952,6 @@ function apiError(error, status = 400) {
 
 async function readJson(request) {
   try { return await request.json(); } catch { return null; }
+}
+
 }
