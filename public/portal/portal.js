@@ -1,4 +1,4 @@
-const path=location.pathname;
+﻿const path=location.pathname;
 if(path.endsWith("/employees")||path.endsWith("/employees.html"))initEmployees();
 if(path.endsWith("/login")||path.endsWith("/login.html"))initLogin();
 if(path.endsWith("/setup")||path.endsWith("/setup.html"))initSetup();
@@ -374,7 +374,7 @@ async function initEmployees(){
 
           <td>${escapeHtml(employee.mobile||"-")}</td>
 
-          <td>₹${Number(employee.monthly_salary||0).toLocaleString("en-IN")}</td>
+          <td>â‚¹${Number(employee.monthly_salary||0).toLocaleString("en-IN")}</td>
 
           <td>
             <span class="status-badge ${status==="active"?"active":"inactive"}">
@@ -627,6 +627,11 @@ function renderModules(modules){
   return;
 }
 
+    if(b.dataset.module==="attendance"){
+      location.href="/portal/attendance.html";
+      return;
+    }
+
     alert(`${b.dataset.module} module will be connected in the next phase.`);
   });
 });
@@ -671,6 +676,11 @@ function renderSidebar(modules){
         return;
       }
 
+      if(key==="attendance"){
+        location.href="/portal/attendance.html";
+        return;
+      }
+
       alert(`${key} module will be connected in the next phase.`);
     });
   });
@@ -685,3 +695,263 @@ function firstName(value){return String(value||"").trim().split(/\s+/)[0]||"User
 async function api(url,options,throwOnNetwork=true){try{const r=await fetch(url,{credentials:"same-origin",cache:"no-store",...options});return await r.json()}catch(e){if(throwOnNetwork)throw e;return null}}
 function setMessage(el,text,type=""){el.textContent=text;el.className=`form-message ${type}`.trim()}
 function escapeHtml(value){return String(value??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
+
+/* =========================
+   ATTENDANCE MODULE
+   ========================= */
+
+if (document.getElementById("attendanceTableBody")) {
+  const attendanceDate = document.getElementById("attendanceDate");
+  const attendanceSite = document.getElementById("attendanceSite");
+  const attendanceMessage = document.getElementById("attendanceMessage");
+  const attendanceSummary = document.getElementById("attendanceSummary");
+  const attendanceTableBody = document.getElementById("attendanceTableBody");
+  const saveAttendanceButton = document.getElementById("saveAttendanceButton");
+
+  let attendanceRows = [];
+  let attendanceSites = [];
+
+  function todayDate() {
+    return new Date().toISOString().slice(0, 10);
+  }
+
+  function setAttendanceMessage(text, type = "") {
+    if (!attendanceMessage) return;
+    attendanceMessage.textContent = text;
+    attendanceMessage.className = `form-message ${type}`.trim();
+  }
+
+  async function loadAttendanceSites() {
+    const result = await api("/portal/api/sites", { method: "GET" }, false);
+
+    if (!result?.ok) {
+      setAttendanceMessage(result?.error || "Unable to load sites.", "error");
+      return;
+    }
+
+    attendanceSites = result.sites || [];
+
+    attendanceSite.innerHTML =
+      `<option value="">All Sites</option>` +
+      attendanceSites.map(site =>
+        `<option value="${Number(site.id)}">${escapeHtml(site.site_code)} - ${escapeHtml(site.name)}</option>`
+      ).join("");
+  }
+
+  async function loadAttendance() {
+    const date = attendanceDate.value;
+
+    if (!date) {
+      setAttendanceMessage("Select an attendance date.", "error");
+      return;
+    }
+
+    const siteId = attendanceSite.value;
+
+    let endpoint =
+      `/portal/api/attendance?date=${encodeURIComponent(date)}`;
+
+    if (siteId) {
+      endpoint += `&siteId=${encodeURIComponent(siteId)}`;
+    }
+
+    attendanceTableBody.innerHTML =
+      `<tr><td colspan="7" class="table-empty">Loading attendance...</td></tr>`;
+
+    const result = await api(endpoint, { method: "GET" }, false);
+
+    if (!result?.ok) {
+      attendanceTableBody.innerHTML =
+        `<tr><td colspan="7" class="table-empty">Unable to load attendance.</td></tr>`;
+
+      setAttendanceMessage(
+        result?.error || "Unable to load attendance.",
+        "error"
+      );
+      return;
+    }
+
+    attendanceRows = result.attendance || [];
+
+    if (!attendanceRows.length) {
+      const employeeEndpoint = siteId
+        ? `/portal/api/employees?siteId=${encodeURIComponent(siteId)}`
+        : `/portal/api/employees`;
+
+      const employeeResult = await api(employeeEndpoint, { method: "GET" }, false);
+
+      if (!employeeResult?.ok) {
+        attendanceRows = [];
+        renderAttendance();
+        setAttendanceMessage(
+          employeeResult?.error || "Unable to load employees.",
+          "error"
+        );
+        return;
+      }
+
+      attendanceRows = (employeeResult.employees || []).map(employee => ({
+        id: null,
+        employee_id: Number(employee.id),
+        site_id: employee.site_id ? Number(employee.site_id) : null,
+        work_date: date,
+        status: "absent",
+        in_time: "",
+        out_time: "",
+        overtime_minutes: 0,
+        remarks: "",
+        employee_code: employee.employee_code,
+        full_name: employee.full_name,
+        designation: employee.designation,
+        site_code: employee.site_code,
+        site_name: employee.site_name
+      }));
+    }
+
+    renderAttendance();
+  }
+
+  function renderAttendance() {
+    if (!attendanceRows.length) {
+      attendanceTableBody.innerHTML =
+        `<tr><td colspan="7" class="table-empty">No active employees found for this site.</td></tr>`;
+
+      attendanceSummary.textContent = "No active employees found.";
+      return;
+    }
+
+    attendanceSummary.textContent =
+      `${attendanceRows.length} employee${attendanceRows.length === 1 ? "" : "s"} ready for attendance.`;
+
+    attendanceTableBody.innerHTML = attendanceRows.map((row, index) => `
+      <tr data-attendance-index="${index}">
+        <td>
+          <strong>${escapeHtml(row.employee_code || "")}</strong><br>
+          ${escapeHtml(row.full_name || "")}
+          ${row.designation ? `<br><small>${escapeHtml(row.designation)}</small>` : ""}
+        </td>
+
+        <td>
+          ${escapeHtml(row.site_code || "")}
+          ${row.site_name ? `<br><small>${escapeHtml(row.site_name)}</small>` : ""}
+        </td>
+
+        <td>
+          <select data-field="status">
+            <option value="present" ${row.status === "present" ? "selected" : ""}>Present</option>
+            <option value="absent" ${row.status === "absent" ? "selected" : ""}>Absent</option>
+            <option value="leave" ${row.status === "leave" ? "selected" : ""}>Leave</option>
+            <option value="weekly_off" ${row.status === "weekly_off" ? "selected" : ""}>Weekly Off</option>
+            <option value="holiday" ${row.status === "holiday" ? "selected" : ""}>Holiday</option>
+            <option value="half_day" ${row.status === "half_day" ? "selected" : ""}>Half Day</option>
+          </select>
+        </td>
+
+        <td>
+          <input type="time" data-field="in_time" value="${escapeHtml(row.in_time || "")}">
+        </td>
+
+        <td>
+          <input type="time" data-field="out_time" value="${escapeHtml(row.out_time || "")}">
+        </td>
+
+        <td>
+          <input
+            type="number"
+            min="0"
+            step="1"
+            data-field="overtime_minutes"
+            value="${Number(row.overtime_minutes || 0)}"
+          >
+        </td>
+
+        <td>
+          <input
+            type="text"
+            maxlength="500"
+            data-field="remarks"
+            value="${escapeHtml(row.remarks || "")}"
+            placeholder="Remarks"
+          >
+        </td>
+      </tr>
+    `).join("");
+  }
+
+  attendanceDate.value = todayDate();
+
+  attendanceDate.addEventListener("change", loadAttendance);
+  attendanceSite.addEventListener("change", loadAttendance);
+
+  saveAttendanceButton.addEventListener("click", async () => {
+    setAttendanceMessage("");
+
+    if (!attendanceRows.length) {
+      setAttendanceMessage("There are no employees to save.", "error");
+      return;
+    }
+
+    saveAttendanceButton.disabled = true;
+    setAttendanceMessage("Saving attendance...");
+
+    try {
+      for (let index = 0; index < attendanceRows.length; index++) {
+        const row = attendanceRows[index];
+        const tr = attendanceTableBody.querySelector(
+          `tr[data-attendance-index="${index}"]`
+        );
+
+        if (!tr) continue;
+
+        const status = tr.querySelector('[data-field="status"]')?.value || "absent";
+        const inTime = tr.querySelector('[data-field="in_time"]')?.value || "";
+        const outTime = tr.querySelector('[data-field="out_time"]')?.value || "";
+        const overtimeMinutes = Number(
+          tr.querySelector('[data-field="overtime_minutes"]')?.value || 0
+        );
+        const remarks = tr.querySelector('[data-field="remarks"]')?.value || "";
+
+        const result = await api("/portal/api/attendance", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            employeeId: Number(row.employee_id),
+            workDate: attendanceDate.value,
+            status,
+            inTime,
+            outTime,
+            overtimeMinutes,
+            remarks
+          })
+        }, false);
+
+        if (!result?.ok) {
+          throw new Error(
+            result?.error || `Unable to save attendance for ${row.full_name}.`
+          );
+        }
+      }
+
+      setAttendanceMessage(
+        "Attendance saved successfully.",
+        "success"
+      );
+
+      await loadAttendance();
+    } catch (error) {
+      setAttendanceMessage(
+        error?.message || "Unable to save attendance.",
+        "error"
+      );
+    } finally {
+      saveAttendanceButton.disabled = false;
+    }
+  });
+
+  loadAttendanceSites().then(loadAttendance);
+}
+
+
+

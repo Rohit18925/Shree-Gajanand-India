@@ -1,0 +1,115 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Daily Attendance | SGI Portal</title>
+  <link rel="stylesheet" href="/portal/portal.css">
+</head>
+
+<body>
+<div class="portal-shell">
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <strong>Shree Gajanand India</strong>
+      <span>Employee Management Portal</span>
+    </div>
+    <nav class="side-nav" id="sideNav"></nav>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <h1>Daily Attendance</h1>
+
+      <div class="user-menu">
+        <div class="user-meta">
+          <strong id="userName">Loading...</strong>
+          <span id="userRole"></span>
+        </div>
+
+        <button class="logout-btn" id="logoutButton" type="button">
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <section class="management-card">
+
+        <div class="management-header">
+          <div>
+            <h2>Mark Daily Attendance</h2>
+            <p>Select a date and site, then mark attendance for employees.</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="attendanceDate">Work Date</label>
+            <input id="attendanceDate" type="date">
+          </div>
+
+          <div class="form-group">
+            <label for="attendanceSite">Site</label>
+            <select id="attendanceSite">
+              <option value="">All Sites</option>
+            </select>
+          </div>
+
+        </div>
+
+        <p class="form-message" id="attendanceMessage"></p>
+
+      </section>
+
+      <div class="section-title">
+        <h3>Employee Attendance</h3>
+        <p id="attendanceSummary">Loading...</p>
+      </div>
+
+      <section class="management-card">
+
+        <div class="table-wrap">
+          <table class="portal-table">
+            <thead>
+              <tr>
+                <th>Employee</th>
+                <th>Site</th>
+                <th>Status</th>
+                <th>In Time</th>
+                <th>Out Time</th>
+                <th>Overtime</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+
+            <tbody id="attendanceTableBody">
+              <tr>
+                <td colspan="7" class="table-empty">
+                  Loading attendance...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="form-actions">
+          <button class="primary-btn" id="saveAttendanceButton" type="button">
+            Save Attendance
+          </button>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+</div>
+
+<script src="/portal/portal.js"></script>
+</body>
+</html>

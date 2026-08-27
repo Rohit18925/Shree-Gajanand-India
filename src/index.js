@@ -1,4 +1,4 @@
-const SESSION_COOKIE = "sgi_session";
+﻿const SESSION_COOKIE = "sgi_session";
 const SESSION_DAYS = 7;
 const PBKDF2_ITERATIONS = 100000;
 
@@ -667,6 +667,142 @@ if (url.pathname === "/portal/api/attendance" && request.method === "GET") {
   });
 }
 
+
+if (url.pathname === "/portal/api/attendance" && request.method === "POST") {
+  if (
+    auth.user.role !== "admin" &&
+    auth.user.role !== "hr" &&
+    auth.user.role !== "supervisor"
+  ) {
+    return apiError("You do not have permission to mark attendance.", 403);
+  }
+
+  const body = await readJson(request);
+  if (!body) return apiError("Invalid request.", 400);
+
+  const employeeId = Number(body.employeeId);
+  const workDate = clean(body.workDate, 20);
+  const status = clean(body.status, 20).toLowerCase();
+  const inTime = clean(body.inTime, 10);
+  const outTime = clean(body.outTime, 10);
+  const overtimeMinutes = Number(body.overtimeMinutes || 0);
+  const remarks = clean(body.remarks, 500);
+
+  if (!Number.isInteger(employeeId) || employeeId <= 0) {
+    return apiError("Valid employee is required.", 400);
+  }
+
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(workDate)) {
+    return apiError("Valid attendance date is required.", 400);
+  }
+
+  if (!["present", "absent", "leave", "weekly_off", "holiday", "half_day"].includes(status)) {
+    return apiError("Invalid attendance status.", 400);
+  }
+
+  if (!Number.isInteger(overtimeMinutes) || overtimeMinutes < 0) {
+    return apiError("Overtime minutes must be a valid positive number.", 400);
+  }
+
+  const employee = await env.DB.prepare(
+    `SELECT id, site_id, status
+     FROM employees
+     WHERE id = ?
+     LIMIT 1`
+  ).bind(employeeId).first();
+
+  if (!employee) {
+    return apiError("Employee not found.", 404);
+  }
+
+  if (employee.status === "left") {
+    return apiError("Attendance cannot be marked for an employee who has left the company.", 409);
+  }
+
+  const employeeSiteId = employee.site_id ? Number(employee.site_id) : null;
+
+  if (!employeeSiteId) {
+    return apiError("Employee does not have an assigned site.", 400);
+  }
+
+  if (auth.user.role === "supervisor") {
+    if (!auth.user.site_id || Number(auth.user.site_id) !== employeeSiteId) {
+      return apiError("You can only mark attendance for employees at your assigned site.", 403);
+    }
+  }
+
+  const now = new Date().toISOString();
+
+  const existing = await env.DB.prepare(
+    `SELECT id
+     FROM attendance
+     WHERE employee_id = ? AND work_date = ?
+     LIMIT 1`
+  ).bind(employeeId, workDate).first();
+
+  if (existing) {
+    await env.DB.prepare(
+      `UPDATE attendance SET
+        site_id = ?,
+        status = ?,
+        in_time = ?,
+        out_time = ?,
+        overtime_minutes = ?,
+        remarks = ?,
+        marked_by = ?,
+        updated_at = ?
+       WHERE id = ?`
+    ).bind(
+      employeeSiteId,
+      status,
+      inTime || null,
+      outTime || null,
+      overtimeMinutes,
+      remarks || null,
+      auth.user.id,
+      now,
+      existing.id
+    ).run();
+
+    return apiOk({
+      message: "Attendance updated successfully.",
+      attendanceId: existing.id
+    });
+  }
+
+  const result = await env.DB.prepare(
+    `INSERT INTO attendance (
+      employee_id,
+      site_id,
+      work_date,
+      status,
+      in_time,
+      out_time,
+      overtime_minutes,
+      remarks,
+      marked_by,
+      created_at,
+      updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(
+    employeeId,
+    employeeSiteId,
+    workDate,
+    status,
+    inTime || null,
+    outTime || null,
+    overtimeMinutes,
+    remarks || null,
+    auth.user.id,
+    now,
+    now
+  ).run();
+
+  return apiOk({
+    message: "Attendance marked successfully.",
+    attendanceId: result.meta?.last_row_id
+  }, 201);
+}
 async function setupFirstAdmin(request, env) {
   const existing = await env.DB.prepare("SELECT COUNT(*) AS count FROM users").first();
   if (Number(existing?.count || 0) > 0) return apiError("Portal setup is already complete.", 409);
@@ -955,3 +1091,4 @@ async function readJson(request) {
 }
 
 }
+
