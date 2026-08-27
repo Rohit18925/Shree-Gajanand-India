@@ -706,7 +706,12 @@ if (document.getElementById("attendanceTableBody")) {
   const attendanceMessage = document.getElementById("attendanceMessage");
   const attendanceSummary = document.getElementById("attendanceSummary");
   const attendanceTableBody = document.getElementById("attendanceTableBody");
-  const saveAttendanceButton = document.getElementById("saveAttendanceButton");
+  const saveAttendanceButton =
+    document.getElementById("saveAttendanceButton");
+  const bulkPresentButton =
+    document.getElementById("bulkPresentButton");
+  const bulkAbsentButton =
+    document.getElementById("bulkAbsentButton");
 
   let attendanceRows = [];
   let attendanceSites = [];
@@ -883,6 +888,41 @@ if (document.getElementById("attendanceTableBody")) {
   attendanceDate.addEventListener("change", loadAttendance);
   attendanceSite.addEventListener("change", loadAttendance);
 
+  function setAllAttendanceStatus(status) {
+    if (!attendanceRows.length) {
+      setAttendanceMessage("There are no employees to update.", "error");
+      return;
+    }
+
+    attendanceRows.forEach((row, index) => {
+      const tr = attendanceTableBody.querySelector(
+        `tr[data-attendance-index="${index}"]`
+      );
+
+      if (!tr) return;
+
+      const statusField = tr.querySelector('[data-field="status"]');
+
+      if (statusField) {
+        statusField.value = status;
+      }
+    });
+
+    setAttendanceMessage(
+      status === "present"
+        ? "All employees marked Present. Click Save Attendance to save."
+        : "All employees marked Absent. Click Save Attendance to save.",
+      "success"
+    );
+  }
+
+  bulkPresentButton.addEventListener("click", () => {
+    setAllAttendanceStatus("present");
+  });
+
+  bulkAbsentButton.addEventListener("click", () => {
+    setAllAttendanceStatus("absent");
+  });
   saveAttendanceButton.addEventListener("click", async () => {
     setAttendanceMessage("");
 
@@ -952,6 +992,8 @@ if (document.getElementById("attendanceTableBody")) {
 
   loadAttendanceSites().then(loadAttendance);
 }
+
+
 
 
 

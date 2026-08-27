@@ -215,7 +215,7 @@ if (siteDeleteMatch && request.method === "DELETE") {
 }
 
 if (url.pathname === "/portal/api/employees" && request.method === "GET") {
-  if (auth.user.role !== "admin" && auth.user.role !== "hr") {
+  if (auth.user.role !== "admin" && auth.user.role !== "hr" && auth.user.role !== "supervisor") {
     return apiError("You do not have access to employee records.", 403);
   }
 
@@ -1091,4 +1091,5 @@ async function readJson(request) {
 }
 
 }
+
 
