@@ -1241,121 +1241,108 @@ body.lightbox-open { overflow: hidden; }
     cursor: pointer;
 }
 .lightbox-close:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
-/* =========================
-   Leadership Section
-========================= */
+/* ========================================
+   LEADERSHIP PROFILE SECTION
+======================================== */
 
 .leadership-section {
-  padding: 90px 6%;
-  background: #f6f8fb;
+    padding: 70px 20px;
+    background: #f5f7fa;
 }
 
-.leadership-head {
-  max-width: 760px;
-  margin: 0 auto 50px;
-  text-align: center;
+.leadership-card {
+    max-width: 1050px !important;
+    margin: 0 auto;
+    padding: 38px 50px;
+    display: flex;
+    align-items: center;
+    gap: 55px;
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #e3e7ed;
+    box-shadow: 0 15px 40px rgba(15, 30, 50, 0.10);
+    grid-template-columns: 330px 1fr !important;
 }
 
-.leadership-head .eyebrow {
-  display: inline-block;
+/* Profile Image */
+
+.leadership-image {
+    width: 290px !important;
+    height: 290px !important;
+    min-height: 290px !important;
 }
 
-.leadership-head h2 {
-  margin-top: 12px;
+.leadership-image img {
+    width: 260px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 7px solid #f4f6f8;
+    box-shadow: 0 10px 30px rgba(15, 30, 50, 0.15);
 }
 
-.leadership-head p {
-  margin-top: 16px;
-  color: #5d6775;
-  line-height: 1.8;
+/* Profile Content */
+
+.leadership-content {
+    flex: 1;
 }
 
-.leadership-grid {
-  display: flex;
-  justify-content: center;
+.leadership-content h2 {
+    margin: 0 0 8px;
+    color: #1d2f4a;
+    font-size: 32px;
+    line-height: 1.2;
 }
 
-.leader-card {
-  width: 100%;
-  max-width: 900px;
-  display: grid;
-  grid-template-columns: 400px 1fr;
-  align-items: center;
-  background: #ffffff;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 15px 45px rgba(10, 31, 58, 0.12);
+.leadership-content .designation {
+    display: inline-block;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    color: #b2760b;
+    font-size: 16px;
+    font-weight: 700;
+    border-bottom: 2px solid #f5a400;
 }
 
-.leader-image {
-  width: 360px;
-  height: 360px;
-  min-height: 360px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: 35px auto;
-  background: #e9edf2;
-  flex-shrink: 0;
+.leadership-content p {
+    margin: 0;
+    max-width: 500px;
+    color: #5d6877;
+    font-size: 16px;
+    line-height: 1.8;
 }
 
-.leader-image img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  object-position: center center;
-}
-
-.leader-info {
-  padding: 45px;
-}
-
-.leader-info h3 {
-  margin: 0 0 10px;
-  font-size: 30px;
-  color: #0b2340;
-}
-
-.leader-info span {
-  display: inline-block;
-  color: #b88925;
-  font-weight: 700;
-  font-size: 17px;
-  margin-bottom: 22px;
-}
-
-.leader-info p {
-  margin: 0;
-  color: #5d6775;
-  line-height: 1.9;
-  font-size: 16px;
-}
+/* Mobile Responsive */
 
 @media (max-width: 768px) {
-  .leadership-section {
-    padding: 65px 20px;
-  }
 
-  .leader-card {
-    grid-template-columns: 1fr;
-    max-width: 480px;
-  }
+    .leadership-section {
+        padding: 50px 15px;
+    }
 
-  .leader-image {
-    width: 300px;
-    height: 300px;
-    min-height: 300px;
-    margin: 30px auto 10px;
-  }
+    .leadership-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 35px 25px;
+        gap: 25px;
+    }
 
-  .leader-info {
-    padding: 30px 25px;
-    text-align: center;
-  }
+    .leadership-image {
+        flex: none;
+    }
 
-  .leader-info h3 {
-    font-size: 26px;
-  }
+    .leadership-image img {
+        width: 210px;
+        height: 210px;
+    }
+
+    .leadership-content h2 {
+        font-size: 27px;
+    }
+
+    .leadership-content p {
+        margin: 0 auto;
+    }
 }
 /* ========================================
    FINAL PROJECTS SECTION FIX
@@ -3303,3 +3290,104 @@ body.lightbox-open { overflow: hidden; }
 .service-card-v2 .read-more {
     margin-top: 20px;
 }
+
+/* ========================================
+   FINAL LEADERSHIP SECTION FIX
+======================================== */
+
+.leadership-section {
+    padding: 70px 30px !important;
+    background: #f5f7fa !important;
+    text-align: left !important;
+}
+
+.leader-card {
+    width: 100% !important;
+    max-width: 950px !important;
+    margin: 0 auto !important;
+    display: grid !important;
+    grid-template-columns: 320px 1fr !important;
+    align-items: center !important;
+    gap: 35px !important;
+    padding: 35px 45px !important;
+    background: #ffffff !important;
+    border: 1px solid #e1e6ec !important;
+    border-radius: 18px !important;
+    overflow: visible !important;
+    box-shadow: 0 15px 40px rgba(15, 30, 50, 0.10) !important;
+}
+
+.leader-image {
+    width: 280px !important;
+    height: 280px !important;
+    min-height: 280px !important;
+    margin: 0 auto !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    background: #e9edf2 !important;
+}
+
+.leader-image img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
+.leader-info {
+    padding: 0 !important;
+}
+
+.leader-info h3 {
+    margin: 0 0 8px !important;
+    color: #0b2340 !important;
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+}
+
+.leader-info span {
+    display: inline-block !important;
+    margin: 0 0 18px !important;
+    padding-bottom: 10px !important;
+    color: #b88925 !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    border-bottom: 2px solid #f5a400 !important;
+}
+
+.leader-info p {
+    margin: 0 !important;
+    color: #5d6775 !important;
+    font-size: 16px !important;
+    line-height: 1.8 !important;
+    max-width: 520px !important;
+}
+
+@media (max-width: 768px) {
+    .leadership-section {
+        padding: 55px 20px !important;
+    }
+
+    .leader-card {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+        padding: 30px 25px !important;
+        text-align: center !important;
+    }
+
+    .leader-image {
+        width: 220px !important;
+        height: 220px !important;
+        min-height: 220px !important;
+    }
+
+    .leader-info h3 {
+        font-size: 27px !important;
+    }
+
+    .leader-info p {
+        margin: 0 auto !important;
+    }
+}
+
