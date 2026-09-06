@@ -3758,3 +3758,206 @@ body.lightbox-open { overflow: hidden; }
     }
 }
 
+/* ========================================
+   ABOUT US - FINAL CLEAN DESIGN
+======================================== */
+
+.about-section {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 90px 30px !important;
+    background: #ffffff !important;
+}
+
+.about-grid {
+    max-width: 1250px !important;
+    margin: 0 auto !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 70px !important;
+    align-items: center !important;
+}
+
+/* Images */
+
+.about-collage {
+    position: relative !important;
+    display: grid !important;
+    grid-template-columns: 1.25fr 0.9fr !important;
+    grid-template-rows: 190px 190px !important;
+    gap: 16px !important;
+    padding-bottom: 55px !important;
+}
+
+.about-collage .tall {
+    grid-row: 1 / 3 !important;
+    height: 396px !important;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+}
+
+.about-collage .stack {
+    height: 190px !important;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+}
+
+.about-collage img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+/* Experience Box */
+
+.exp-badge {
+    position: absolute !important;
+    left: 20px !important;
+    bottom: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 18px 22px !important;
+    background: #13243b !important;
+    color: #ffffff !important;
+    border-radius: 12px !important;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18) !important;
+}
+
+.exp-badge i {
+    font-size: 26px !important;
+    color: #f2aa20 !important;
+}
+
+.exp-badge .num {
+    color: #ffffff !important;
+    font-size: 28px !important;
+    font-weight: 800 !important;
+}
+
+.exp-badge .lbl {
+    color: #d7dee7 !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+/* Content */
+
+.about-content {
+    max-width: 600px !important;
+}
+
+.about-content .eyebrow {
+    display: inline-block !important;
+    margin-bottom: 14px !important;
+    color: #c98a17 !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+}
+
+.about-content h2 {
+    margin: 0 0 20px !important;
+    color: #13243b !important;
+    font-size: clamp(30px, 3vw, 44px) !important;
+    font-weight: 800 !important;
+    line-height: 1.25 !important;
+}
+
+.about-content > p {
+    margin: 0 0 28px !important;
+    color: #687586 !important;
+    font-size: 16px !important;
+    line-height: 1.8 !important;
+}
+
+/* Feature Points */
+
+.check-list {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 15px 22px !important;
+    margin: 0 0 32px !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.check-list li {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 9px !important;
+    color: #24364b !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.5 !important;
+}
+
+.check-list i {
+    color: #d99a1a !important;
+    margin-top: 3px !important;
+}
+
+/* Button */
+
+.about-content .btn-navy {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 14px 24px !important;
+    background: #13243b !important;
+    color: #ffffff !important;
+    border-radius: 7px !important;
+    text-decoration: none !important;
+    font-weight: 700 !important;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+    .about-grid {
+        grid-template-columns: 1fr !important;
+        gap: 60px !important;
+    }
+
+    .about-collage {
+        max-width: 650px !important;
+        margin: 0 auto !important;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .about-section {
+        padding: 60px 20px !important;
+    }
+
+    .about-collage {
+        grid-template-columns: 1fr !important;
+        grid-template-rows: auto !important;
+        padding-bottom: 70px !important;
+    }
+
+    .about-collage .tall {
+        grid-row: auto !important;
+        height: 350px !important;
+    }
+
+    .about-collage .stack {
+        display: none !important;
+    }
+
+    .exp-badge {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+
+    .check-list {
+        grid-template-columns: 1fr !important;
+    }
+}
+
