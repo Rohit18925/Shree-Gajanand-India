@@ -3391,3 +3391,370 @@ body.lightbox-open { overflow: hidden; }
     }
 }
 
+
+/* =========================================================
+   MODERN LEADERSHIP SECTION - FINAL DESIGN
+========================================================= */
+
+.leadership-section {
+    position: relative !important;
+    padding: 80px 30px !important;
+    overflow: hidden !important;
+    background:
+        radial-gradient(circle at top right, rgba(225, 233, 243, 0.9), transparent 30%),
+        linear-gradient(135deg, #f8fafc 0%, #edf2f8 100%) !important;
+}
+
+.leadership-modern-card {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 42px 55px;
+    display: grid;
+    grid-template-columns: 390px minmax(0, 1fr);
+    gap: 55px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.68);
+    border: 1px solid rgba(210, 220, 232, 0.9);
+    box-shadow: 0 20px 55px rgba(20, 42, 70, 0.13);
+    overflow: hidden;
+}
+
+/* PHOTO */
+
+.leadership-photo-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.leadership-photo {
+    width: 330px;
+    height: 330px;
+    border-radius: 50%;
+    padding: 8px;
+    background: #ffffff;
+    box-shadow: 0 15px 40px rgba(20, 42, 70, 0.18);
+}
+
+.leadership-photo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* BADGE */
+
+.leadership-badge {
+    position: absolute;
+    left: 0;
+    bottom: 8px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffd25c, #f5a400);
+    box-shadow: 0 12px 25px rgba(201, 139, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #17263d;
+    text-align: center;
+}
+
+.leadership-badge i {
+    font-size: 21px;
+    margin-bottom: 7px;
+}
+
+.leadership-badge span,
+.leadership-badge strong,
+.leadership-badge small {
+    display: block;
+    font-size: 10px;
+    line-height: 1.5;
+    font-weight: 800;
+}
+
+.leadership-badge strong {
+    font-size: 11px;
+}
+
+/* CONTENT */
+
+.leadership-content {
+    position: relative;
+    padding-left: 35px;
+    border-left: 1px solid #d8b15a;
+}
+
+.leadership-content h2 {
+    margin: 0 0 8px;
+    color: #142b49;
+    font-size: 31px;
+    line-height: 1.2;
+}
+
+.leadership-role {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    color: #b17b12;
+    font-size: 16px;
+    font-weight: 700;
+    border-bottom: 2px solid #e5ad32;
+}
+
+.leadership-intro {
+    max-width: 720px;
+    margin: 0 0 28px;
+    color: #59697c;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* VALUES */
+
+.leadership-values {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 28px;
+}
+
+.leadership-value {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 0 25px;
+    min-height: 50px;
+    border-right: 1px solid #dbe2eb;
+}
+
+.leadership-value:first-child {
+    padding-left: 0;
+}
+
+.leadership-value:last-child {
+    border-right: none;
+}
+
+.value-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #142b49;
+    color: #f5b21b;
+    font-size: 19px;
+    box-shadow: 0 8px 18px rgba(20, 43, 73, 0.15);
+}
+
+.leadership-value span {
+    color: #344357;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+/* QUOTE */
+
+.leadership-quote {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 190px;
+    gap: 25px;
+    align-items: center;
+    padding: 20px 24px;
+    background: rgba(225, 232, 241, 0.72);
+    border-radius: 14px;
+}
+
+.quote-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.quote-text > i {
+    color: #e9a400;
+    font-size: 24px;
+    margin-top: 2px;
+}
+
+.quote-text p {
+    margin: 0;
+    color: #59697c;
+    font-size: 15px;
+    font-style: italic;
+    line-height: 1.7;
+}
+
+.leader-signature {
+    text-align: center;
+    color: #334154;
+}
+
+.signature {
+    font-family: cursive;
+    font-size: 21px;
+    font-style: italic;
+    margin-bottom: 6px;
+}
+
+.signature-line {
+    width: 35px;
+    height: 2px;
+    margin: 0 auto 7px;
+    background: #e5ad32;
+}
+
+.leader-signature strong {
+    font-size: 12px;
+}
+
+/* DECORATION */
+
+.leadership-bg-shape {
+    position: absolute;
+    width: 230px;
+    height: 230px;
+    border: 35px solid rgba(220, 229, 240, 0.65);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.shape-left {
+    left: -120px;
+    bottom: -120px;
+}
+
+.shape-right {
+    right: -120px;
+    top: -120px;
+}
+
+.leadership-dots {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background-image: radial-gradient(#b7c4d5 2px, transparent 2px);
+    background-size: 17px 17px;
+    opacity: 0.65;
+}
+
+.dots-left {
+    top: 60px;
+    left: 12%;
+}
+
+.dots-right {
+    top: 60px;
+    right: 12%;
+}
+
+/* TABLET */
+
+@media (max-width: 1050px) {
+
+    .leadership-modern-card {
+        grid-template-columns: 320px minmax(0, 1fr);
+        gap: 35px;
+        padding: 35px;
+    }
+
+    .leadership-photo {
+        width: 280px;
+        height: 280px;
+    }
+
+    .leadership-values {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .leadership-value {
+        padding: 0;
+        border-right: none;
+    }
+
+    .leadership-quote {
+        grid-template-columns: 1fr;
+    }
+
+    .leader-signature {
+        text-align: left;
+        padding-left: 40px;
+    }
+
+    .signature-line {
+        margin-left: 0;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .leadership-section {
+        padding: 60px 20px !important;
+    }
+
+    .leadership-modern-card {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        padding: 35px 25px;
+    }
+
+    .leadership-photo {
+        width: 260px;
+        height: 260px;
+    }
+
+    .leadership-badge {
+        width: 100px;
+        height: 100px;
+        left: 5%;
+        bottom: -5px;
+    }
+
+    .leadership-content {
+        padding-left: 0;
+        border-left: none;
+        text-align: center;
+    }
+
+    .leadership-content h2 {
+        font-size: 27px;
+    }
+
+    .leadership-values {
+        justify-items: center;
+    }
+
+    .leadership-value {
+        width: 100%;
+        justify-content: flex-start;
+        text-align: left;
+    }
+
+    .leadership-quote {
+        text-align: left;
+    }
+
+    .leader-signature {
+        padding-left: 40px;
+    }
+
+    .leadership-dots,
+    .leadership-bg-shape {
+        display: none;
+    }
+}
+
