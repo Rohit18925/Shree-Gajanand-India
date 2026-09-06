@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://shreegajanandindia.sgi751.workers.dev/sitemap.xml
