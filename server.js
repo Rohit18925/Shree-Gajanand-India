@@ -1,4 +1,5 @@
 const express = require("express");
+const nodemailer = require("nodemailer");
 
 const path = require("path");
 
@@ -54,9 +55,10 @@ app.use((req, res, next) => {
 });
 
 app.get("/health", (req, res) => {
+    const mailConfigured = Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
     res.status(200).json({
         status: "ok",
-        mail: process.env.RESEND_API_KEY ? "resend" : "not-configured"
+        mail: mailConfigured ? "smtp" : "not-configured"
     });
 });
 
@@ -104,37 +106,35 @@ function safeHeader(value) {
     return String(value || "").replace(/[\r\n]+/g, " ").slice(0, 160);
 }
 
-async function sendWithResend({to: to, replyTo: replyTo, subject: subject, text: text}) {
-    const apiKey = process.env.RESEND_API_KEY;
-    if (!apiKey) throw new Error("RESEND_API_KEY is not configured.");
-    const from = process.env.RESEND_FROM || "Shree Gajanand India Website <onboarding@resend.dev>";
-    const controller = new AbortController;
-    const timeout = setTimeout(() => controller.abort(), 15e3);
-    try {
-        const response = await fetch("https://api.resend.com/emails", {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${apiKey}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                from: from,
-                to: [ to ],
-                reply_to: replyTo,
-                subject: subject,
-                text: text
-            }),
-            signal: controller.signal
-        });
-        const data = await response.json().catch(() => ({}));
-        if (!response.ok) {
-            const message = data && (data.message || data.error) || `Resend returned HTTP ${response.status}`;
-            throw new Error(message);
-        }
-        return data;
-    } finally {
-        clearTimeout(timeout);
+let mailTransporter;
+
+function getMailTransporter() {
+    if (mailTransporter) return mailTransporter;
+
+    const host = process.env.SMTP_HOST;
+    const port = Number(process.env.SMTP_PORT) || 465;
+    const user = process.env.SMTP_USER;
+    const pass = process.env.SMTP_PASS;
+
+    if (!host || !user || !pass) {
+        throw new Error("SMTP_HOST, SMTP_USER and SMTP_PASS are required.");
     }
+
+    mailTransporter = nodemailer.createTransport({
+        host,
+        port,
+        secure: String(process.env.SMTP_SECURE || (port === 465)).toLowerCase() === "true",
+        auth: { user, pass }
+    });
+
+    return mailTransporter;
+}
+
+async function sendEmail({to, replyTo, subject, text}) {
+    const from = process.env.EMAIL_FROM || process.env.SMTP_USER;
+    if (!from) throw new Error("EMAIL_FROM or SMTP_USER is required.");
+
+    return getMailTransporter().sendMail({ from, to, replyTo, subject, text });
 }
 
 app.post("/submit-form", contactRateLimit, async (req, res) => {
@@ -161,13 +161,13 @@ app.post("/submit-form", contactRateLimit, async (req, res) => {
     const recipient = process.env.EMAIL_TO || "shreegajanandindia751@gmail.com";
     const mailText = [ "New enquiry from Shree Gajanand India website", "", `Name: ${name}`, `Phone: ${phone}`, `Email: ${email}`, `Subject: ${subject}`, "", "Message:", message ].join("\n");
     try {
-        const result = await sendWithResend({
+        const result = await sendEmail({
             to: recipient,
             replyTo: email,
             subject: `Website Enquiry: ${safeHeader(subject)}`,
             text: mailText
         });
-        console.log("Resend email sent:", result && result.id ? result.id : "success");
+        console.log("SMTP email sent:", result && result.messageId ? result.messageId : "success");
         return wantsJson(req) ? res.json({
             result: "success"
         }) : res.redirect(303, "/contact.html?sent=1");

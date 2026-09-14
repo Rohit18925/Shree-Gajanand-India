@@ -24,3 +24,5 @@ services:
         sync: false
       - key: EMAIL_TO
         sync: false
+      - key: PORTAL_SETUP_KEY
+        sync: false

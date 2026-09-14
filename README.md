@@ -24,7 +24,7 @@ This package is production-ready as a Node.js/Express website with a working enq
 5. Run `npm start`.
 6. Open `http://localhost:3000`.
 
-## Real Gmail enquiry delivery
+## Gmail enquiry delivery on Node/Render
 Use a Google account with 2-Step Verification and create an App Password. Put the 16-character App Password in `SMTP_PASS`. Never put the normal Gmail password in the code.
 
 Required production variables:
@@ -37,3 +37,8 @@ Required production variables:
 This project can be deployed to any Node.js host. The included `render.yaml` is ready for Render Blueprint deployment. Add the four email variables as secrets in the hosting dashboard.
 
 After deployment, point your domain DNS to the hosting provider and enable HTTPS.
+
+
+## ECMS portal / Cloudflare D1
+
+The Employee Management Portal uses the Cloudflare Worker in `src/index.js` and the D1 database bound as `DB`. Before first use, execute `portal-schema.sql` against the `sgi-ecms` D1 database and configure the `PORTAL_SETUP_KEY` secret. The Node/Render server serves the public website and enquiry form; the D1-backed portal API is provided by the Cloudflare Worker.

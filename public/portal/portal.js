@@ -315,9 +315,13 @@ async function initEmployees(){
 
     sites=result.sites||[];
 
+    const editableSites = sites.filter(site =>
+      Number(site.is_active) === 1 || Number(site.id) === Number(form.siteId.value)
+    );
+
     siteSelect.innerHTML=
       `<option value="">No Site Assigned</option>`+
-      sites.map(site=>`
+      editableSites.map(site=>`
         <option value="${site.id}">
           ${escapeHtml(site.site_code)} - ${escapeHtml(site.name)}
           ${Number(site.is_active)===1?"":" (Inactive)"}
@@ -422,6 +426,23 @@ async function initEmployees(){
   }
   }
 
+  async function deleteEmployee(id){
+    const employee=employees.find(item=>Number(item.id)===id);
+    if(!employee)return;
+    const confirmed=confirm(
+      `Delete ${employee.full_name} (${employee.employee_code})?\n\nThis action cannot be undone.`
+    );
+    if(!confirmed)return;
+    const result=await api(`/portal/api/employees/${id}`,{method:"DELETE"},false);
+    if(!result?.ok){
+      alert(result?.error||"Unable to delete employee.");
+      return;
+    }
+    resetEmployeeForm();
+    await loadEmployees();
+    setMessage(message,result.message||"Employee deleted successfully.","success");
+  }
+
   async function startEmployeeEdit(id){
     setMessage(message,"");
 
@@ -437,35 +458,6 @@ async function initEmployees(){
       );
       return;
     }
-    async function deleteEmployee(id){
-  const employee=employees.find(item=>Number(item.id)===id);
-  if(!employee)return;
-
-  const confirmed=confirm(
-    `Delete ${employee.full_name} (${employee.employee_code})?\n\nThis action cannot be undone.`
-  );
-
-  if(!confirmed)return;
-
-  const result=await api(`/portal/api/employees/${id}`,{
-    method:"DELETE"
-  },false);
-
-  if(!result?.ok){
-    alert(result?.error||"Unable to delete employee.");
-    return;
-  }
-
-  resetEmployeeForm();
-  await loadEmployees();
-
-  setMessage(
-    message,
-    result.message||"Employee deleted successfully.",
-    "success"
-  );
-}
-
     const employee=result.employee;
 
     form.employeeId.value=employee.id;
