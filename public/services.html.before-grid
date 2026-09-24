@@ -1,0 +1,390 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Our Services | Shree Gajanand India</title>
+  <meta content="Pan-India manpower, facility management, railway, construction, industrial, logistics and support services from Shree Gajanand India." name="description"/>
+  <link href="style.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+  <link href="/logo.png" rel="icon" type="image/png"/>
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="index.html">
+        <img alt="Shree Gajanand India logo" src="logo.png"/>
+        <span class="brand-text">
+          <strong>SHREE GAJANAND INDIA</strong>
+          <span>Pan-India Workforce, Facility &amp; Infrastructure Solutions</span>
+        </span>
+      </a>
+      <nav class="navbar" id="mainNav">
+        <ul>
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./about.html">About Us</a></li>
+          <li><a class="active" href="./services.html">Our Services</a></li>
+          <li><a href="./gallery.html">Gallery</a></li>
+          <li><a href="./client.html">Industries</a></li>
+          <li><a class="nav-cta" href="./contact.html">Contact Us</a></li>
+        </ul>
+      </nav>
+      <button aria-controls="mainNav" aria-expanded="false" aria-label="Toggle menu" class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <h1>Our Services</h1>
+      <p class="breadcrumb"><a href="./index.html">Home</a> / Our Services</p>
+    </div>
+  </div>
+
+  <section class="services-intro-section">
+    <div class="services-intro">
+      <div class="eyebrow">What We Offer</div>
+      <h2>Integrated Multi-Sector Business Solutions</h2>
+      <p>We provide professional services, project support, workforce solutions, infrastructure capabilities and allied business services for government, railway, PSU, industrial, institutional, commercial and private-sector clients.</p>
+    </div>
+  </section>
+
+  <section class="services-showcase">
+
+  <div class="service-showcase-card">
+    <div class="service-number">01</div>
+    <div class="service-showcase-content">
+      <div class="service-icon-large"><i class="fa-solid fa-broom"></i></div>
+      <div>
+        <span class="service-label">OUR SERVICE</span>
+        <h2>Mechanized Cleaning &amp; Sanitation</h2>
+        <p>Mechanized, specialized, industrial and general cleaning and sanitation services for railway premises, stations, platforms, offices, institutions, hospitals, factories, roads, public places and other buildings and premises.</p>
+        <div class="service-points">
+          <div><i class="fa-solid fa-check"></i> Sweeping, scrubbing &amp; machine cleaning</div>
+          <div><i class="fa-solid fa-check"></i> Pressure washing &amp; vacuum cleaning</div>
+          <div><i class="fa-solid fa-check"></i> Sanitation &amp; waste collection</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-showcase-card service-reverse">
+    <div class="service-number">02</div>
+    <div class="service-showcase-content">
+      <div class="service-icon-large"><i class="fa-solid fa-building"></i></div>
+      <div>
+        <span class="service-label">OUR SERVICE</span>
+        <h2>Housekeeping &amp; Facility Management</h2>
+        <p>Professional housekeeping, janitorial, sanitation, facility management and facility-support services for government departments, railways, PSUs, hospitals, schools, hostels, offices, factories and commercial establishments.</p>
+        <div class="service-points">
+          <div><i class="fa-solid fa-check"></i> Housekeeping &amp; janitorial operations</div>
+          <div><i class="fa-solid fa-check"></i> Gardening &amp; landscaping support</div>
+          <div><i class="fa-solid fa-check"></i> Laundry, maintenance &amp; facility support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-showcase-card">
+    <div class="service-number">03</div>
+    <div class="service-showcase-content">
+      <div class="service-icon-large"><i class="fa-solid fa-shield-halved"></i></div>
+      <div>
+        <span class="service-label">OUR SERVICE</span>
+        <h2>Security &amp; Watch and Ward</h2>
+        <p>Security, watch and ward, security guard and allied security-support services for government, railway, PSU, industrial, commercial and institutional establishments, subject to applicable statutory requirements.</p>
+        <div class="service-points">
+          <div><i class="fa-solid fa-check"></i> Security guard deployment</div>
+          <div><i class="fa-solid fa-check"></i> Watch &amp; ward support</div>
+          <div><i class="fa-solid fa-check"></i> Site security assistance</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-showcase-card service-reverse">
+    <div class="service-number">04</div>
+    <div class="service-showcase-content">
+      <div class="service-icon-large"><i class="fa-solid fa-helmet-safety"></i></div>
+      <div>
+        <span class="service-label">OUR SERVICE</span>
+        <h2>Construction &amp; Infrastructure Works</h2>
+        <p>Construction, repair, renovation, maintenance and management of civil, structural and infrastructure works including roads, buildings, bridges, culverts, drains, sewerage and water-supply works.</p>
+        <div class="service-points">
+          <div><i class="fa-solid fa-check"></i> Civil &amp; structural works</div>
+          <div><i class="fa-solid fa-check"></i> Roads, buildings &amp; infrastructure</div>
+          <div><i class="fa-solid fa-check"></i> Repair, renovation &amp; maintenance</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-showcase-card">
+    <div class="service-number">05</div>
+    <div class="service-showcase-content">
+      <div class="service-icon-large"><i class="fa-solid fa-compass-drafting"></i></div>
+      <div>
+        <span class="service-label">OUR SERVICE</span>
+        <h2>Specialized Construction &amp; Engineering</h2>
+        <p>Specialized construction and engineering activities including foundation works, structural works, steel erection, fabrication, roofing, waterproofing, scaffolding, demolition, restoration and allied works.</p>
+        <div class="service-points">
+          <div><i class="fa-solid fa-check"></i> Foundation &amp; structural works</div>
+          <div><i class="fa-solid fa-check"></i> Steel erection &amp; fabrication</div>
+          <div><i class="fa-solid fa-check"></i> Roofing, waterproofing &amp; scaffolding</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-showcase-card service-reverse">
+    <div class="service-number">06</div>
+    <div class="service-showcase-content">
+      <div class="service-icon-large"><i class="fa-solid fa-train"></i></div>
+      <div>
+        <span class="service-label">OUR SERVICE</span>
+        <h2>Railway Related Works</h2>
+        <p>Railway civil, structural, maintenance, repair, renovation, fabrication, installation, painting, cleaning, housekeeping and facility-support works for stations, colonies, offices, workshops, depots, yards and platforms.</p>
+        <div class="service-points">
+          <div><i class="fa-solid fa-check"></i> Railway stations &amp; platforms</div>
+          <div><i class="fa-solid fa-check"></i> Workshops, depots &amp; yards</div>
+          <div><i class="fa-solid fa-check"></i> Railway civil, maintenance &amp; support works</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-showcase-card">
+    <div class="service-number">07</div>
+    <div class="service-showcase-content">
+      <div class="service-icon-large"><i class="fa-solid fa-people-group"></i></div>
+      <div>
+        <span class="service-label">OUR SERVICE</span>
+        <h2>Manpower &amp; Workforce Support</h2>
+        <p>Skilled, semi-skilled and unskilled manpower along with supervisors, operators, technicians, maintenance personnel, housekeeping personnel, cleaning personnel and operational workforce.</p>
+        <div class="service-points">
+          <div><i class="fa-solid fa-check"></i> Skilled &amp; semi-skilled workforce</div>
+          <div><i class="fa-solid fa-check"></i> Supervisors, operators &amp; technicians</div>
+          <div><i class="fa-solid fa-check"></i> Workforce deployment for lawful contracts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-showcase-card service-reverse">
+    <div class="service-number">08</div>
+    <div class="service-showcase-content">
+      <div class="service-icon-large"><i class="fa-solid fa-gears"></i></div>
+      <div>
+        <span class="service-label">OUR SERVICE</span>
+        <h2>Electrical, Mechanical &amp; Electromechanical Works</h2>
+        <p>Installation, repair, maintenance, testing and commissioning of electrical, mechanical and electromechanical works, systems, machinery, plants and equipment.</p>
+        <div class="service-points">
+          <div><i class="fa-solid fa-check"></i> Electrical installation &amp; maintenance</div>
+          <div><i class="fa-solid fa-check"></i> Mechanical systems &amp; equipment</div>
+          <div><i class="fa-solid fa-check"></i> Testing &amp; commissioning support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-showcase-card">
+    <div class="service-number">09</div>
+    <div class="service-showcase-content">
+      <div class="service-icon-large"><i class="fa-solid fa-industry"></i></div>
+      <div>
+        <span class="service-label">OUR SERVICE</span>
+        <h2>Manufacturing, Fabrication &amp; Engineering Products</h2>
+        <p>Manufacturing, fabrication, assembly, processing, repair, maintenance, purchase, sale and supply of engineering goods, structural products, metal products, railway components, machinery, equipment and tools.</p>
+        <div class="service-points">
+          <div><i class="fa-solid fa-check"></i> Engineering &amp; structural products</div>
+          <div><i class="fa-solid fa-check"></i> Metal fabrication &amp; components</div>
+          <div><i class="fa-solid fa-check"></i> Machinery, equipment &amp; tools</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-showcase-card service-reverse">
+    <div class="service-number">10</div>
+    <div class="service-showcase-content">
+      <div class="service-icon-large"><i class="fa-solid fa-train-subway"></i></div>
+      <div>
+        <span class="service-label">OUR SERVICE</span>
+        <h2>Railway Coach &amp; Equipment Related Activities</h2>
+        <p>Wherever legally and technically permissible, repair, refurbishment, renovation, maintenance, painting, fabrication, interior, mechanical and electrical works relating to railway coaches, wagons and railway equipment.</p>
+        <div class="service-points">
+          <div><i class="fa-solid fa-check"></i> Coach refurbishment &amp; maintenance</div>
+          <div><i class="fa-solid fa-check"></i> Fabrication &amp; interior works</div>
+          <div><i class="fa-solid fa-check"></i> Railway equipment support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-showcase-card">
+    <div class="service-number">11</div>
+    <div class="service-showcase-content">
+      <div class="service-icon-large"><i class="fa-solid fa-layer-group"></i></div>
+      <div>
+        <span class="service-label">OUR SERVICE</span>
+        <h2>Bricks &amp; Construction Materials</h2>
+        <p>Manufacturing, processing, production, purchase, sale, supply and distribution of bricks, fly-ash bricks, concrete blocks, paver blocks, tiles and other construction and building materials.</p>
+        <div class="service-points">
+          <div><i class="fa-solid fa-check"></i> Bricks &amp; fly-ash bricks</div>
+          <div><i class="fa-solid fa-check"></i> Concrete &amp; paver blocks</div>
+          <div><i class="fa-solid fa-check"></i> Tiles &amp; allied building materials</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-showcase-card service-reverse">
+    <div class="service-number">12</div>
+    <div class="service-showcase-content">
+      <div class="service-icon-large"><i class="fa-solid fa-recycle"></i></div>
+      <div>
+        <span class="service-label">OUR SERVICE</span>
+        <h2>Waste Management, Scrap &amp; Recycling</h2>
+        <p>Collection, segregation, transportation, sorting, processing, recovery, recycling and lawful disposal of permissible municipal, commercial and industrial waste, scrap and recyclable materials.</p>
+        <div class="service-points">
+          <div><i class="fa-solid fa-check"></i> Waste collection &amp; segregation</div>
+          <div><i class="fa-solid fa-check"></i> Scrap sorting &amp; processing</div>
+          <div><i class="fa-solid fa-check"></i> Recovery &amp; recycling support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-showcase-card">
+    <div class="service-number">13</div>
+    <div class="service-showcase-content">
+      <div class="service-icon-large"><i class="fa-solid fa-laptop-code"></i></div>
+      <div>
+        <span class="service-label">OUR SERVICE</span>
+        <h2>Information Technology &amp; Digital Services</h2>
+        <p>Technology and digital solutions including software development, website and application development, data processing, digitization, automation, system integration and technical support.</p>
+        <div class="service-points">
+          <div><i class="fa-solid fa-check"></i> Website &amp; application development</div>
+          <div><i class="fa-solid fa-check"></i> Digitization &amp; automation</div>
+          <div><i class="fa-solid fa-check"></i> IT-enabled &amp; technical support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="service-showcase-card service-reverse">
+    <div class="service-number">14</div>
+    <div class="service-showcase-content">
+      <div class="service-icon-large"><i class="fa-solid fa-headset"></i></div>
+      <div>
+        <span class="service-label">OUR SERVICE</span>
+        <h2>Business Support &amp; Outsourcing</h2>
+        <p>Business, operational, administrative, project, procurement, documentation and back-office support services for government departments, railways, PSUs, companies and institutions.</p>
+        <div class="service-points">
+          <div><i class="fa-solid fa-check"></i> Operational &amp; administrative support</div>
+          <div><i class="fa-solid fa-check"></i> Procurement &amp; documentation support</div>
+          <div><i class="fa-solid fa-check"></i> Back-office &amp; project support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section class="inner-section">
+  <div class="section-head">
+    <div class="eyebrow">Additional Business Capabilities</div>
+    <h2>Integrated Commercial, Contract &amp; Supply Capabilities</h2>
+    <p class="section-intro">Our business scope also includes commercial, contracting, procurement, manufacturing, supply, project management and strategic collaboration activities, subject to applicable eligibility, licences, approvals and statutory requirements.</p>
+  </div>
+
+  <div class="client-category-grid">
+
+    <div class="client-category-card">
+      <div class="client-icon"><i class="fa-solid fa-utensils"></i></div>
+      <h3>Food Manufacturing &amp; Processing</h3>
+      <p>Manufacturing, processing, packaging, preservation, supply and distribution of lawful food products, subject to applicable approvals including FSSAI requirements.</p>
+    </div>
+
+    <div class="client-category-card">
+      <div class="client-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+      <h3>Supply, Procurement &amp; Distribution</h3>
+      <p>Procurement, supply, distribution, trading and allied dealing in construction materials, machinery, tools, cleaning equipment, safety equipment and other connected goods.</p>
+    </div>
+
+    <div class="client-category-card">
+      <div class="client-icon"><i class="fa-solid fa-file-contract"></i></div>
+      <h3>Government, Railway &amp; PSU Contracts</h3>
+      <p>Participation in government tenders, e-tenders, GeM procurement, railway tenders, PSU contracts, rate contracts, AMC, works, supply and related lawful contracts.</p>
+    </div>
+
+    <div class="client-category-card">
+      <div class="client-icon"><i class="fa-solid fa-diagram-project"></i></div>
+      <h3>Project Management &amp; Maintenance</h3>
+      <p>Project and contract management, operational support, facility support, maintenance management, technical coordination, supervision and quality-control support.</p>
+    </div>
+
+    <div class="client-category-card">
+      <div class="client-icon"><i class="fa-solid fa-handshake"></i></div>
+      <h3>JV, Consortium &amp; Subcontracting</h3>
+      <p>Joint ventures, consortiums, subcontracting arrangements, technical collaborations, strategic alliances and other lawful business arrangements.</p>
+    </div>
+
+    <div class="client-category-card">
+      <div class="client-icon"><i class="fa-solid fa-magnet"></i></div>
+      <h3>Scrap &amp; Recyclable Material Business</h3>
+      <p>Purchase, collection, sorting, segregation, processing, dismantling, recycling, sale and supply of permissible ferrous, non-ferrous, industrial and railway scrap.</p>
+    </div>
+
+  </div>
+</section>
+<section class="inner-section industries-section">
+    <div class="section-head">
+      <div class="eyebrow">Industries We Serve</div>
+      <h2>Solutions Across Sectors</h2>
+      <p class="section-intro">We support government, railway, PSU, infrastructure, industrial, manufacturing, institutional, commercial and private-sector projects across India.</p>
+    </div>
+    <div class="client-category-grid">
+      <div class="client-category-card"><div class="client-icon"><i class="fa-solid fa-building-columns"></i></div><h3>Government Projects</h3><p>Requirement-based manpower, facility and project support services.</p></div>
+      <div class="client-category-card"><div class="client-icon"><i class="fa-solid fa-train"></i></div><h3>Railway &amp; Transportation</h3><p>Operational, workforce and facility support for transport-related sites.</p></div>
+      <div class="client-category-card"><div class="client-icon"><i class="fa-solid fa-helmet-safety"></i></div><h3>Construction &amp; Infrastructure</h3><p>Site-support workforce and coordination for project execution.</p></div>
+      <div class="client-category-card"><div class="client-icon"><i class="fa-solid fa-industry"></i></div><h3>Manufacturing &amp; Industrial</h3><p>Operational manpower and support for plant and industrial sites.</p></div>
+      <div class="client-category-card"><div class="client-icon"><i class="fa-solid fa-warehouse"></i></div><h3>Warehousing &amp; Logistics</h3><p>Material-handling and workforce support for warehouse operations.</p></div>
+      <div class="client-category-card"><div class="client-icon"><i class="fa-solid fa-building"></i></div><h3>Commercial &amp; Institutional</h3><p>Facility, housekeeping and operational support for organised premises.</p></div>
+      <div class="client-category-card"><div class="client-icon"><i class="fa-solid fa-handshake"></i></div><h3>Private Enterprises</h3><p>Flexible service solutions for businesses across a range of sectors.</p></div>
+    </div>
+  </section>
+
+  <section class="service-process-section">
+    <div class="process-heading">
+      <div class="eyebrow">How We Work</div>
+      <h2>A Simple Process From Requirement to Execution</h2>
+      <p>We follow a clear and organised approach for every project.</p>
+    </div>
+    <div class="modern-process-grid">
+      <div class="modern-process-card"><div class="process-icon"><i class="fa-solid fa-comments"></i></div><span>01</span><h3>Requirement</h3><p>We understand your scope of work, location, timeline and service requirements before proposing a solution.</p></div>
+      <div class="modern-process-card"><div class="process-icon"><i class="fa-solid fa-clipboard-check"></i></div><span>02</span><h3>Planning</h3><p>We plan the manpower, supervision and site-support requirements for organised execution.</p></div>
+      <div class="modern-process-card"><div class="process-icon"><i class="fa-solid fa-people-group"></i></div><span>03</span><h3>Deployment</h3><p>Our team coordinates workforce and site resources according to the agreed project plan.</p></div>
+      <div class="modern-process-card"><div class="process-icon"><i class="fa-solid fa-chart-line"></i></div><span>04</span><h3>Execution</h3><p>We monitor work, maintain communication and focus on quality, discipline and timely delivery.</p></div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2>Have a project or service requirement?</h2>
+    <p>Send us your details and we will respond with a tailored proposal.</p>
+    <a class="cta-btn" href="contact.html">Request a Quote</a>
+  </section>
+  <footer class="main-footer"><p>&copy; 2026 Shree Gajanand India. All Rights Reserved. | Pan-India Workforce, Facility &amp; Infrastructure Solutions &bull; Emadpur, Patepur, Vaishali, Bihar &ndash; 843114</p></footer>
+  <a aria-label="Chat on WhatsApp" class="whatsapp-float" href="https://wa.me/919821943101" rel="noopener" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+  <script defer="" src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

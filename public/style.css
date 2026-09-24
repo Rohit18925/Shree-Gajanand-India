@@ -1,4 +1,4 @@
-
+﻿
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
@@ -185,7 +185,7 @@ img { max-width: 100%; display: block; }
             rgba(8, 18, 34, 0.52) 62%,
             rgba(8, 18, 34, 0.20) 100%
         ),
-        url('hero-railway.jpg');
+        url('hero-new.png');
     background-size: cover;
     background-position: center center;
     min-height: 680px;
@@ -500,6 +500,7 @@ img { max-width: 100%; display: block; }
     color: var(--grey-text);
     font-size: 1rem;
     margin: 0;
+    font-family: 'Poppins','Segoe UI', sans-serif;
 }
 
 .services-grid-v2 {
@@ -761,7 +762,7 @@ video {
     background-color: var(--navy-dark);
     background-image:
         linear-gradient(120deg, rgba(8,18,34,0.96) 0%, rgba(15,28,51,0.90) 100%),
-        url('hero-railway.jpg');
+        url('hero-new.png');
     background-size: cover;
     background-position: center;
     text-align: left;
@@ -1242,109 +1243,6 @@ body.lightbox-open { overflow: hidden; }
 }
 .lightbox-close:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 /* ========================================
-   LEADERSHIP PROFILE SECTION
-======================================== */
-
-.leadership-section {
-    padding: 70px 20px;
-    background: #f5f7fa;
-}
-
-.leadership-card {
-    max-width: 1050px !important;
-    margin: 0 auto;
-    padding: 38px 50px;
-    display: flex;
-    align-items: center;
-    gap: 55px;
-    background: #ffffff;
-    border-radius: 20px;
-    border: 1px solid #e3e7ed;
-    box-shadow: 0 15px 40px rgba(15, 30, 50, 0.10);
-    grid-template-columns: 330px 1fr !important;
-}
-
-/* Profile Image */
-
-.leadership-image {
-    width: 290px !important;
-    height: 290px !important;
-    min-height: 290px !important;
-}
-
-.leadership-image img {
-    width: 260px;
-    height: 260px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 7px solid #f4f6f8;
-    box-shadow: 0 10px 30px rgba(15, 30, 50, 0.15);
-}
-
-/* Profile Content */
-
-.leadership-content {
-    flex: 1;
-}
-
-.leadership-content h2 {
-    margin: 0 0 8px;
-    color: #1d2f4a;
-    font-size: 32px;
-    line-height: 1.2;
-}
-
-.leadership-content .designation {
-    display: inline-block;
-    margin-bottom: 18px;
-    padding-bottom: 10px;
-    color: #b2760b;
-    font-size: 16px;
-    font-weight: 700;
-    border-bottom: 2px solid #f5a400;
-}
-
-.leadership-content p {
-    margin: 0;
-    max-width: 500px;
-    color: #5d6877;
-    font-size: 16px;
-    line-height: 1.8;
-}
-
-/* Mobile Responsive */
-
-@media (max-width: 768px) {
-
-    .leadership-section {
-        padding: 50px 15px;
-    }
-
-    .leadership-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 35px 25px;
-        gap: 25px;
-    }
-
-    .leadership-image {
-        flex: none;
-    }
-
-    .leadership-image img {
-        width: 210px;
-        height: 210px;
-    }
-
-    .leadership-content h2 {
-        font-size: 27px;
-    }
-
-    .leadership-content p {
-        margin: 0 auto;
-    }
-}
-/* ========================================
    FINAL PROJECTS SECTION FIX
 ======================================== */
 
@@ -1521,7 +1419,7 @@ body.lightbox-open { overflow: hidden; }
 }
 
 /* =========================================================
-   1. SERVICES – PROFESSIONAL CORPORATE DESIGN
+   1. SERVICES PROFESSIONAL CORPORATE DESIGN
    ========================================================= */
 
 .services-section,
@@ -1568,7 +1466,7 @@ body.lightbox-open { overflow: hidden; }
 }
 
 /* =========================================================
-   2. HOME PROJECTS – CLEAN PROFESSIONAL CAROUSEL
+   2. HOME PROJECTS â€“ CLEAN PROFESSIONAL CAROUSEL
    ========================================================= */
 
 .projects-section {
@@ -1690,7 +1588,7 @@ body.lightbox-open { overflow: hidden; }
 }
 
 /* =========================================================
-   3. GALLERY – PREMIUM CORPORATE ACCORDION
+   3. GALLERY â€“ PREMIUM CORPORATE ACCORDION
    ========================================================= */
 
 .gallery-section,
@@ -1741,7 +1639,7 @@ body.lightbox-open { overflow: hidden; }
 .gallery-grid {
     padding: 24px !important;
     display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 18px !important;
 }
 
@@ -1759,7 +1657,7 @@ body.lightbox-open { overflow: hidden; }
 }
 
 /* =========================================================
-   4. LEADERSHIP SECTION – CLEAN PROFESSIONAL LOOK
+   4. LEADERSHIP SECTION â€“ CLEAN PROFESSIONAL LOOK
    ========================================================= */
 
 .leadership-section {
@@ -3291,107 +3189,6 @@ body.lightbox-open { overflow: hidden; }
     margin-top: 20px;
 }
 
-/* ========================================
-   FINAL LEADERSHIP SECTION FIX
-======================================== */
-
-.leadership-section {
-    padding: 70px 30px !important;
-    background: #f5f7fa !important;
-    text-align: left !important;
-}
-
-.leader-card {
-    width: 100% !important;
-    max-width: 950px !important;
-    margin: 0 auto !important;
-    display: grid !important;
-    grid-template-columns: 320px 1fr !important;
-    align-items: center !important;
-    gap: 35px !important;
-    padding: 35px 45px !important;
-    background: #ffffff !important;
-    border: 1px solid #e1e6ec !important;
-    border-radius: 18px !important;
-    overflow: visible !important;
-    box-shadow: 0 15px 40px rgba(15, 30, 50, 0.10) !important;
-}
-
-.leader-image {
-    width: 280px !important;
-    height: 280px !important;
-    min-height: 280px !important;
-    margin: 0 auto !important;
-    border-radius: 50% !important;
-    overflow: hidden !important;
-    background: #e9edf2 !important;
-}
-
-.leader-image img {
-    width: 100% !important;
-    height: 100% !important;
-    display: block !important;
-    object-fit: cover !important;
-    object-position: center !important;
-}
-
-.leader-info {
-    padding: 0 !important;
-}
-
-.leader-info h3 {
-    margin: 0 0 8px !important;
-    color: #0b2340 !important;
-    font-size: 32px !important;
-    line-height: 1.2 !important;
-}
-
-.leader-info span {
-    display: inline-block !important;
-    margin: 0 0 18px !important;
-    padding-bottom: 10px !important;
-    color: #b88925 !important;
-    font-size: 16px !important;
-    font-weight: 700 !important;
-    border-bottom: 2px solid #f5a400 !important;
-}
-
-.leader-info p {
-    margin: 0 !important;
-    color: #5d6775 !important;
-    font-size: 16px !important;
-    line-height: 1.8 !important;
-    max-width: 520px !important;
-}
-
-@media (max-width: 768px) {
-    .leadership-section {
-        padding: 55px 20px !important;
-    }
-
-    .leader-card {
-        grid-template-columns: 1fr !important;
-        gap: 28px !important;
-        padding: 30px 25px !important;
-        text-align: center !important;
-    }
-
-    .leader-image {
-        width: 220px !important;
-        height: 220px !important;
-        min-height: 220px !important;
-    }
-
-    .leader-info h3 {
-        font-size: 27px !important;
-    }
-
-    .leader-info p {
-        margin: 0 auto !important;
-    }
-}
-
-
 /* =========================================================
    MODERN LEADERSHIP SECTION - FINAL DESIGN
 ========================================================= */
@@ -3759,210 +3556,6 @@ body.lightbox-open { overflow: hidden; }
 }
 
 /* ========================================
-   ABOUT US - FINAL CLEAN DESIGN
-======================================== */
-
-.about-section {
-    max-width: none !important;
-    margin: 0 !important;
-    padding: 90px 30px !important;
-    background: #ffffff !important;
-}
-
-.about-grid {
-    max-width: 1250px !important;
-    margin: 0 auto !important;
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 70px !important;
-    align-items: center !important;
-}
-
-/* Images */
-
-.about-collage {
-    position: relative !important;
-    display: grid !important;
-    grid-template-columns: 1.25fr 0.9fr !important;
-    grid-template-rows: 190px 190px !important;
-    gap: 16px !important;
-    padding-bottom: 55px !important;
-}
-
-.about-collage .tall {
-    grid-row: 1 / 3 !important;
-    height: 396px !important;
-    border-radius: 14px !important;
-    overflow: hidden !important;
-}
-
-.about-collage .stack {
-    height: 190px !important;
-    border-radius: 14px !important;
-    overflow: hidden !important;
-}
-
-.about-collage img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    display: block !important;
-}
-
-/* Experience Box */
-
-.exp-badge {
-    position: absolute !important;
-    left: 20px !important;
-    bottom: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-    padding: 18px 22px !important;
-    background: #13243b !important;
-    color: #ffffff !important;
-    border-radius: 12px !important;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.18) !important;
-}
-
-.exp-badge i {
-    font-size: 26px !important;
-    color: #f2aa20 !important;
-}
-
-.exp-badge .num {
-    color: #ffffff !important;
-    font-size: 28px !important;
-    font-weight: 800 !important;
-}
-
-.exp-badge .lbl {
-    color: #d7dee7 !important;
-    font-size: 11px !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-}
-
-/* Content */
-
-.about-content {
-    max-width: 600px !important;
-}
-
-.about-content .eyebrow {
-    display: inline-block !important;
-    margin-bottom: 14px !important;
-    color: #c98a17 !important;
-    font-size: 13px !important;
-    font-weight: 800 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 1.5px !important;
-}
-
-.about-content h2 {
-    margin: 0 0 20px !important;
-    color: #13243b !important;
-    font-size: clamp(30px, 3vw, 44px) !important;
-    font-weight: 800 !important;
-    line-height: 1.25 !important;
-}
-
-.about-content > p {
-    margin: 0 0 28px !important;
-    color: #687586 !important;
-    font-size: 16px !important;
-    line-height: 1.8 !important;
-}
-
-/* Feature Points */
-
-.check-list {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 15px 22px !important;
-    margin: 0 0 32px !important;
-    padding: 0 !important;
-    list-style: none !important;
-}
-
-.check-list li {
-    display: flex !important;
-    align-items: flex-start !important;
-    gap: 9px !important;
-    color: #24364b !important;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    line-height: 1.5 !important;
-}
-
-.check-list i {
-    color: #d99a1a !important;
-    margin-top: 3px !important;
-}
-
-/* Button */
-
-.about-content .btn-navy {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-    padding: 14px 24px !important;
-    background: #13243b !important;
-    color: #ffffff !important;
-    border-radius: 7px !important;
-    text-decoration: none !important;
-    font-weight: 700 !important;
-}
-
-/* Responsive */
-
-@media (max-width: 900px) {
-
-    .about-grid {
-        grid-template-columns: 1fr !important;
-        gap: 60px !important;
-    }
-
-    .about-collage {
-        max-width: 650px !important;
-        margin: 0 auto !important;
-    }
-}
-
-@media (max-width: 600px) {
-
-    .about-section {
-        padding: 60px 20px !important;
-    }
-
-    .about-collage {
-        grid-template-columns: 1fr !important;
-        grid-template-rows: auto !important;
-        padding-bottom: 70px !important;
-    }
-
-    .about-collage .tall {
-        grid-row: auto !important;
-        height: 350px !important;
-    }
-
-    .about-collage .stack {
-        display: none !important;
-    }
-
-    .exp-badge {
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-    }
-
-    .check-list {
-        grid-template-columns: 1fr !important;
-    }
-}
-
-
-/* ========================================
    FINAL ABOUT US SECTION - ACTIVE DESIGN
 ======================================== */
 
@@ -4069,6 +3662,7 @@ body.lightbox-open { overflow: hidden; }
     line-height: 1.25 !important;
     color: #0b2340 !important;
     margin: 14px 0 22px !important;
+    text-align: justify;
 }
 
 .about-content > p {
@@ -4076,6 +3670,7 @@ body.lightbox-open { overflow: hidden; }
     font-size: 16px !important;
     line-height: 1.9 !important;
     margin-bottom: 30px !important;
+    text-align: justify;
 }
 
 /* FEATURE LIST */
@@ -4150,5 +3745,745 @@ body.lightbox-open { overflow: hidden; }
         transform: translateX(-50%) !important;
         width: max-content !important;
     }
+}
+
+
+/* FINAL SERVICES GRID LAYOUT */
+.services-showcase {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 45px 30px 90px !important;
+    box-sizing: border-box !important;
+    background: #f5f6f8;
+}
+
+.compact-services-grid {
+    width: 100% !important;
+    max-width: 1500px !important;
+    margin: 0 auto !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 24px !important;
+    box-sizing: border-box !important;
+}
+
+.compact-services-grid .service-card-v2 {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 28px 24px !important;
+    box-sizing: border-box !important;
+}
+
+.compact-services-grid .service-card-v2 h3 {
+    font-size: 1rem !important;
+    line-height: 1.35 !important;
+    margin: 0 34px 14px 0 !important;
+}
+
+.compact-services-grid .service-card-v2 p {
+    font-size: 0.86rem !important;
+    line-height: 1.6 !important;
+}
+
+.compact-services-grid .service-quote {
+    font-size: 0.84rem !important;
+    line-height: 1.55 !important;
+    margin: 0 0 16px !important;
+}
+
+.compact-services-grid .service-number {
+    top: 18px !important;
+    right: 20px !important;
+    font-size: 0.8rem !important;
+}
+
+@media (max-width: 1200px) {
+    .compact-services-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .services-showcase {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    .compact-services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .services-showcase {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    .compact-services-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+}
+
+/* FINAL SERVICE QUOTE STYLE */
+.compact-services-grid .service-quote {
+    display: block !important;
+    margin: 14px 0 18px !important;
+    padding: 14px 16px !important;
+    min-height: 0 !important;
+    border-left: 3px solid var(--gold) !important;
+    background: linear-gradient(135deg, #f8fafc 0%, #f3f6f9 100%) !important;
+    border-radius: 0 10px 10px 0 !important;
+    color: #34445a !important;
+    font-family: Georgia, "Times New Roman", serif !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    font-style: italic !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.01em !important;
+    text-align: left !important;
+}
+
+.compact-services-grid .service-quote::before {
+    content: "“" !important;
+    position: static !important;
+    margin-right: 4px !important;
+    font-family: Georgia, "Times New Roman", serif !important;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    color: var(--gold) !important;
+}
+
+.compact-services-grid .service-card-v2 > p:last-child {
+    margin-top: 0 !important;
+    line-height: 1.6 !important;
+}
+
+/* FINAL SERVICES PAGE SECTION FLOW */
+.industries-section {
+    background: #f5f6f8 !important;
+    padding: 70px 30px 55px !important;
+    margin: 0 !important;
+    border: 0 !important;
+}
+
+.industries-section .client-category-grid {
+    margin-bottom: 0 !important;
+}
+
+.service-process-section {
+    background: #f5f6f8 !important;
+    padding: 55px 30px 80px !important;
+    margin: 0 !important;
+    border: 0 !important;
+}
+
+.industries-section + .service-process-section {
+    margin-top: 0 !important;
+    padding-top: 45px !important;
+}
+
+.service-process-section .process-heading {
+    margin-top: 0 !important;
+}
+
+@media (max-width: 768px) {
+    .industries-section {
+        padding: 55px 20px 40px !important;
+    }
+
+    .service-process-section {
+        padding: 40px 20px 60px !important;
+    }
+
+    .industries-section + .service-process-section {
+        padding-top: 35px !important;
+    }
+}
+
+/* Premium How We Work Intro */
+.service-process-section .process-heading > p {
+    max-width: 760px !important;
+    margin: 22px auto 0 !important;
+    padding: 14px 24px !important;
+    border-left: 3px solid var(--gold) !important;
+    border-right: 3px solid var(--gold) !important;
+    background: linear-gradient(90deg, rgba(248,250,252,0.65), rgba(242,245,248,0.95), rgba(248,250,252,0.65)) !important;
+    border-radius: 10px !important;
+    color: #526174 !important;
+    font-family: Georgia, "Times New Roman", serif !important;
+    font-size: 1rem !important;
+    font-style: italic !important;
+    font-weight: 500 !important;
+    line-height: 1.7 !important;
+    letter-spacing: 0.01em !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+}
+
+@media (max-width: 600px) {
+    .service-process-section .process-heading > p {
+        padding: 12px 16px !important;
+        font-size: 0.92rem !important;
+        line-height: 1.6 !important;
+    }
+}
+
+/* =========================================
+   PREMIUM HOW WE WORK PROCESS CARDS
+   ========================================= */
+
+.service-process-section {
+    background: #f5f6f8 !important;
+}
+
+.modern-process-grid {
+    width: 100% !important;
+    max-width: 1500px !important;
+    margin: 45px auto 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 24px !important;
+}
+
+.modern-process-card {
+    position: relative !important;
+    width: 100% !important;
+    min-height: 285px !important;
+    padding: 30px 26px 28px !important;
+    background: #ffffff !important;
+    border: 1px solid #e3e8ee !important;
+    border-radius: 18px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    overflow: hidden !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+
+.modern-process-card::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 3px !important;
+    background: var(--gold) !important;
+    opacity: 0.9 !important;
+}
+
+.modern-process-card:hover {
+    transform: translateY(-6px) !important;
+    border-color: rgba(212, 148, 0, 0.35) !important;
+    box-shadow: 0 18px 38px rgba(15, 35, 60, 0.10) !important;
+}
+
+.modern-process-card .process-icon {
+    width: 54px !important;
+    height: 54px !important;
+    margin-bottom: 22px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    background: #172b4d !important;
+    color: var(--gold) !important;
+    font-size: 1.25rem !important;
+    box-shadow: 0 8px 18px rgba(15, 35, 60, 0.12) !important;
+}
+
+.modern-process-card > span {
+    position: absolute !important;
+    top: 25px !important;
+    right: 24px !important;
+    color: #dbe2ea !important;
+    font-size: 1.8rem !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    letter-spacing: 0.02em !important;
+}
+
+.modern-process-card h3 {
+    margin: 0 42px 14px 0 !important;
+    color: #172b4d !important;
+    font-size: 1.12rem !important;
+    line-height: 1.3 !important;
+    font-weight: 750 !important;
+}
+
+.modern-process-card p {
+    margin: 0 !important;
+    color: #607086 !important;
+    font-size: 0.88rem !important;
+    line-height: 1.72 !important;
+    letter-spacing: 0.005em !important;
+}
+
+.modern-process-card p::first-letter {
+    color: #42536a;
+}
+
+/* Process intro */
+.service-process-section .process-heading > p {
+    max-width: 760px !important;
+    margin: 22px auto 0 !important;
+    padding: 14px 24px !important;
+    border-left: 3px solid var(--gold) !important;
+    border-right: 3px solid var(--gold) !important;
+    background: linear-gradient(
+        90deg,
+        rgba(248,250,252,0.6),
+        rgba(242,245,248,0.95),
+        rgba(248,250,252,0.6)
+    ) !important;
+    border-radius: 10px !important;
+    color: #526174 !important;
+    font-family: Georgia, "Times New Roman", serif !important;
+    font-size: 1rem !important;
+    font-style: italic !important;
+    line-height: 1.7 !important;
+    text-align: center !important;
+}
+
+/* Tablet */
+@media (max-width: 1200px) {
+    .modern-process-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .service-process-section {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    .modern-process-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+
+    .modern-process-card {
+        min-height: 245px !important;
+        padding: 26px 22px !important;
+    }
+
+    .service-process-section .process-heading > p {
+        padding: 12px 16px !important;
+        font-size: 0.92rem !important;
+    }
+}
+
+/* =========================================
+   PREMIUM HOMEPAGE ABOUT SECTION
+   ========================================= */
+
+.about-section {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 95px 30px !important;
+    background: #f4f7fa !important;
+    box-sizing: border-box !important;
+}
+
+.about-grid {
+    width: 100% !important;
+    max-width: 1320px !important;
+    margin: 0 auto !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr) !important;
+    gap: 80px !important;
+    align-items: center !important;
+}
+
+.about-collage {
+    position: relative !important;
+    width: 100% !important;
+    min-height: 560px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px 20px 70px 10px !important;
+    box-sizing: border-box !important;
+}
+
+.about-collage .stack {
+    width: 100% !important;
+    max-width: 650px !important;
+    height: 500px !important;
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 26px !important;
+    background: #ffffff !important;
+    border: 10px solid #ffffff !important;
+    box-shadow: 0 24px 55px rgba(15, 35, 60, 0.16) !important;
+    transform: none !important;
+}
+
+.about-collage .stack::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(
+        180deg,
+        rgba(8, 20, 40, 0.02) 0%,
+        rgba(8, 20, 40, 0.10) 100%
+    ) !important;
+    pointer-events: none !important;
+}
+
+.about-collage .stack img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: 18px !important;
+}
+
+.about-collage .exp-badge {
+    position: absolute !important;
+    left: 0 !important;
+    bottom: 10px !important;
+    z-index: 5 !important;
+    min-width: 205px !important;
+    padding: 20px 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    background: #0d2747 !important;
+    color: #ffffff !important;
+    border-radius: 16px !important;
+    box-shadow: 0 18px 35px rgba(13, 39, 71, 0.25) !important;
+    border: 4px solid #f4f7fa !important;
+    box-sizing: border-box !important;
+}
+
+.about-collage .exp-badge i {
+    color: var(--gold) !important;
+    font-size: 1.7rem !important;
+}
+
+.about-collage .exp-badge .num {
+    color: #ffffff !important;
+    font-size: 2rem !important;
+    line-height: 1 !important;
+    font-weight: 800 !important;
+}
+
+.about-collage .exp-badge .lbl {
+    color: #ffffff !important;
+    font-size: 0.74rem !important;
+    line-height: 1.35 !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+}
+
+.about-content {
+    width: 100% !important;
+    max-width: 620px !important;
+    text-align: justify;
+}
+
+.about-content .eyebrow {
+    margin-bottom: 18px !important;
+}
+
+.about-content h2 {
+    margin: 0 0 26px !important;
+    color: #102b4d !important;
+    font-size: clamp(2rem, 3.5vw, 3.15rem) !important;
+    line-height: 1.12 !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.025em !important;
+}
+
+.about-content > p {
+    margin: 0 0 30px !important;
+    color: #5b6a7c !important;
+    font-size: 1rem !important;
+    line-height: 1.85 !important;
+    text-align: justify;
+}
+
+.about-content .check-list {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+}
+
+.about-content .check-list li {
+    min-height: 64px !important;
+    padding: 15px 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    background: #ffffff !important;
+    border: 1px solid #e1e7ee !important;
+    border-radius: 12px !important;
+    box-shadow: 0 7px 20px rgba(15, 35, 60, 0.05) !important;
+    box-sizing: border-box !important;
+    color: #243a56 !important;
+    font-size: 0.88rem !important;
+    line-height: 1.4 !important;
+}
+
+.about-content .check-list li i {
+    flex: 0 0 auto !important;
+    color: var(--gold) !important;
+}
+
+.about-content .btn-gold {
+    margin-top: 28px !important;
+}
+
+/* Tablet */
+@media (max-width: 1000px) {
+    .about-grid {
+        grid-template-columns: 1fr !important;
+        gap: 55px !important;
+    }
+
+    .about-collage {
+        min-height: 500px !important;
+        max-width: 750px !important;
+        margin: 0 auto !important;
+    }
+
+    .about-content {
+        max-width: 800px !important;
+        margin: 0 auto !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .about-section {
+        padding: 65px 18px !important;
+    }
+
+    .about-collage {
+        min-height: 390px !important;
+        padding: 5px 8px 55px 5px !important;
+    }
+
+    .about-collage .stack {
+        height: 340px !important;
+        border-width: 7px !important;
+        border-radius: 20px !important;
+    }
+
+    .about-collage .exp-badge {
+        left: 0 !important;
+        bottom: 0 !important;
+        min-width: 175px !important;
+        padding: 14px 16px !important;
+    }
+
+    .about-collage .exp-badge .num {
+        font-size: 1.55rem !important;
+    }
+
+    .about-content .check-list {
+        grid-template-columns: 1fr !important;
+    }
+
+    .about-content h2 {
+        font-size: 1.9rem !important;
+    }
+}
+
+/* =========================================
+   HOMEPAGE SERVICES — COMPACT PREMIUM
+   ========================================= */
+
+.homepage-featured-services {
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin: 35px auto 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 20px !important;
+}
+
+.homepage-featured-services .service-card-v2 {
+    min-height: 0 !important;
+    height: 270px !important;
+    padding: 24px 22px 20px !important;
+    border-radius: 16px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.homepage-featured-services .service-card-v2 .sc-icon {
+    width: 48px !important;
+    height: 48px !important;
+    margin-bottom: 15px !important;
+}
+
+.homepage-featured-services .service-card-v2 .sc-icon i {
+    font-size: 1.15rem !important;
+}
+
+.homepage-featured-services .service-card-v2 h3 {
+    font-size: 1rem !important;
+    line-height: 1.3 !important;
+    margin: 0 0 10px !important;
+}
+
+.homepage-featured-services .service-card-v2 p {
+    font-size: 0.82rem !important;
+    line-height: 1.55 !important;
+    margin: 0 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 4 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+.homepage-featured-services .service-card-v2 a {
+    margin-top: auto !important;
+    padding-top: 14px !important;
+    font-size: 0.84rem !important;
+    font-weight: 700 !important;
+}
+
+.homepage-services-cta {
+    margin-top: 24px !important;
+    text-align: center !important;
+}
+
+.homepage-services-cta .btn-gold {
+    padding: 12px 24px !important;
+    font-size: 0.88rem !important;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+    .homepage-featured-services {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .homepage-featured-services {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    .homepage-featured-services .service-card-v2 {
+        height: auto !important;
+        min-height: 230px !important;
+    }
+}
+
+/* WIDER HOMEPAGE SERVICES */
+.homepage-featured-services {
+    width: calc(100% - 60px) !important;
+    max-width: 1500px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+@media (max-width: 600px) {
+    .homepage-featured-services {
+        width: calc(100% - 28px) !important;
+    }
+}
+
+
+
+ /* FIX: ABOUT US TEXT SPACING */
+.about-content h2,
+.about-content h3,
+.about-content .section-title {
+    text-align: left !important;
+    word-spacing: normal !important;
+    letter-spacing: normal !important;
+}
+
+.about-content p {
+    word-spacing: normal !important;
+    letter-spacing: normal !important;
+}
+
+.about-content .feature-card,
+.about-content .about-feature,
+.about-content .about-features li {
+    text-align: left !important;
+    word-spacing: normal !important;
+    letter-spacing: normal !important;
+}
+
+.about-content .feature-card span,
+.about-content .about-feature span,
+.about-content .about-features li span {
+    text-align: left !important;
+}
+
+
+/* FINAL FIX - ABOUT US TEXT SPACING */
+.about-content h2,
+.about-content h3,
+.about-content .section-title,
+.about-content p,
+.about-content .feature-card,
+.about-content .about-feature,
+.about-content .about-features li,
+.about-content .feature-card span,
+.about-content .about-feature span,
+.about-content .about-features li span {
+    text-align: left !important;
+    word-spacing: normal !important;
+    letter-spacing: normal !important;
+}
+
+/* Keep About paragraph compact and natural */
+.about-content p {
+    line-height: 1.75 !important;
+    margin-bottom: 20px !important;
+}
+
+/* Remove artificial spacing in feature text */
+.about-content .feature-card span,
+.about-content .about-feature span,
+.about-content .about-features li span {
+    line-height: 1.35 !important;
+}
+
+
+/* FINAL FIX - ABOUT FEATURE CARD WORD SPACING */
+.about-content .feature-card,
+.about-content .feature-card *,
+.about-content .about-feature,
+.about-content .about-feature *,
+.about-content .about-features li,
+.about-content .about-features li * {
+    text-align: left !important;
+    word-spacing: normal !important;
+    letter-spacing: normal !important;
+}
+
+/* Keep feature text naturally wrapped */
+.about-content .feature-card span,
+.about-content .about-feature span,
+.about-content .about-features li span {
+    display: block !important;
+    width: auto !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    line-height: 1.35 !important;
 }
 

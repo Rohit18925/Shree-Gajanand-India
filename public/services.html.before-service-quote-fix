@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Our Services | Shree Gajanand India</title>
+  <meta content="Pan-India manpower, facility management, railway, construction, industrial, logistics and support services from Shree Gajanand India." name="description"/>
+  <link href="style.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+  <link href="/logo.png" rel="icon" type="image/png"/>
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="index.html">
+        <img alt="Shree Gajanand India logo" src="logo.png"/>
+        <span class="brand-text">
+          <strong>SHREE GAJANAND INDIA</strong>
+          <span>Pan-India Workforce, Facility &amp; Infrastructure Solutions</span>
+        </span>
+      </a>
+      <nav class="navbar" id="mainNav">
+        <ul>
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./about.html">About Us</a></li>
+          <li><a class="active" href="./services.html">Our Services</a></li>
+          <li><a href="./gallery.html">Gallery</a></li>
+          <li><a href="./client.html">Industries</a></li>
+          <li><a class="nav-cta" href="./contact.html">Contact Us</a></li>
+        </ul>
+      </nav>
+      <button aria-controls="mainNav" aria-expanded="false" aria-label="Toggle menu" class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <h1>Our Services</h1>
+      <p class="breadcrumb"><a href="./index.html">Home</a> / Our Services</p>
+    </div>
+  </div>
+
+  <section class="services-intro-section">
+    <div class="services-intro">
+      <div class="eyebrow">What We Offer</div>
+      <h2>Integrated Multi-Sector Business Solutions</h2>
+      <p>We provide professional services, project support, workforce solutions, infrastructure capabilities and allied business services for government, railway, PSU, industrial, institutional, commercial and private-sector clients.</p>
+    </div>
+  </section>
+
+  <section class="services-showcase">
+  <div class="services-grid-v2 compact-services-grid">
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-broom"></i></div>
+      <div class="service-number">01</div>
+      <h3>Mechanized Cleaning &amp; Sanitation</h3>
+      <p class="service-quote">Precision in every movement.<br>Care in every corner.<br>Consistency in every service.<br>Excellence in every environment.</p>
+      <p>Mechanized, specialized, industrial and general cleaning, sweeping, scrubbing, pressure washing, vacuum cleaning and sanitation services.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-building"></i></div>
+      <div class="service-number">02</div>
+      <h3>Housekeeping &amp; Facility Management</h3>
+      <p class="service-quote">Order creates efficiency.<br>Clean spaces inspire confidence.<br>Every detail reflects discipline.<br>Every facility deserves excellence.</p>
+      <p>Housekeeping, janitorial, sanitation, facility management, gardening, landscaping, laundry and facility-support services.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-shield-halved"></i></div>
+      <div class="service-number">03</div>
+      <h3>Security &amp; Watch and Ward</h3>
+      <p class="service-quote">Vigilance never takes a break.<br>Discipline builds confidence.<br>Responsibility strengthens trust.<br>Protection begins with professionalism.</p>
+      <p>Security, watch and ward, security guard and allied security-support services, subject to applicable statutory requirements.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-helmet-safety"></i></div>
+      <div class="service-number">04</div>
+      <h3>Construction &amp; Infrastructure Works</h3>
+      <p class="service-quote">Strong foundations build stronger futures.<br>Precision shapes every structure.<br>Quality defines every project.<br>Execution turns plans into reality.</p>
+      <p>Civil, structural and infrastructure works including roads, buildings, bridges, drains, sewerage and water-supply works.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-compass-drafting"></i></div>
+      <div class="service-number">05</div>
+      <h3>Specialized Construction &amp; Engineering</h3>
+      <p class="service-quote">Engineered with precision.<br>Built with discipline.<br>Executed with purpose.<br>Finished to perform.</p>
+      <p>Foundation, structural, steel erection, fabrication, roofing, waterproofing, scaffolding, demolition, renovation and restoration works.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-train"></i></div>
+      <div class="service-number">06</div>
+      <h3>Railway Related Works</h3>
+      <p class="service-quote">Precision supports every connection.<br>Discipline drives every operation.<br>Reliability strengthens every project.<br>Excellence keeps progress moving.</p>
+      <p>Railway civil, structural, maintenance, repair, renovation, fabrication, installation, painting, cleaning and facility-support works.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-headset"></i></div>
+      <div class="service-number">07</div>
+      <h3>Business Support &amp; Outsourcing</h3>
+      <p class="service-quote">Smart support creates stronger operations.<br>Organised processes improve performance.<br>Reliable coordination builds trust.<br>Business moves better with the right support.</p>
+      <p>Operational, administrative, project, procurement, documentation, back-office and outsourcing support services.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-people-group"></i></div>
+      <div class="service-number">08</div>
+      <h3>Manpower &amp; Workforce Support</h3>
+      <p class="service-quote">The right people create the difference.<br>The right skills strengthen execution.<br>The right discipline drives results.<br>The right workforce moves projects forward.</p>
+      <p>Skilled, semi-skilled and unskilled manpower, supervisors, operators, technicians and operational workforce support.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-gears"></i></div>
+      <div class="service-number">09</div>
+      <h3>Electrical, Mechanical &amp; Electromechanical Works</h3>
+      <p class="service-quote">Reliable systems begin with precision.<br>Engineering creates dependable performance.<br>Maintenance protects continuity.<br>Every connection matters.</p>
+      <p>Installation, repair, maintenance, testing and commissioning of electrical, mechanical and electromechanical systems and equipment.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-train-subway"></i></div>
+      <div class="service-number">10</div>
+      <h3>Railway Coach &amp; Equipment Activities</h3>
+      <p class="service-quote">Precision protects critical assets.<br>Quality supports safe performance.<br>Care extends operational value.<br>Every detail deserves attention.</p>
+      <p>Where legally and technically permissible, coach, wagon and railway equipment repair, refurbishment, painting, fabrication and allied works.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-industry"></i></div>
+      <div class="service-number">11</div>
+      <h3>Manufacturing, Fabrication &amp; Engineering Products</h3>
+      <p class="service-quote">Built with purpose.<br>Fabricated with precision.<br>Engineered for dependable use.<br>Quality remains the standard.</p>
+      <p>Manufacturing, fabrication, assembly and supply of engineering goods, structural products, metal products, machinery, tools and components.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-utensils"></i></div>
+      <div class="service-number">12</div>
+      <h3>Food Manufacturing, Processing &amp; Supply</h3>
+      <p class="service-quote">Quality begins with responsible processes.<br>Care defines every stage.<br>Consistency builds confidence.<br>Trust is delivered with every product.</p>
+      <p>Food manufacturing, processing, packaging, preservation, supply and distribution, subject to applicable licences and standards.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-layer-group"></i></div>
+      <div class="service-number">13</div>
+      <h3>Bricks &amp; Construction Materials</h3>
+      <p class="service-quote">Strong materials build strong foundations.<br>Consistency creates lasting value.<br>Quality supports every structure.<br>Strength begins with the right materials.</p>
+      <p>Bricks, fly-ash bricks, concrete blocks, paver blocks, tiles and other construction and building materials.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-recycle"></i></div>
+      <div class="service-number">14</div>
+      <h3>Waste Management &amp; Recycling</h3>
+      <p class="service-quote">Responsible handling creates sustainable value.<br>Every resource deserves thoughtful recovery.<br>Better processes reduce waste.<br>Progress should leave a cleaner future.</p>
+      <p>Collection, segregation, transportation, sorting, processing, recovery, recycling and lawful disposal of permissible waste.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-magnet"></i></div>
+      <div class="service-number">15</div>
+      <h3>Scrap &amp; Recyclable Material Business</h3>
+      <p class="service-quote">Recovery creates opportunity.<br>Responsible handling creates value.<br>Efficient sorting improves resources.<br>Recycling supports a circular future.</p>
+      <p>Purchase, collection, sorting, processing, dismantling, recycling, sale and supply of permissible recyclable and scrap materials.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-laptop-code"></i></div>
+      <div class="service-number">16</div>
+      <h3>Information Technology &amp; Digital Services</h3>
+      <p class="service-quote">Technology simplifies complexity.<br>Digital solutions connect possibilities.<br>Innovation strengthens operations.<br>Better systems move business forward.</p>
+      <p>Software, website and application development, data processing, digitization, automation, system integration and technical support.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-landmark"></i></div>
+      <div class="service-number">17</div>
+      <h3>Government, Railway &amp; PSU Contracts</h3>
+      <p class="service-quote">Professional execution earns confidence.<br>Compliance builds credibility.<br>Discipline strengthens delivery.<br>Trust grows through performance.</p>
+      <p>Government tenders, e-tenders, GeM procurement, railway, PSU, AMC, works, supply, turnkey and related lawful contracts.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+      <div class="service-number">18</div>
+      <h3>Supply, Procurement, Trading &amp; Distribution</h3>
+      <p class="service-quote">Reliable sourcing creates dependable supply.<br>Efficient procurement supports continuity.<br>Strong coordination reduces uncertainty.<br>Service ends with dependable delivery.</p>
+      <p>Procurement, supply, distribution and trading of materials, equipment, machinery, tools, safety goods and connected products.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-diagram-project"></i></div>
+      <div class="service-number">19</div>
+      <h3>Project Management, Maintenance &amp; Operations</h3>
+      <p class="service-quote">Every project begins with clarity.<br>Every stage demands discipline.<br>Every detail influences performance.<br>Every result reflects execution.</p>
+      <p>Project management, contract management, operational support, maintenance management, supervision and quality-control support.</p>
+    </div>
+
+    <div class="service-card-v2">
+      <div class="sc-icon"><i class="fa-solid fa-handshake"></i></div>
+      <div class="service-number">20</div>
+      <h3>Collaboration, Consortium, JV &amp; Subcontracting</h3>
+      <p class="service-quote">Strong partnerships expand capability.<br>Shared expertise creates stronger solutions.<br>Collaboration multiplies opportunity.<br>Success grows when strengths come together.</p>
+      <p>Joint ventures, consortiums, subcontracting, technical collaborations, strategic alliances and other lawful arrangements.</p>
+    </div>
+
+  </div>
+</section>
+<section class="inner-section industries-section">
+    <div class="section-head">
+      <div class="eyebrow">Industries We Serve</div>
+      <h2>Solutions Across Sectors</h2>
+      <p class="section-intro">We support government, railway, PSU, infrastructure, industrial, manufacturing, institutional, commercial and private-sector projects across India.</p>
+    </div>
+    <div class="client-category-grid">
+      <div class="client-category-card"><div class="client-icon"><i class="fa-solid fa-building-columns"></i></div><h3>Government Projects</h3><p class="industry-quote">Built around responsibility. Driven by discipline. Focused on compliance. Committed to dependable execution.</p></div>
+      <div class="client-category-card"><div class="client-icon"><i class="fa-solid fa-train"></i></div><h3>Railway &amp; Transportation</h3><p class="industry-quote">Where connectivity demands precision. Where operations demand discipline. Where reliability matters most. We support progress that keeps moving.</p></div>
+      <div class="client-category-card"><div class="client-icon"><i class="fa-solid fa-helmet-safety"></i></div><h3>Construction &amp; Infrastructure</h3><p class="industry-quote">Strong plans create strong foundations. Precision shapes every structure. Quality strengthens every project. Execution brings vision to life.</p></div>
+      <div class="client-category-card"><div class="client-icon"><i class="fa-solid fa-industry"></i></div><h3>Manufacturing &amp; Industrial</h3><p class="industry-quote">Efficiency powers production. Precision strengthens performance. Quality creates consistency. Reliability drives industry forward.</p></div>
+      <div class="client-category-card"><div class="client-icon"><i class="fa-solid fa-warehouse"></i></div><h3>Warehousing &amp; Logistics</h3><p class="industry-quote">Every movement has a purpose. Every process needs precision. Every delivery depends on coordination. Every operation deserves reliability.</p></div>
+      <div class="client-category-card"><div class="client-icon"><i class="fa-solid fa-building"></i></div><h3>Commercial &amp; Institutional</h3><p class="industry-quote">Professional spaces create confidence. Efficient operations create value. Consistent service creates trust. Every detail contributes to excellence.</p></div>
+      <div class="client-category-card"><div class="client-icon"><i class="fa-solid fa-handshake"></i></div><h3>Private Enterprises</h3><p class="industry-quote">Every business has a different journey. Every requirement deserves attention. Every partnership should create value. Every solution should move business forward.</p></div>
+    </div>
+  </section>
+
+  <section class="service-process-section">
+    <div class="process-heading">
+      <div class="eyebrow">How We Work</div>
+      <h2>A Simple Process From Requirement to Execution</h2>
+      <p>We follow a clear and organised approach for every project.</p>
+    </div>
+    <div class="modern-process-grid">
+      <div class="modern-process-card"><div class="process-icon"><i class="fa-solid fa-comments"></i></div><span>01</span><h3>Requirement</h3><p>We understand your scope of work, location, timeline and service requirements before proposing a solution.</p></div>
+      <div class="modern-process-card"><div class="process-icon"><i class="fa-solid fa-clipboard-check"></i></div><span>02</span><h3>Planning</h3><p>We plan the manpower, supervision and site-support requirements for organised execution.</p></div>
+      <div class="modern-process-card"><div class="process-icon"><i class="fa-solid fa-people-group"></i></div><span>03</span><h3>Deployment</h3><p>Our team coordinates workforce and site resources according to the agreed project plan.</p></div>
+      <div class="modern-process-card"><div class="process-icon"><i class="fa-solid fa-chart-line"></i></div><span>04</span><h3>Execution</h3><p>We monitor work, maintain communication and focus on quality, discipline and timely delivery.</p></div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2>Have a project or service requirement?</h2>
+    <p>Send us your details and we will respond with a tailored proposal.</p>
+    <a class="cta-btn" href="contact.html">Request a Quote</a>
+  </section>
+  <footer class="main-footer"><p>&copy; 2026 Shree Gajanand India. All Rights Reserved. | Pan-India Workforce, Facility &amp; Infrastructure Solutions &bull; Emadpur, Patepur, Vaishali, Bihar &ndash; 843114</p></footer>
+  <a aria-label="Chat on WhatsApp" class="whatsapp-float" href="https://wa.me/919821943101" rel="noopener" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+  <script defer="" src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
