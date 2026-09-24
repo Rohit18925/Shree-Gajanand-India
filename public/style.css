@@ -3384,6 +3384,11 @@ body.lightbox-open { overflow: hidden; }
     font-size: 24px;
     margin-top: 2px;
 }
+.quote-text::after {
+    content: "”";
+    color: #e9a400;
+    font-size: 24px;
+}
 
 .quote-text p {
     margin: 0;
