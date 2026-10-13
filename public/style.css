@@ -1137,7 +1137,6 @@ video {
 .gallery-section {
     margin-bottom: 20px;
     background-color: var(--grey-bg);
-    border: 1px solid var(--grey-border);
     border-radius: 8px;
     overflow: hidden;
     transition: all 0.3s ease;
