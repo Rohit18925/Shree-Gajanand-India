@@ -1,4 +1,25 @@
-﻿
+/*
+STYLE.CSS — MAINTENANCE GUIDE
+=============================
+This file is split into numbered sections for easier maintenance.
+
+01–05  Global foundation, navigation and floating contact button
+06–07  About and services sections
+08–10  Homepage projects, statistics, video, CTA and footer
+11–15  Inner pages, content components and contact form
+16–18  Responsive base, legacy gallery, lightbox and image viewer
+19–22  Existing homepage, shared-layout and industries overrides
+23     Project Location Gallery base styles
+24–32  Leadership, service-page, industries, responsive and text fixes
+33     Final Project Gallery fix (new equal-size gallery layout)
+
+IMPORTANT:
+- CSS rules have intentionally NOT been reordered; later rules override earlier ones.
+- Keep the final project-gallery fix at the bottom so it overrides older gallery styles.
+- Gallery photos use a consistent 4:3 frame; object-fit: cover crops images evenly.
+- If a dashed border remains, check the browser cache and any inline styles in gallery.html.
+*/
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
@@ -18,6 +39,12 @@
 }
 
 * { box-sizing: border-box; }
+
+
+/* =====================================================================
+   01. GLOBAL RESET, TYPOGRAPHY & THEME VARIABLES
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
 
 body, html {
     margin: 0;
@@ -58,6 +85,12 @@ img { max-width: 100%; display: block; }
     border-radius: 2px;
 }
 
+
+
+/* =====================================================================
+   02. SITE HEADER, BRANDING & NAVIGATION
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
 
 .site-header {
     position: sticky;
@@ -175,6 +208,12 @@ img { max-width: 100%; display: block; }
 }
 
 
+
+/* =====================================================================
+   03. HOMEPAGE HERO & PRIMARY BUTTONS
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 .hero {
     position: relative;
     background-image:
@@ -269,6 +308,12 @@ img { max-width: 100%; display: block; }
 }
 
 
+
+/* =====================================================================
+   04. TRUST STRIP
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 .trust-strip {
     background-color: var(--navy);
     border-top: 1px solid rgba(255,255,255,0.06);
@@ -309,6 +354,12 @@ img { max-width: 100%; display: block; }
 }
 
 
+
+/* =====================================================================
+   05. FLOATING WHATSAPP BUTTON
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 .whatsapp-float {
     position: fixed;
     bottom: 26px;
@@ -332,6 +383,12 @@ img { max-width: 100%; display: block; }
     transform: scale(1.08);
 }
 
+
+
+/* =====================================================================
+   06. ABOUT SECTION
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
 
 .about-section {
     padding: 90px 30px;
@@ -474,6 +531,12 @@ img { max-width: 100%; display: block; }
 }
 
 
+
+/* =====================================================================
+   07. SERVICES SECTION
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 .services-section {
     background-color: var(--grey-bg);
     padding: 90px 30px;
@@ -576,6 +639,12 @@ img { max-width: 100%; display: block; }
 }
 
 
+
+/* =====================================================================
+   08. HOMEPAGE PROJECTS — INITIAL LAYOUT
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 /* =========================
    Projects Section Fix
 ========================= */
@@ -671,6 +740,12 @@ img { max-width: 100%; display: block; }
 }
 
 
+
+/* =====================================================================
+   09. STATISTICS, VIDEO & CALL-TO-ACTION
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 .stats-section {
     background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
     padding: 55px 30px;
@@ -747,6 +822,12 @@ video {
 .section-cta { margin-top: 45px; text-align: center; }
 
 
+
+/* =====================================================================
+   10. FOOTER
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 .main-footer {
     background-color: var(--navy-dark);
     color: rgba(255,255,255,0.5);
@@ -757,6 +838,12 @@ video {
     border-top: 1px solid rgba(255,255,255,0.06);
 }
 
+
+
+/* =====================================================================
+   11. INNER-PAGE HERO / BREADCRUMBS
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
 
 .page-hero {
     background-color: var(--navy-dark);
@@ -788,6 +875,12 @@ video {
 .page-hero .breadcrumb a:hover { text-decoration: underline; }
 
 
+
+/* =====================================================================
+   12. INNER-PAGE CONTENT SECTIONS
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 .inner-section { padding: 90px 30px; background-color: var(--white); max-width: 1300px; margin: 0 auto; }
 .inner-section.alt { background-color: var(--grey-bg); max-width: 100%; }
 .inner-section.alt > * { max-width: 1300px; margin-left: auto; margin-right: auto; }
@@ -809,6 +902,12 @@ video {
     line-height: 1.7;
 }
 
+
+
+/* =====================================================================
+   13. MISSION, VISION & WHY-CHOOSE-US
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
 
 .mission-vision {
     display: grid;
@@ -872,6 +971,12 @@ video {
 .founder-note .quote-author { font-weight: 700; color: var(--gold-deep); }
 
 
+
+/* =====================================================================
+   14. SERVICE DETAIL & PROCESS COMPONENTS
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 .service-detail-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -926,6 +1031,12 @@ video {
 .process-step h4 { color: var(--navy-text); margin: 0 0 8px 0; font-size: 1.02rem; }
 .process-step p { color: var(--grey-text); font-size: 0.88rem; line-height: 1.6; margin: 0; }
 
+
+
+/* =====================================================================
+   15. CONTACT INFORMATION & CONTACT FORM
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
 
 .contact-grid {
     display: grid;
@@ -1077,6 +1188,12 @@ video {
 .contact-note { font-size: 0.84rem; color: var(--grey-text); margin-top: 14px; font-style: italic; }
 
 
+
+/* =====================================================================
+   16. GLOBAL RESPONSIVE RULES — ORIGINAL BASE
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 @media (max-width: 980px) {
     .services-grid-v2 { grid-template-columns: repeat(3, 1fr); }
     .projects-grid { grid-template-columns: 1fr; }
@@ -1123,6 +1240,12 @@ video {
     .nav-cta { padding: 11px 16px !important; }
 }
 
+
+
+/* =====================================================================
+   17. LEGACY / ACCORDION GALLERY STYLES
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
 
 .gallery-wrapper {
     max-width: 1300px;
@@ -1193,6 +1316,12 @@ video {
 
 
 
+
+/* =====================================================================
+   18. HONEYPOT, LIGHTBOX & IMAGE VIEWER
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 .hp-field {
     position: absolute !important;
     width: 1px !important;
@@ -1241,6 +1370,12 @@ body.lightbox-open { overflow: hidden; }
     cursor: pointer;
 }
 .lightbox-close:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+/* =====================================================================
+   19. HOMEPAGE PROJECT CAROUSEL — OVERRIDES
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 /* ========================================
    FINAL PROJECTS SECTION FIX
 ======================================== */
@@ -1400,6 +1535,12 @@ body.lightbox-open { overflow: hidden; }
         height: 200px !important;
     }
 }
+
+/* =====================================================================
+   20. SHARED BUSINESS-WEBSITE OVERRIDES
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 /* =========================================================
    FINAL PROFESSIONAL BUSINESS WEBSITE DESIGN OVERRIDE
    ========================================================= */
@@ -1762,6 +1903,12 @@ body.lightbox-open { overflow: hidden; }
 }
 
 
+
+/* =====================================================================
+   21. SHARED SECTION SPACING & PAGE LAYOUT REFINEMENTS
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 /* =========================================
    HOMEPAGE PROFESSIONAL CONSISTENCY UPDATE
 ========================================= */
@@ -2026,6 +2173,12 @@ body.lightbox-open { overflow: hidden; }
 /* ========================================
    CLIENT PAGE REDESIGN
 ======================================== */
+
+
+/* =====================================================================
+   22. CLIENT / INDUSTRIES PAGE
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
 
 .client-intro-section {
     padding-bottom: 100px;
@@ -3038,6 +3191,12 @@ body.lightbox-open { overflow: hidden; }
         grid-column: auto;
     }
 }
+
+/* =====================================================================
+   23. PROJECT LOCATION GALLERY — BASE STYLES
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 /* ========================================
    PROJECT LOCATION GALLERY
 ======================================== */
@@ -3187,6 +3346,12 @@ body.lightbox-open { overflow: hidden; }
 .service-card-v2 .read-more {
     margin-top: 20px;
 }
+
+
+/* =====================================================================
+   24. LEADERSHIP SECTION — DESIGN OVERRIDES
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
 
 /* =========================================================
    MODERN LEADERSHIP SECTION - FINAL DESIGN
@@ -3554,6 +3719,12 @@ body.lightbox-open { overflow: hidden; }
     }
 }
 
+
+/* =====================================================================
+   25. ADDITIONAL PAGE / COMPONENT REFINEMENTS
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 /* ========================================
    FINAL ABOUT US SECTION - ACTIVE DESIGN
 ======================================== */
@@ -3747,6 +3918,12 @@ body.lightbox-open { overflow: hidden; }
 }
 
 
+
+/* =====================================================================
+   26. FINAL SERVICES PAGE LAYOUT
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 /* FINAL SERVICES GRID LAYOUT */
 .services-showcase {
     width: 100% !important;
@@ -3862,6 +4039,12 @@ body.lightbox-open { overflow: hidden; }
     margin-top: 0 !important;
     line-height: 1.6 !important;
 }
+
+
+/* =====================================================================
+   27. INDUSTRIES PAGE FLOW
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
 
 /* FINAL SERVICES PAGE SECTION FLOW */
 .industries-section {
@@ -4080,6 +4263,12 @@ body.lightbox-open { overflow: hidden; }
     }
 }
 
+
+/* =====================================================================
+   28. ADDITIONAL RESPONSIVE LAYOUTS
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 /* =========================================
    PREMIUM HOMEPAGE ABOUT SECTION
    ========================================= */
@@ -4246,6 +4435,12 @@ body.lightbox-open { overflow: hidden; }
     margin-top: 28px !important;
 }
 
+
+/* =====================================================================
+   29. RESPONSIVE OVERRIDES — TABLET
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 /* Tablet */
 @media (max-width: 1000px) {
     .about-grid {
@@ -4301,6 +4496,12 @@ body.lightbox-open { overflow: hidden; }
         font-size: 1.9rem !important;
     }
 }
+
+
+/* =====================================================================
+   30. RESPONSIVE OVERRIDES — MOBILE
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
 
 /* =========================================
    HOMEPAGE SERVICES — COMPACT PREMIUM
@@ -4388,6 +4589,12 @@ body.lightbox-open { overflow: hidden; }
     }
 }
 
+
+/* =====================================================================
+   31. HOMEPAGE SERVICES WIDTH FIX
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
+
 /* WIDER HOMEPAGE SERVICES */
 .homepage-featured-services {
     width: calc(100% - 60px) !important;
@@ -4403,6 +4610,12 @@ body.lightbox-open { overflow: hidden; }
 }
 
 
+
+
+/* =====================================================================
+   32. ABOUT PAGE TEXT-SPACING FIXES
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
 
  /* FIX: ABOUT US TEXT SPACING */
 .about-content h2,
@@ -4485,6 +4698,12 @@ body.lightbox-open { overflow: hidden; }
     white-space: normal !important;
     line-height: 1.35 !important;
 }
+
+
+/* =====================================================================
+   33. FINAL PROJECT GALLERY FIX — KEEP THIS SECTION AT THE END
+   NOTE: Rules remain in their original order to preserve CSS overrides.
+===================================================================== */
 
 /* ===== Professional Project Gallery ===== */
 
@@ -4609,5 +4828,3 @@ body.lightbox-open { overflow: hidden; }
         aspect-ratio: 4 / 3;
     }
 }
-
-
