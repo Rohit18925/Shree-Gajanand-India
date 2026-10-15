@@ -4922,14 +4922,14 @@ body.lightbox-open {
 }
 
 /* मुख्य ग्रिड रैपर - जो पुराने लेआउट को तोड़कर अब पूरी चौड़ाई घेरेगा */
-.project-gallery-section .project-photo-grid.preview-grid-mode {
+.gallery-project-group .project-photo-grid.preview-grid-mode {
     display: grid !important;
     grid-template-columns: 1.6fr 1fr !important; /* बाईं तरफ बड़ा हिस्सा, दाहिनी तरफ छोटा */
     grid-template-rows: 155px 155px !important;   /* दोनों छोटी तस्वीरों की फिक्स हाइट */
     gap: 15px !important;
     width: 100% !important;                       /* पूरे सफेद डिब्बे को आपस में भर देगा */
     max-width: 100% !important;                  /* डिब्बे को फैलने की पूरी आज़ादी */
-    margin: 25px 0 35px 0 !important;
+    margin: 25px 0 10px 0 !important;
     float: none !important;
     clear: both !important;
 }
@@ -4945,6 +4945,9 @@ body.lightbox-open {
     padding: 0 !important;
     width: 100% !important;
     height: 100% !important;
+    border: none !important; /* पुराना डैश्ड बॉर्डर हटाएगा */
+    aspect-ratio: auto !important;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08) !important;
 }
 
 /* ग्रिड पोजीशनिंग (कौन सी फोटो कहाँ सेट होगी) */
@@ -4969,6 +4972,7 @@ body.lightbox-open {
     display: block !important;
     max-width: 100% !important;
     max-height: 100% !important;
+    border-radius: inherit !important;
     transition: transform 0.4s ease !important;
 }
 
@@ -5008,7 +5012,7 @@ body.lightbox-open {
 
 /* मोबाइल और छोटी स्क्रीन्स के लिए (100% रिस्पॉन्सिव लेआउट) */
 @media (max-width: 600px) {
-    .project-gallery-section .project-photo-grid.preview-grid-mode {
+    .gallery-project-group .project-photo-grid.preview-grid-mode {
         grid-template-columns: 1fr !important;
         grid-template-rows: 220px 130px 130px !important;
     }
