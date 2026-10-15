@@ -4913,24 +4913,42 @@ body.lightbox-open {
     }
 }
 /* =====================================================================
-   34. DARBHANGA HORIZONTAL SINGLE-LINE PHOTO ROW SYSTEM
+   34. FINAL 3-PHOTO PREVIEW CAROUSEL SYSTEM & HEADINGS FIX
 ===================================================================== */
 
-/* स्टेशनों के डिब्बों को एक के नीचे एक पूरा फैलने की आज़ादी देना */
-.project-gallery-section .gallery-container,
-.project-gallery-section .gallery-container > div:not(.gallery-header) {
+/* 1. मुख्य हेडिंग्स को डिस्टर्ब होने से रोकना (वापस डिफ़ॉल्ट सेंटर और सुंदर स्पेसिंग में लाना) */
+.gallery-wrapper {
     display: block !important;
     width: 100% !important;
-    max-width: 100% !important;
-    float: none !important;
+    max-width: 1300px !important;
+    margin: 0 auto !important;
+    padding: 80px 30px !important;
 }
 
-/* सफ़ेद बैकग्राउंड वाला मुख्य स्टेशन कार्ड */
+.gallery-main-title {
+    text-align: center !important;
+    margin-bottom: 50px !important;
+    width: 100% !important;
+}
+
+.gallery-header {
+    text-align: left !important; /* अगर आपकी यह हेडिंग बाईं तरफ थी, तो यह उसे परफेक्ट सेट रखेगी */
+    max-width: 750px !important;
+    margin-bottom: 45px !important;
+    display: block !important;
+}
+
+/* 2. केवल और केवल स्टेशनों के सफ़ेद ग्रुप डिब्बों को एक के नीचे एक फुल-विड्थ में लाना */
+.project-gallery-section .gallery-container {
+    display: block !important;
+    width: 100% !important;
+}
+
 .gallery-project-group {
     display: block !important;
     width: 100% !important;
-    max-width: 1100px !important;
-    margin: 0 auto 40px auto !important;
+    max-width: 1100px !important; /* सफ़ेद कार्ड की परफेक्ट चौड़ाई */
+    margin: 0 auto 40px auto !important; /* हर स्टेशन कार्ड के नीचे सुंदर गैप */
     padding: 30px !important;
     background: #ffffff !important;
     border-radius: 16px !important;
@@ -4938,7 +4956,7 @@ body.lightbox-open {
     box-sizing: border-box !important;
 }
 
-/* हेडिंग और लेबल लाइन */
+/* 3. स्टेशन नाम और लेबल की हेडिंग लाइन */
 .gallery-project-title {
     display: flex !important;
     justify-content: space-between !important;
@@ -4949,16 +4967,16 @@ body.lightbox-open {
     width: 100% !important;
 }
 
-/* छिपी हुई एक्स्ट्रा तस्वीरों को हाइड रखना */
+/* 4. छिपी हुई तस्वीरों को बैकग्राउंड में हाइड रखना */
 .preview-grid-mode .hidden-photos {
     display: none !important;
 }
 
-/* नया 3-इमेज सिंगल लाइन ग्रिड (Horizontal Layout) */
+/* 5. 3-Photo हॉरिजॉन्टल सिंगल-लाइन ग्रिड */
 .gallery-project-group .project-photo-grid.preview-grid-mode {
     display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important; /* तीनों तस्वीरें एक ही लाइन में बराबर चौड़ाई की */
-    grid-template-rows: 200px !important;              /* सभी तस्वीरों की एक समान फिक्स हाइट */
+    grid-template-columns: repeat(3, 1fr) !important; /* तीनों फोटो एक सीधी लाइन में */
+    grid-template-rows: 200px !important;              /* फोटो की एक समान हाइट */
     gap: 15px !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -4966,7 +4984,7 @@ body.lightbox-open {
     clear: both !important;
 }
 
-/* थंबनेल कवर्स की सेटिंग */
+/* थंबनेल कवर्स की सेटिंग्स */
 .preview-grid-mode .photo-placeholder.main-cover {
     position: relative !important;
     cursor: pointer !important;
@@ -4982,21 +5000,9 @@ body.lightbox-open {
     box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06) !important;
 }
 
-/* पहली और दूसरी फोटो की ग्रिड सेटिंग्स (नॉर्मल एक लाइन में) */
-.preview-grid-mode .preview-first {
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-}
-.preview-grid-mode .preview-second {
-    grid-column: 2 !important;
-    grid-row: 1 !important;
-}
-
-/* तीसरी फोटो (इसके ऊपर प्लस ओवरले हमेशा दिखेगा) */
-.preview-grid-mode .preview-third {
-    grid-column: 3 !important;
-    grid-row: 1 !important;
-}
+.preview-grid-mode .preview-first { grid-column: 1 !important; grid-row: 1 !important; }
+.preview-grid-mode .preview-second { grid-column: 2 !important; grid-row: 1 !important; }
+.preview-grid-mode .preview-third { grid-column: 3 !important; grid-row: 1 !important; }
 
 /* तस्वीरों को बिना खींचे डिब्बे में परफेक्ट क्रॉप करके फिट करना */
 .preview-grid-mode .photo-placeholder.main-cover img {
@@ -5008,7 +5014,7 @@ body.lightbox-open {
     transition: transform 0.4s ease !important;
 }
 
-/* तीसरी फोटो के ऊपर दिखने वाला डार्क प्लस (+) ओवरले */
+/* प्लस (+) ओवरले डिज़ाइन */
 .preview-grid-mode .preview-third .gallery-overlay {
     position: absolute !important;
     inset: 0 !important;
@@ -5019,43 +5025,33 @@ body.lightbox-open {
     align-items: center !important;
     color: #ffffff !important;
     opacity: 1 !important;
-    transition: background 0.3s ease !important;
 }
 
 .preview-grid-mode .preview-third .gallery-overlay i {
     font-size: 2.2rem !important;
-    color: #f1a30b !important; /* आपका ब्रांड थीम गोल्ड कलर */
+    color: #f1a30b !important;
     margin-bottom: 6px !important;
 }
 
 .preview-grid-mode .preview-third .gallery-overlay span {
     font-size: 0.95rem !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.5px !important;
+    font-weight: 600;
 }
 
-/* होवर इफ़ेक्ट */
 .preview-grid-mode .photo-placeholder.main-cover:hover img {
     transform: scale(1.04) !important;
 }
-.preview-grid-mode .preview-third:hover .gallery-overlay {
-    background: rgba(8, 18, 34, 0.55) !important;
-}
 
-/* मोबाइल और छोटी स्क्रीन्स के लिए (रिस्पॉन्सिव) */
+/* मोबाइल रिस्पॉन्सिव */
 @media (max-width: 768px) {
-    .gallery-project-group {
-        padding: 20px !important;
-    }
-    .gallery-project-title {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-    }
+    .gallery-project-group { padding: 20px !important; }
+    .gallery-project-title { flex-direction: column !important; align-items: flex-start !important; }
     .gallery-project-group .project-photo-grid.preview-grid-mode {
-        grid-template-columns: 1fr !important; /* मोबाइल पर जगह कम होने से एक के नीचे एक हो जाएंगी */
+        grid-template-columns: 1fr !important;
         grid-template-rows: repeat(3, 160px) !important;
     }
     .preview-grid-mode .preview-first { grid-column: 1 !important; grid-row: 1 !important; }
     .preview-grid-mode .preview-second { grid-column: 1 !important; grid-row: 2 !important; }
-    .preview-grid-mode .preview-third { grid-column: 1 !important; grid-column: 1 !important; grid-row: 3 !important; }
+    .preview-grid-mode .preview-third { grid-column: 1 !important; grid-row: 3 !important; }
 }
+
