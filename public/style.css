@@ -4932,7 +4932,7 @@ body.lightbox-open {
 }
 
 .gallery-header {
-    text-align: left !important; /* अगर आपकी यह हेडिंग बाईं तरफ थी, तो यह उसे परफेक्ट सेट रखेगी */
+    text-align: center !important; /* अगर आपकी यह हेडिंग बाईं तरफ थी, तो यह उसे परफेक्ट सेट रखेगी */
     max-width: 750px !important;
     margin-bottom: 45px !important;
     display: block !important;
