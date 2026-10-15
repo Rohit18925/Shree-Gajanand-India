@@ -4849,3 +4849,52 @@ body.lightbox-open {
         aspect-ratio: 4 / 3;
     }
 }
+/* बाकी सभी तस्वीरों को छुपाने के लिए ताकि वे जगह न लें */
+.hidden-photos {
+    display: none !important;
+}
+
+/* मुख्य कवर फोटो का बॉक्स */
+.photo-placeholder.main-cover {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 8px;
+    max-width: 320px; /* आप अपने हिसाब से चौड़ाई सेट कर सकते हैं */
+    margin: 0 auto;
+}
+
+.photo-placeholder.main-cover img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* होवर करने पर प्लस (+) वाला इफ़ेक्ट */
+.gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 10, 20, 0.6); /* हल्का डार्क शेड */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-overlay i {
+    font-size: 2rem;
+    color: var(--gold, #f1a30b);
+    margin-bottom: 8px;
+}
+
+.photo-placeholder.main-cover:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.photo-placeholder.main-cover:hover img {
+    transform: scale(1.05);
+}
+
