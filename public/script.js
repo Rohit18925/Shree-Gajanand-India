@@ -133,3 +133,70 @@ document.addEventListener("DOMContentLoaded", function() {
         if (href === currentPath) link.classList.add("active");
     });
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const lightbox = document.getElementById("gallery-lightbox");
+    const lightboxImg = document.getElementById("lightbox-full-img");
+    const closeBtn = document.querySelector(".lightbox-close");
+    const prevBtn = document.querySelector(".lightbox-prev");
+    const nextBtn = document.querySelector(".lightbox-next");
+
+    let projectImages = [];
+    let currentIndex = 0;
+
+    // जब किसी प्रोजेक्ट के कवर पर क्लिक किया जाए
+    document.querySelectorAll(".main-cover").forEach(cover => {
+        cover.addEventListener("click", function () {
+            // उस पर्टिकुलर प्रोजेक्ट ग्रिड की सभी तस्वीरों को ढूंढना (दिखने वाली + छिपी हुई)
+            const parentGrid = this.closest(".project-photo-grid");
+            const mainImg = this.querySelector("img");
+            const hiddenImgs = parentGrid.querySelectorAll(".hidden-photos img");
+
+            // ऐरे को खाली करके नए प्रोजेक्ट की सभी फोटो डालना
+            projectImages = [mainImg, ...Array.from(hiddenImgs)];
+            
+            // लाइटबॉक्स खोलकर पहली फोटो दिखाना
+            openLightbox(0);
+        });
+    });
+
+    function openLightbox(index) {
+        currentIndex = index;
+        lightboxImg.src = projectImages[currentIndex].src;
+        lightbox.classList.add("open");
+        document.body.classList.add("lightbox-open");
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove("open");
+        document.body.classList.remove("lightbox-open");
+    }
+
+    // नेक्स्ट बटन लॉजिक
+    nextBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (projectImages.length === 0) return;
+        currentIndex = (currentIndex + 1) % projectImages.length;
+        lightboxImg.src = projectImages[currentIndex].src;
+    });
+
+    // प्रीवियस बटन लॉजिक
+    prevBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (projectImages.length === 0) return;
+        currentIndex = (currentIndex - 1 + projectImages.length) % projectImages.length;
+        lightboxImg.src = projectImages[currentIndex].src;
+    });
+
+    closeBtn.addEventListener("click", closeLightbox);
+    
+    lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (!lightbox.classList.contains("open")) return;
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowRight") nextBtn.click();
+        if (e.key === "ArrowLeft") prevBtn.click();
+    });
+});
