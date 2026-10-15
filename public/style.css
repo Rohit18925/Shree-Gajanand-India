@@ -4931,12 +4931,44 @@ body.lightbox-open {
     width: 100% !important;
 }
 
+/* =====================================================================
+   GALLERY HEADER COMPLETELY CENTERED FIX
+===================================================================== */
 .gallery-header {
-    text-align: center !important; /* अगर आपकी यह हेडिंग बाईं तरफ थी, तो यह उसे परफेक्ट सेट रखेगी */
-    max-width: 800px !important;
-    margin-bottom: 0 auto 50px auto !important;
     display: block !important;
+    text-align: center !important;     /* मुख्य डिब्बे को सेंटर करेगा */
+    width: 100% !important;
+    max-width: 850px !important;       /* पैराग्राफ को सुंदर तरीके से रैप करेगा */
+    margin: 0 auto 50px auto !important; /* '0 auto' पूरे ब्लॉक को स्क्रीन के बीच में रखेगा */
 }
+
+/* 1. पीले रंग की छोटी लाइन और 'OUR WORK' को सेंटर करने के लिए */
+.gallery-header .eyebrow {
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* 2. मुख्य बड़े टाइटल को सेंटर रखने के लिए */
+.gallery-header h2 {
+    text-align: center !important;
+    width: 100% !important;
+    margin: 14px 0 18px 0 !important;
+}
+
+/* 3. नीचे लिखे छोटे पैराग्राफ टेक्स्ट को 100% सेंटर अलाइन करने के लिए */
+.gallery-header p {
+    text-align: center !important;     /* जादू! यह आपके छोटे टेक्स्ट को भी बीच में ले आएगा */
+    width: 100% !important;
+    max-width: 700px !important;       /* टेक्स्ट को बहुत ज़्यादा फैलने से रोकेगा */
+    margin: 0 auto !important;         /* पैराग्राफ को बीच में रखने के लिए */
+    line-height: 1.8 !important;       /* पढ़ने में आसानी के लिए लाइन स्पेसिंग */
+    color: #64707c !important;
+}
+
 
 /* 2. केवल और केवल स्टेशनों के सफ़ेद ग्रुप डिब्बों को एक के नीचे एक फुल-विड्थ में लाना */
 .project-gallery-section .gallery-container {
