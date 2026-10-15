@@ -87,38 +87,57 @@
 
                 <!-- APNI PHOTOS YAHAN ADD KARNA -->
 
-<div class="project-photo-grid preview-grid-mode">
-    <!-- पहली फोटो (यह बाईं तरफ बड़ी दिखेगी) -->
-    <div class="photo-placeholder main-cover preview-first">
-        <img src="IMG-20260901-WA0188.jpg" alt="Darbhanga Project Photo" role="button">
-    </div>
+        <!-- DARBHANGA STATION SECTION -->
+        <div class="gallery-project-group">
 
-    <!-- दूसरी फोटो (यह दाहिनी तरफ ऊपर छोटी दिखेगी) -->
-    <div class="photo-placeholder main-cover preview-second">
-        <img src="IMG-20260901-WA0237.jpg" alt="Darbhanga Project Photo" role="button">
-    </div>
+            <div class="gallery-project-title">
+                <div>
+                    <span class="project-status">
+                        <i class="fa-solid fa-circle"></i>
+                        Ongoing Project
+                    </span>
+                    <h3>Darbhanga Station</h3>
+                    <p><i class="fa-solid fa-location-dot"></i> Darbhanga, Bihar</p>
+                </div>
+                <div class="gallery-service-label">
+                    <i class="fa-solid fa-broom"></i> Railway Cleaning &amp; Housekeeping
+                </div>
+            </div>
 
-    <!-- तीसरी फोटो (यह दाहिनी तरफ नीचे दिखेगी और इसके ऊपर प्लस आइकन होगा) -->
-    <div class="photo-placeholder main-cover preview-third">
-        <img src="IMG-20260901-WA0257.jpg" alt="Darbhanga Project Photo" role="button">
-        <div class="gallery-overlay">
-            <i class="fa-solid fa-plus"></i>
-            <span>View All Photos</span>
-        </div>
-    </div>
+            <!-- 3-Photo Preview Grid Implementation -->
+            <div class="project-photo-grid preview-grid-mode">
+                
+                <!-- पहली बड़ी फोटो -->
+                <div class="photo-placeholder main-cover preview-first">
+                    <img src="IMG-20260901-WA0188.jpg" alt="Darbhanga Project Photo" role="button">
+                </div>
 
-    <!-- बाकी बची हुई सभी 8 फोटोज इस हिडन डिव में रहेंगी ताकि जगह न घिरे -->
-    <div class="hidden-photos">
-        <img src="IMG-20260901-WA0258.jpg" alt="Darbhanga Project Photo">
-        <img src="IMG-20260901-WA0259.jpg" alt="Darbhanga Project Photo">
-        <img src="IMG-20260901-WA0260.jpg" alt="Darbhanga Project Photo">
-        <img src="IMG-20260901-WA0262.jpg" alt="Darbhanga Project Photo">
-        <img src="IMG-20260901-WA0263.jpg" alt="Darbhanga Project Photo">
-        <img src="IMG-20260901-WA0264.jpg" alt="Darbhanga Project Photo">
-        <img src="IMG-20260901-WA0265.jpg" alt="Darbhanga Project Photo">
-        <img src="IMG-20260901-WA0266.jpg" alt="Darbhanga Project Photo">
-    </div>
-</div>
+                <!-- दूसरी छोटी फोटो -->
+                <div class="photo-placeholder main-cover preview-second">
+                    <img src="IMG-20260901-WA0237.jpg" alt="Darbhanga Station housekeeping project" role="button">
+                </div>
+
+                <!-- तीसरी छोटी फोटो (प्लस ओवरले के साथ) -->
+                <div class="photo-placeholder main-cover preview-third">
+                    <img src="IMG-20260901-WA0257.jpg" alt="Darbhanga Project Photo" role="button">
+                    <div class="gallery-overlay">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>View All Photos</span>
+                    </div>
+                </div>
+
+                <!-- बाकी छिपी हुई 8 तस्वीरें जो पेज का स्पेस बचाएंगी -->
+                <div class="hidden-photos">
+                    <img src="IMG-20260901-WA0258.jpg" alt="Darbhanga Project Photo">
+                    <img src="IMG-20260901-WA0259.jpg" alt="Darbhanga Project Photo">
+                    <img src="IMG-20260901-WA0260.jpg" alt="Darbhanga Project Photo">
+                    <img src="IMG-20260901-WA0262.jpg" alt="Darbhanga Project Photo">
+                    <img src="IMG-20260901-WA0263.jpg" alt="Darbhanga Project Photo">
+                    <img src="IMG-20260901-WA0264.jpg" alt="Darbhanga Project Photo">
+                    <img src="IMG-20260901-WA0265.jpg" alt="Darbhanga Project Photo">
+                    <img src="IMG-20260901-WA0266.jpg" alt="Darbhanga Project Photo">
+                </div>
+            </div>
         </div>
 
 
@@ -315,13 +334,14 @@
 </a>
 
     <!-- लाइटबॉक्स का सही स्ट्रक्चर जो आपके सीएसएस से मेल खाता है -->
-<div id="gallery-lightbox" class="lightbox">
-    <button class="lightbox-close">&times;</button>
-    <button class="lightbox-btn lightbox-prev">&#10094;</button>
-    <img id="lightbox-full-img" class="lightbox-img" src="" alt="Full View">
-    <button class="lightbox-btn lightbox-next">&#10095;</button>
-</div>
- <script src="script.js"></script> 
+ <div id="gallery-lightbox" class="lightbox">
+            <button class="lightbox-close" type="button">&times;</button>
+            <button class="lightbox-btn lightbox-prev" type="button">&#10094;</button>
+            <img id="lightbox-full-img" class="lightbox-img" src="" alt="Full View">
+            <button class="lightbox-btn lightbox-next" type="button">&#10095;</button>
+        </div>
+
+        <script src="script.js"></script>
 </html>
 </body>
 </html>
