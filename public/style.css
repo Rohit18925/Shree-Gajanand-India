@@ -4933,8 +4933,8 @@ body.lightbox-open {
 
 .gallery-header {
     text-align: center !important; /* अगर आपकी यह हेडिंग बाईं तरफ थी, तो यह उसे परफेक्ट सेट रखेगी */
-    max-width: 750px !important;
-    margin-bottom: 45px !important;
+    max-width: 800px !important;
+    margin-bottom: 0 auto 50px auto !important;
     display: block !important;
 }
 
