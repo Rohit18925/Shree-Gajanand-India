@@ -143,19 +143,21 @@ document.addEventListener("DOMContentLoaded", function () {
     let projectImages = [];
     let currentIndex = 0;
 
-    // जब किसी प्रोजेक्ट के कवर पर क्लिक किया जाए
-    document.querySelectorAll(".main-cover").forEach(cover => {
-        cover.addEventListener("click", function () {
-            // उस पर्टिकुलर प्रोजेक्ट ग्रिड की सभी तस्वीरों को ढूंढना (दिखने वाली + छिपी हुई)
+    // ग्रिड के अंदर दिखने वाले तीनों थंबनेल्स पर क्लिक इवेंट लगाना
+    document.querySelectorAll(".preview-grid-mode .main-cover").forEach((thumb) => {
+        thumb.addEventListener("click", function () {
             const parentGrid = this.closest(".project-photo-grid");
-            const mainImg = this.querySelector("img");
-            const hiddenImgs = parentGrid.querySelectorAll(".hidden-photos img");
-
-            // ऐरे को खाली करके नए प्रोजेक्ट की सभी फोटो डालना
-            projectImages = [mainImg, ...Array.from(hiddenImgs)];
             
-            // लाइटबॉक्स खोलकर पहली फोटो दिखाना
-            openLightbox(0);
+            // ग्रिड के अंदर की सभी दिखने वाली और छिपी हुई इमेजेस की लिस्ट बनाना
+            const visibleImgs = Array.from(parentGrid.querySelectorAll(".main-cover img"));
+            const hiddenImgs = Array.from(parentGrid.querySelectorAll(".hidden-photos img"));
+            projectImages = [...visibleImgs, ...hiddenImgs];
+
+            // जिस पर्टिकुलर फोटो पर क्लिक किया गया है, उसका इंडेक्स ढूंढना
+            const clickedImg = this.querySelector("img");
+            const targetIndex = projectImages.findIndex(img => img.src === clickedImg.src);
+
+            openLightbox(targetIndex >= 0 ? targetIndex : 0);
         });
     });
 
@@ -171,7 +173,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.classList.remove("lightbox-open");
     }
 
-    // नेक्स्ट बटन लॉजिक
     nextBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         if (projectImages.length === 0) return;
@@ -179,7 +180,6 @@ document.addEventListener("DOMContentLoaded", function () {
         lightboxImg.src = projectImages[currentIndex].src;
     });
 
-    // प्रीवियस बटन लॉजिक
     prevBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         if (projectImages.length === 0) return;
