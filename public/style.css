@@ -4849,52 +4849,78 @@ body.lightbox-open {
         aspect-ratio: 4 / 3;
     }
 }
-/* बाकी सभी तस्वीरों को छुपाने के लिए ताकि वे जगह न लें */
+/* बाकी सभी तस्वीरों को पूरी तरह छुपाने के लिए */
 .hidden-photos {
     display: none !important;
 }
 
-/* मुख्य कवर फोटो का बॉक्स */
-.photo-placeholder.main-cover {
+/* ग्रिड रैपर की सेटिंग */
+.project-photo-grid.single-wide-mode {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* सिंगल बड़े चौड़े कार्ड की स्टाइल */
+.project-photo-grid.single-wide-mode .photo-placeholder.main-cover {
     position: relative;
     cursor: pointer;
     overflow: hidden;
-    border-radius: 8px;
-    max-width: 320px; /* आप अपने हिसाब से चौड़ाई सेट कर सकते हैं */
-    margin: 0 auto;
-}
-
-.photo-placeholder.main-cover img {
+    border-radius: 10px;
     width: 100%;
-    display: block;
-    transition: transform 0.3s ease;
+    max-width: 600px; /* इसकी चौड़ाई बढ़ा दी ताकि खाली जगह न बचे */
+    height: 320px;    /* एक परफेक्ट हॉरिजॉन्टल हाइट */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    background-color: #040a14;
 }
 
-/* होवर करने पर प्लस (+) वाला इफ़ेक्ट */
-.gallery-overlay {
+/* वर्टical फोटो को बिना स्ट्रेच किए वाइड-लुक में फिट करना */
+.project-photo-grid.single-wide-mode .photo-placeholder.main-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* जादू! यह पतली वर्टिकल इमेज को बीच में से परफेक्ट क्रॉप करके सेट कर देगा */
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+/* फोटो के ऊपर हमेशा दिखने वाला डार्क शेड और प्लस आइकन */
+.project-photo-grid.single-wide-mode .gallery-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(4, 10, 20, 0.6); /* हल्का डार्क शेड */
+    background: rgba(4, 10, 20, 0.45); /* हल्का ट्रांसपेरेंट डार्क लेयर */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: #ffffff;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: background 0.3s ease;
 }
 
-.gallery-overlay i {
-    font-size: 2rem;
+.project-photo-grid.single-wide-mode .gallery-overlay i {
+    font-size: 2.2rem;
     color: var(--gold, #f1a30b);
     margin-bottom: 8px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-.photo-placeholder.main-cover:hover .gallery-overlay {
-    opacity: 1;
+.project-photo-grid.single-wide-mode .gallery-overlay span {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-.photo-placeholder.main-cover:hover img {
-    transform: scale(1.05);
+/* होवर करने पर ज़ूम और ब्राइटनेस इफ़ेक्ट */
+.project-photo-grid.single-wide-mode .photo-placeholder.main-cover:hover img {
+    transform: scale(1.04);
 }
 
+.project-photo-grid.single-wide-mode .photo-placeholder.main-cover:hover .gallery-overlay {
+    background: rgba(4, 10, 20, 0.25); /* होवर करने पर इमेज थोड़ी और साफ़ दिखेगी */
+}
+
+/* मोबाइल स्क्रीन्स के लिए रिस्पॉन्सिव */
+@media (max-width: 576px) {
+    .project-photo-grid.single-wide-mode .photo-placeholder.main-cover {
+        height: 220px; /* मोबाइल पर हाइट थोड़ी छोटी हो जाएगी */
+    }
+}
