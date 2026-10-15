@@ -4912,3 +4912,107 @@ body.lightbox-open {
         height: 220px;
     }
 }
+/* =====================================================================
+   34. FINAL 3-PHOTO PREVIEW GALLERY GRID FIXED (FULL WIDTH)
+===================================================================== */
+
+/* छिपी हुई एक्स्ट्रा तस्वीरों को बैकग्राउंड में हाइड रखने के लिए */
+.preview-grid-mode .hidden-photos {
+    display: none !important;
+}
+
+/* मुख्य ग्रिड रैपर - जो पुराने लेआउट को तोड़कर अब पूरी चौड़ाई घेरेगा */
+.project-gallery-section .project-photo-grid.preview-grid-mode {
+    display: grid !important;
+    grid-template-columns: 1.6fr 1fr !important; /* बाईं तरफ बड़ा हिस्सा, दाहिनी तरफ छोटा */
+    grid-template-rows: 155px 155px !important;   /* दोनों छोटी तस्वीरों की फिक्स हाइट */
+    gap: 15px !important;
+    width: 100% !important;                       /* पूरे सफेद डिब्बे को आपस में भर देगा */
+    max-width: 100% !important;                  /* डिब्बे को फैलने की पूरी आज़ादी */
+    margin: 25px 0 35px 0 !important;
+    float: none !important;
+    clear: both !important;
+}
+
+/* थंबनेल कवर्स की मजबूत सेटिंग्स */
+.preview-grid-mode .photo-placeholder.main-cover {
+    position: relative !important;
+    cursor: pointer !important;
+    overflow: hidden !important;
+    border-radius: 10px !important;
+    background-color: var(--navy-dark, #08121f) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ग्रिड पोजीशनिंग (कौन सी फोटो कहाँ सेट होगी) */
+.preview-grid-mode .preview-first {
+    grid-row: span 2 !important; /* पहली फोटो दोनों Rows की हाइट लेकर बड़ी बनेगी */
+    grid-column: 1 !important;
+}
+.preview-grid-mode .preview-second {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+}
+.preview-grid-mode .preview-third {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+}
+
+/* वर्टिकल या आड़ी-तिरछी फोटो को बिना स्ट्रेच किए पूरे बॉक्स में फिट करना */
+.preview-grid-mode .photo-placeholder.main-cover img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* जादू! यह पतली इमेज को बिना खींचे चौकोर फिट करेगा */
+    display: block !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    transition: transform 0.4s ease !important;
+}
+
+/* तीसरी फोटो के ऊपर दिखने वाला "+ View All" ओवरले */
+.preview-grid-mode .preview-third .gallery-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    background: rgba(8, 18, 34, 0.78) !important; /* डार्क प्रीमियम लेयर */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    color: var(--white, #ffffff) !important;
+    opacity: 1 !important;
+    transition: background 0.3s ease !important;
+}
+
+.preview-grid-mode .preview-third .gallery-overlay i {
+    font-size: 2rem !important;
+    color: var(--gold, #f1a30b) !important; /* आपका ब्रांड थीम गोल्ड */
+    margin-bottom: 6px !important;
+}
+
+.preview-grid-mode .preview-third .gallery-overlay span {
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+}
+
+/* होवर करने पर स्मूथ ज़ूम इफ़ेक्ट */
+.preview-grid-mode .photo-placeholder.main-cover:hover img {
+    transform: scale(1.03) !important;
+}
+.preview-grid-mode .preview-third:hover .gallery-overlay {
+    background: rgba(8, 18, 34, 0.55) !important;
+}
+
+/* मोबाइल और छोटी स्क्रीन्स के लिए (100% रिस्पॉन्सिव लेआउट) */
+@media (max-width: 600px) {
+    .project-gallery-section .project-photo-grid.preview-grid-mode {
+        grid-template-columns: 1fr !important;
+        grid-template-rows: 220px 130px 130px !important;
+    }
+    .preview-grid-mode .preview-first { grid-row: 1 !important; grid-column: 1 !important; }
+    .preview-grid-mode .preview-second { grid-row: 2 !important; grid-column: 1 !important; }
+    .preview-grid-mode .preview-third { grid-row: 3 !important; grid-column: 1 !important; }
+}
