@@ -1393,7 +1393,7 @@ body.lightbox-open {
 }
 
 /* =====================================================================
-   19. 3-PHOTO PREVIEW GRID SYSTEM (ANTI-CONFLICT)
+   19. 3-PHOTO PREVIEW GRID SYSTEM (FULL WIDTH FIXED)
 ===================================================================== */
 
 /* बाकी एक्स्ट्रा तस्वीरों को पूरी तरह छुपाने के लिए */
@@ -1401,33 +1401,36 @@ body.lightbox-open {
     display: none !important;
 }
 
-/* नया ग्रिड स्ट्रक्चर जो पुराने ग्रिड को ओवरराइड करेगा */
+/* मुख्य ग्रिड रैपर - जो पुराने लेआउट को तोड़कर पूरी चौड़ाई घेरेगा */
 .project-photo-grid.preview-grid-mode {
     display: grid !important;
-    grid-template-columns: 1.8fr 1fr !important; /* बाईं तरफ बड़ा हिस्सा, दाहिनी तरफ छोटा */
-    grid-template-rows: 140px 140px !important;   /* दो छोटी फोटो की फिक्स हाइट */
-    gap: 12px !important;
-    width: 100% !important;
-    max-width: 750px !important; /* आपके सफेद डिब्बे के अंदर परफेक्ट फिट बैठने के लिए */
-    margin: 20px 0 30px 0 !important;
+    grid-template-columns: 1.5fr 1fr !important; /* बाईं तरफ बड़ा हिस्सा, दाहिनी तरफ छोटा */
+    grid-template-rows: 160px 160px !important;   /* दोनों छोटी तस्वीरों की फिक्स हाइट */
+    gap: 15px !important;
+    width: 100% !important;                       /* यह पूरे खाली डिब्बे को आपस में भर देगा */
+    max-width: 100% !important;                  /* डिब्बे को फैलने की पूरी आज़ादी */
+    margin: 25px 0 35px 0 !important;
+    float: none !important;
     clear: both !important;
 }
 
-/* थंबनेल कवर्स की सामान्य सेटिंग्स */
+/* थंबनेल कवर्स की मजबूत सेटिंग्स ताकि पुरानी क्लासेस ओवरराइड हो जाएं */
 .preview-grid-mode .photo-placeholder.main-cover {
     position: relative !important;
     cursor: pointer !important;
     overflow: hidden !important;
-    border-radius: 8px !important;
+    border-radius: 10px !important;
     background-color: #040a14 !important;
     margin: 0 !important;
+    padding: 0 !important;
     width: 100% !important;
     height: 100% !important;
 }
 
-/* ग्रिड पोजीशनिंग (कौन सी फोटो कहाँ दिखेगी) */
+/* ग्रिड पोजीशनिंग (कौन सी फोटो कहाँ सेट होगी) */
 .preview-grid-mode .preview-first {
-    grid-row: span 2 !important; /* पहली फोटो दोनों रो (Rows) की हाइट घेरेगी */
+    grid-row: span 2 !important; /* पहली फोटो दोनों Rows की हाइट लेकर बड़ी बनेगी */
+    grid-column: 1 !important;
 }
 .preview-grid-mode .preview-second {
     grid-column: 2 !important;
@@ -1438,20 +1441,22 @@ body.lightbox-open {
     grid-row: 2 !important;
 }
 
-/* पतली या वर्टिकल फोटो को बिना स्ट्रेच किए चौकोर फिट करना */
+/* वर्टिकल या आड़ी-तिरछी फोटो को बिना स्ट्रेच किए पूरे बॉक्स में फिट करना */
 .preview-grid-mode .photo-placeholder.main-cover img {
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover !important;
+    object-fit: cover !important; /* यह इमेज को परफेक्ट तरीके से बिना खींचे फिट करेगा */
     display: block !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
     transition: transform 0.4s ease !important;
 }
 
-/* तीसरी फोटो के ऊपर दिखने वाला प्लस (+) ओवरले */
+/* तीसरी फोटो के ऊपर दिखने वाला "+ View All" ओवरले */
 .preview-grid-mode .preview-third .gallery-overlay {
     position: absolute !important;
     inset: 0 !important;
-    background: rgba(4, 10, 20, 0.7) !important;
+    background: rgba(4, 10, 20, 0.75) !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
@@ -1462,24 +1467,36 @@ body.lightbox-open {
 }
 
 .preview-grid-mode .preview-third .gallery-overlay i {
-    font-size: 1.8rem !important;
-    color: #f1a30b !important; /* गोल्ड थीम कलर */
-    margin-bottom: 4px !important;
+    font-size: 2rem !important;
+    color: #f1a30b !important; /* आपका ब्रांड गोल्ड कलर */
+    margin-bottom: 6px !important;
 }
 
 .preview-grid-mode .preview-third .gallery-overlay span {
-    font-size: 0.85rem !important;
+    font-size: 0.95rem !important;
     font-weight: 600 !important;
     letter-spacing: 0.5px !important;
 }
 
-/* होवर करने पर केवल इमेज ज़ूम होगी */
+/* होवर करने पर स्मूथ इफ़ेक्ट */
 .preview-grid-mode .photo-placeholder.main-cover:hover img {
-    transform: scale(1.04) !important;
+    transform: scale(1.03) !important;
 }
 .preview-grid-mode .preview-third:hover .gallery-overlay {
     background: rgba(4, 10, 20, 0.5) !important;
 }
+
+/* मोबाइल और छोटी स्क्रीन्स के लिए (रिस्पॉन्सिव लेआउट) */
+@media (max-width: 600px) {
+    .project-photo-grid.preview-grid-mode {
+        grid-template-columns: 1fr !important;
+        grid-template-rows: 220px 130px 130px !important;
+    }
+    .preview-grid-mode .preview-first { grid-row: 1 !important; grid-column: 1 !important; }
+    .preview-grid-mode .preview-second { grid-row: 2 !important; grid-column: 1 !important; }
+    .preview-grid-mode .preview-third { grid-row: 3 !important; grid-column: 1 !important; }
+}
+
 
 /* मोबाइल स्क्रीन्स के लिए रिस्पॉन्सिव सेटिंग */
 @media (max-width: 576px) {
