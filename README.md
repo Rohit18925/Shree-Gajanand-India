@@ -2,19 +2,18 @@
 
 This package is production-ready as a Node.js/Express website with a working enquiry-form backend.
 
-## What was fixed
-- Removed local debug/ingest calls and placeholder form URLs.
-- Contact form now posts to `/submit-form`.
-- Email credentials are loaded from environment variables instead of source code.
-- Gmail/SMTP delivery supports `replyTo` so replies go to the visitor.
-- Added server-side validation, honeypot spam protection, and basic rate limiting.
-- Fixed mobile navigation on all pages.
-- Fixed gallery lightbox and keyboard access.
-- Removed dead Home-page form script and added consistent footer/WhatsApp access.
-- Normalized `contact.html`, `client.html`, and `style.css` filenames for Linux hosting.
-- Optimized the three largest gallery images to WebP.
-- Added `/health`, custom 404 page, Dockerfile, Render Blueprint, `.env.example`, and `.gitignore`.
-- `node_modules` is intentionally excluded from the deployment ZIP.
+## Project structure
+- `public/` is the only website folder (used by both Cloudflare Workers and the Node server).
+- `public/img/` holds the optimized WebP images.
+- `src/index.js` is the Cloudflare Worker (portal API + enquiry form). `server.js` is the Node/Express alternative.
+
+## Latest cleanup
+- One clean stylesheet (was 5,700 lines of stacked overrides) with a high-contrast purple theme.
+- Removed all backup files, the duplicate root-level copy of the site, and unused images.
+- Images compressed from about 13 MB to about 2.3 MB total; pages load much faster.
+- Removed gallery sections that pointed to photos that did not exist.
+- Consistent header, footer, SEO tags and Font Awesome loading on every page.
+- Accessible mobile menu, keyboard/swipe-friendly photo viewer, skip link.
 
 ## Local test
 1. Install Node.js 20 or newer.

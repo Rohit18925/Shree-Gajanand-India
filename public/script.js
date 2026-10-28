@@ -1,135 +1,129 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const navToggle = document.getElementById("navToggle");
-    const navbar = document.getElementById("mainNav");
-    if (navToggle && navbar) {
-        navToggle.setAttribute("aria-expanded", "false");
-        navToggle.addEventListener("click", function() {
-            const isOpen = navbar.classList.toggle("open");
-            navToggle.setAttribute("aria-expanded", String(isOpen));
-        });
-        navbar.querySelectorAll("a").forEach(function(link) {
-            link.addEventListener("click", function() {
-                navbar.classList.remove("open");
-                navToggle.setAttribute("aria-expanded", "false");
-            });
-        });
-    }
-    const track = document.getElementById("projectsTrack");
-    const prevBtn = document.getElementById("projPrev");
-    const nextBtn = document.getElementById("projNext");
-    if (track && prevBtn && nextBtn) {
-        const scrollAmount = 300;
-        nextBtn.addEventListener("click", () => track.scrollBy({
-            left: scrollAmount,
-            behavior: "smooth"
-        }));
-        prevBtn.addEventListener("click", () => track.scrollBy({
-            left: -scrollAmount,
-            behavior: "smooth"
-        }));
-    }
-    const galleryImages = document.querySelectorAll(".gallery-item img");
-    if (galleryImages.length) {
-        const lightbox = document.createElement("div");
-        lightbox.className = "lightbox";
-        lightbox.setAttribute("role", "dialog");
-        lightbox.setAttribute("aria-modal", "true");
-        lightbox.setAttribute("aria-label", "Gallery image preview");
-        lightbox.innerHTML = '<button class="lightbox-close" type="button" aria-label="Close image preview">&times;</button><img class="lightbox-img" alt="">';
-        document.body.appendChild(lightbox);
-        const lightboxImg = lightbox.querySelector(".lightbox-img");
-        const closeBtn = lightbox.querySelector(".lightbox-close");
-        let previousFocus = null;
-        function openLightbox(img) {
-            previousFocus = document.activeElement;
-            lightboxImg.src = img.currentSrc || img.src;
-            lightboxImg.alt = img.alt || "Gallery image";
-            lightbox.classList.add("open");
-            document.body.classList.add("lightbox-open");
-            closeBtn.focus();
-        }
-        function closeLightbox() {
-            lightbox.classList.remove("open");
-            document.body.classList.remove("lightbox-open");
-            lightboxImg.removeAttribute("src");
-            if (previousFocus && previousFocus.focus) previousFocus.focus();
-        }
-        galleryImages.forEach(function(img) {
-            img.tabIndex = 0;
-            img.setAttribute("role", "button");
-            img.setAttribute("aria-label", "Open " + (img.alt || "gallery image"));
-            img.addEventListener("click", () => openLightbox(img));
-            img.addEventListener("keydown", function(e) {
-                if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    openLightbox(img);
-                }
-            });
-        });
-        closeBtn.addEventListener("click", closeLightbox);
-        lightbox.addEventListener("click", e => {
-            if (e.target === lightbox) closeLightbox();
-        });
-        document.addEventListener("keydown", e => {
-            if (e.key === "Escape" && lightbox.classList.contains("open")) closeLightbox();
-        });
-    }
-    const contactForm = document.getElementById("gajanandEnquiryForm");
-    if (contactForm) {
-        const submitBtn = document.getElementById("formSubmitBtn");
-        const responseMsg = document.getElementById("formResponseMessage");
-        const params = new URLSearchParams(window.location.search);
-        if (params.get("sent") === "1") showMessage("success", "✓ Thank you! Your enquiry has been sent. We will contact you soon.");
-        if (params.get("error") === "1") showMessage("error", "❌ We could not send your enquiry. Please try again or contact us by phone/WhatsApp.");
-        function showMessage(type, message) {
-            if (!responseMsg) return;
-            responseMsg.className = "message-box " + type;
-            responseMsg.textContent = message;
-            responseMsg.setAttribute("role", type === "error" ? "alert" : "status");
-        }
-        contactForm.addEventListener("submit", async function(event) {
-            event.preventDefault();
-            if (!contactForm.checkValidity()) {
-                contactForm.reportValidity();
-                return;
-            }
-            const originalText = submitBtn ? submitBtn.textContent : "";
-            if (submitBtn) {
-                submitBtn.textContent = "Sending Enquiry...";
-                submitBtn.classList.add("submit-btn-disabled");
-                submitBtn.disabled = true;
-            }
-            if (responseMsg) responseMsg.className = "message-box";
-            const payload = Object.fromEntries(new FormData(contactForm).entries());
-            try {
-                const response = await fetch("/submit-form", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json"
-                    },
-                    body: JSON.stringify(payload)
-                });
-                const data = await response.json().catch(() => ({}));
-                if (!response.ok || data.result !== "success") {
-                    throw new Error(data.error || "Unable to send enquiry.");
-                }
-                showMessage("success", "✓ Thank you! Your enquiry has been sent. We will contact you soon.");
-                contactForm.reset();
-            } catch (error) {
-                showMessage("error", "❌ " + (error.message || "Something went wrong. Please try again."));
-            } finally {
-                if (submitBtn) {
-                    submitBtn.textContent = originalText;
-                    submitBtn.classList.remove("submit-btn-disabled");
-                    submitBtn.disabled = false;
-                }
-            }
-        });
-    }
-    const currentPath = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
-    document.querySelectorAll(".navbar a").forEach(function(link) {
-        const href = (link.getAttribute("href") || "").replace(/^\.\//, "").toLowerCase();
-        if (href === currentPath) link.classList.add("active");
+document.addEventListener("DOMContentLoaded", function () {
+  /* ---------- 1. Mobile navigation ---------- */
+  var navToggle = document.getElementById("navToggle");
+  var navbar = document.getElementById("mainNav");
+  if (navToggle && navbar) {
+    var setNav = function (open) {
+      navbar.classList.toggle("open", open);
+      navToggle.setAttribute("aria-expanded", String(open));
+    };
+    navToggle.addEventListener("click", function () { setNav(!navbar.classList.contains("open")); });
+    navbar.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { setNav(false); }); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setNav(false); });
+  }
+
+  /* ---------- 2. Gallery lightbox (one photo set per project) ---------- */
+  var lightbox = document.getElementById("lightbox");
+  var grids = document.querySelectorAll("[data-gallery]");
+  if (lightbox && grids.length) {
+    var img = document.getElementById("lightboxImg");
+    var count = document.getElementById("lightboxCount");
+    var thumbs = [];
+    var current = 0;
+    var lastFocus = null;
+
+    var show = function (i) {
+      current = (i + thumbs.length) % thumbs.length;
+      img.src = thumbs[current].currentSrc || thumbs[current].src;
+      img.alt = thumbs[current].alt;
+      count.textContent = (current + 1) + " / " + thumbs.length;
+    };
+    var open = function (set, i) {
+      thumbs = set;
+      lastFocus = document.activeElement;
+      show(i);
+      lightbox.hidden = false;
+      lightbox.classList.add("open");
+      document.body.classList.add("lightbox-open");
+      lightbox.querySelector(".lightbox-close").focus();
+    };
+    var close = function () {
+      lightbox.classList.remove("open");
+      lightbox.hidden = true;
+      document.body.classList.remove("lightbox-open");
+      img.src = "";
+      if (lastFocus) lastFocus.focus();
+    };
+
+    grids.forEach(function (grid) {
+      var set = Array.prototype.slice.call(grid.querySelectorAll("img"));
+
+// Show only the first PREVIEW photos; the rest open in the viewer
+var PREVIEW = 4;
+if (set.length > PREVIEW) {
+  set.forEach(function (t, i) { if (i >= PREVIEW) t.closest("button").classList.add("is-extra"); });
+  var last = set[PREVIEW - 1].closest("button");
+  last.classList.add("has-more");
+  var more = document.createElement("span");
+  more.className = "photo-more";
+  more.textContent = "+" + (set.length - PREVIEW) + " more";
+  last.appendChild(more);
+}
+
+      set.forEach(function (t, i) { t.closest("button").addEventListener("click", function () { open(set, i); }); });
     });
+    lightbox.querySelector(".lightbox-close").addEventListener("click", close);
+    lightbox.querySelector(".lightbox-prev").addEventListener("click", function (e) { e.stopPropagation(); show(current - 1); });
+    lightbox.querySelector(".lightbox-next").addEventListener("click", function (e) { e.stopPropagation(); show(current + 1); });
+    lightbox.addEventListener("click", function (e) { if (e.target === lightbox) close(); });
+    document.addEventListener("keydown", function (e) {
+      if (!lightbox.classList.contains("open")) return;
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowRight") show(current + 1);
+      if (e.key === "ArrowLeft") show(current - 1);
+    });
+
+    var startX = null;
+    lightbox.addEventListener("touchstart", function (e) { startX = e.touches[0].clientX; }, { passive: true });
+    lightbox.addEventListener("touchend", function (e) {
+      if (startX === null) return;
+      var dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
+      startX = null;
+    }, { passive: true });
+  }
+
+  /* ---------- 3. Contact form ---------- */
+  var form = document.getElementById("gajanandEnquiryForm");
+  if (form) {
+    var btn = document.getElementById("formSubmitBtn");
+    var box = document.getElementById("formResponseMessage");
+    var message = function (type, text) {
+      if (!box) return;
+      box.className = "message-box " + type;
+      box.textContent = text;
+      box.setAttribute("role", type === "error" ? "alert" : "status");
+    };
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+
+      var label = btn.textContent;
+      btn.textContent = "Sending enquiry...";
+      btn.disabled = true;
+      box.className = "message-box";
+
+      var payload = {};
+      new FormData(form).forEach(function (v, k) { payload[k] = v; });
+
+      fetch("/submit-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (data) { return { ok: res.ok, data: data }; });
+        })
+        .then(function (r) {
+          if (!r.ok || r.data.result !== "success") throw new Error(r.data.error || "Unable to send enquiry.");
+          message("success", "Thank you! Your enquiry has been sent. We will contact you soon.");
+          form.reset();
+        })
+        .catch(function (err) {
+          message("error", (err && err.message ? err.message : "Something went wrong.") + " You can also call or WhatsApp us on +91 98219 43101.");
+        })
+        .finally(function () { btn.textContent = label; btn.disabled = false; });
+    });
+  }
 });
