@@ -69,7 +69,9 @@ const WINDOW_MS = 15 * 60 * 1e3;
 const MAX_ATTEMPTS = 5;
 
 function wantsJson(req) {
-    return (req.get("accept") || "").includes("application/json") || req.is("application/json");
+    const accept = req.get("accept") || "";
+    const contentType = req.get("content-type") || "";
+    return accept.includes("application/json") || contentType.includes("application/json");
 }
 
 function respondError(req, res, status, message) {

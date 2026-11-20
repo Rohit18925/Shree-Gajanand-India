@@ -322,6 +322,235 @@ body.lightbox-open { overflow: hidden; }
 @media (max-width: 860px) { .photo-grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* ==========================================================================
+   ISO Badges & Certifications
+   ========================================================================== */
+.hero-iso {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+  margin-bottom: 16px;
+}
+.iso-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  font: 600 .85rem "Inter", sans-serif;
+  border: 1px solid rgba(255,255,255,.18);
+  transition: background .15s, border-color .15s, transform .15s;
+  cursor: default;
+}
+.iso-badge:hover {
+  background: rgba(255,255,255,.22);
+  border-color: var(--brand-light);
+  transform: translateY(-2px);
+}
+.iso-badge i { font-size: .95rem; }
+.iso-badge:nth-child(1) i { color: #ffd700; }
+.iso-badge:nth-child(2) i { color: #6ee7b7; }
+.iso-badge:nth-child(3) i { color: #fda4af; }
+
+@media (max-width: 560px) {
+  .hero-iso { justify-content: center; }
+  .iso-badge { font-size: .78rem; padding: 6px 12px; }
+}
+
+/* ==========================================================================
+   Trust Strip (8 columns)
+   ========================================================================== */
+.trust-strip .container { grid-template-columns: repeat(8, 1fr); }
+@media (max-width: 1020px) {
+  .trust-strip .container { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 560px) {
+  .trust-strip .container { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ==========================================================================
+   Client Logos / Trusted By
+   ========================================================================== */
+#clients { padding-top: 0; }
+.client-logos {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+  align-items: center;
+  justify-items: center;
+}
+.client-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+  text-decoration: none;
+  color: var(--ink);
+  opacity: .85;
+}
+.client-logo:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--brand-light);
+  opacity: 1;
+}
+.client-logo i { font-size: 2rem; color: var(--brand); }
+.client-logo span { font-weight: 600; font-size: .85rem; text-align: center; line-height: 1.3; }
+@media (max-width: 1020px) { .client-logos { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+@media (max-width: 560px) { .client-logos { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+
+/* ==========================================================================
+   Enhanced Footer
+   ========================================================================== */
+.main-footer {
+  background: var(--dark);
+  color: var(--on-dark-soft);
+  padding: 56px 20px 24px;
+  font-size: .9rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 40px;
+  text-align: left;
+  margin-bottom: 40px;
+}
+.footer-brand strong {
+  display: block;
+  font: 700 1.1rem/1.2 "Poppins", sans-serif;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.footer-brand span {
+  display: block;
+  font-size: .75rem;
+  color: var(--on-dark-soft);
+  margin-bottom: 14px;
+}
+.footer-brand p { margin: 0; color: var(--on-dark-soft); }
+.footer-links h4, .footer-iso h4, .footer-contact h4 {
+  color: #fff;
+  font-size: .95rem;
+  margin-bottom: 16px;
+}
+.footer-links ul, .footer-contact ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.footer-links a { color: var(--on-dark-soft); text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: var(--brand-light); }
+.footer-iso .iso-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.footer-iso .iso-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .85rem;
+}
+.footer-iso .iso-list i { color: var(--brand-light); width: 20px; text-align: center; }
+.footer-iso .iso-list small { color: var(--on-dark-soft); font-weight: 400; }
+.footer-iso .iso-verify { margin-top: 16px; }
+.footer-iso .iso-verify a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .8rem;
+  color: var(--brand-light);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color .15s;
+}
+.footer-iso .iso-verify a:hover { border-color: var(--brand-light); }
+.footer-contact p { display: flex; align-items: center; gap: 8px; margin: 0 0 10px; color: var(--on-dark-soft); }
+.footer-contact i { color: var(--brand-light); width: 20px; text-align: center; }
+.footer-contact a { color: var(--on-dark-soft); text-decoration: none; }
+.footer-contact a:hover { color: var(--brand-light); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding-top: 20px;
+  text-align: center;
+  font-size: .85rem;
+}
+.footer-bottom p { margin: 0; }
+
+@media (max-width: 1020px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-brand { grid-column: span 2; }
+}
+@media (max-width: 560px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-brand { grid-column: span 1; }
+}
+
+/* ==========================================================================
+   Enhanced Leader Card (6 values)
+   ========================================================================== */
+.leader-values { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 860px) { .leader-values { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .leader-values { grid-template-columns: 1fr; } }
+
+/* ==========================================================================
+   ISO Badges Large (About page certifications)
+   ========================================================================== */
+.iso-badge-large {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  font-size: 1.8rem;
+  background: var(--bg-soft);
+  color: var(--brand);
+}
+.info-card:nth-child(1) .iso-badge-large { background: #fffbe6; color: #d4a800; }
+.info-card:nth-child(2) .iso-badge-large { background: #ecfdf5; color: #059669; }
+.info-card:nth-child(3) .iso-badge-large { background: #fef2f2; color: #dc2626; }
+.cert-detail { margin: 6px 0 0; font-size: .85rem; color: var(--ink-soft); }
+.cert-detail strong { color: var(--ink); }
+
+/* ==========================================================================
+   Services page enhancements
+   ========================================================================== */
+.svc-intro .iso-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+.iso-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--bg-soft);
+  color: var(--brand-dark);
+  font: 600 .85rem "Inter", sans-serif;
+  border: 1px solid var(--line);
+}
+.iso-tag i { font-size: .95rem; }
+.iso-tag:nth-child(1) i { color: #d4a800; }
+.iso-tag:nth-child(2) i { color: #059669; }
+.iso-tag:nth-child(3) i { color: #dc2626; }
+
+/* ==========================================================================
+   Print styles for certificates
+   ========================================================================== */
+@media print {
+  .site-header, .hero-btns, .hero-iso, .cta-band, .whatsapp-float, .footer-iso .iso-verify { display: none !important; }
+  .hero { min-height: auto; padding: 40px 0; background: var(--dark) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .hero::before { display: none; }
+  .main-footer { background: var(--dark) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* ==========================================================================
    Services: category index + individual service pages
    ========================================================================== */
 .lead { font-size: 1.15rem; color: var(--ink-soft); max-width: 760px; }
