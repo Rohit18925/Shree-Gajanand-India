@@ -44,4 +44,3 @@
 /*/ /:splat 301
 
 # SPA fallback for any unmatched routes - let the Functions handle 404
-/* /404.html 404
