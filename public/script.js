@@ -107,7 +107,7 @@ if (set.length > PREVIEW) {
       var payload = {};
       new FormData(form).forEach(function (v, k) { payload[k] = v; });
 
-      fetch("https://shree-gajanand-contact-api.sgi751.workers.dev/submit-form", {
+      fetch("/submit-form", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify(payload)
