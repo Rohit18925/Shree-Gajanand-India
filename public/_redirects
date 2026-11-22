@@ -42,5 +42,3 @@
 
 # Trailing slash normalization
 /*/ /:splat 301
-
-# SPA fallback for any unmatched routes - let the Functions handle 404
