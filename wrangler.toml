@@ -13,3 +13,5 @@ run_worker_first = [
   "/client",
   "/contact"
 ]
+
+[previews]
