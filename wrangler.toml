@@ -7,7 +7,10 @@ pages_build_output_dir = "public"
 
 # Environment variables (set in Cloudflare dashboard)
 # SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASS
-# EMAIL_FROM, EMAIL_TO, NODE_ENV
+# EMAIL_FROM, EMAIL_TO, NODE_ENV, PORTAL_SETUP_KEY
+
+# Build command for Pages
+# npm run build (if you have a build step, otherwise just copy files)
 
 [vars]
 NODE_ENV = "production"
