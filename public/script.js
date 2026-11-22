@@ -107,7 +107,7 @@ if (set.length > PREVIEW) {
       var payload = {};
       new FormData(form).forEach(function (v, k) { payload[k] = v; });
 
-      fetch("https://shree-gajanand-contact-api.sgi751.workers.dev/", {
+      fetch("https://workers.dev", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify(payload)
@@ -127,4 +127,5 @@ if (set.length > PREVIEW) {
     });
   }
 });
+
 
