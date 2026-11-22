@@ -110,12 +110,19 @@ export default {
       return handleContact(request, env);
     }
 
-    // Handle API preflight only if a future cross-origin caller is added.
-    if (url.pathname.startsWith("/submit-form/")) {
-      return json({ result: "error", error: "Not found." }, 404);
-    }
+    // Preserve the existing extensionless page URLs used by the deployed site.
+    const pageAliases = {
+      "/about": "/about.html",
+      "/services": "/services.html",
+      "/gallery": "/gallery.html",
+      "/client": "/client.html",
+      "/contact": "/contact.html"
+    };
+    const assetUrl = new URL(request.url);
+    if (pageAliases[assetUrl.pathname]) assetUrl.pathname = pageAliases[assetUrl.pathname];
 
-    const response = await env.ASSETS.fetch(request);
+    const assetRequest = new Request(assetUrl.toString(), request);
+    const response = await env.ASSETS.fetch(assetRequest);
     const headers = new Headers(response.headers);
     headers.set("X-Content-Type-Options", "nosniff");
     headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
