@@ -112,6 +112,7 @@ export default {
 
     // Preserve the existing extensionless page URLs used by the deployed site.
     const pageAliases = {
+      "/": "/index.html",
       "/about": "/about.html",
       "/services": "/services.html",
       "/gallery": "/gallery.html",
