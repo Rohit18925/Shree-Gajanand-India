@@ -1,8 +1,3 @@
 # Cloudflare Workers Static Assets
-# Keep the original .html pages directly accessible.
-# Clean top-level routes (/about, /services, /gallery, /client, /contact)
-# are handled by src/index.js. Do not redirect .html files back to clean
-# routes here, because the Worker maps clean routes to the .html files.
-
-# Trailing slash normalization
-/*/ /:splat 301
+# Page routing is handled by src/index.js.
+# Intentionally no redirects here to avoid redirect loops.
