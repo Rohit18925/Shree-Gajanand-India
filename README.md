@@ -27,3 +27,4 @@ Configure production SMTP variables (`SMTP_USER`, `SMTP_PASS`, `EMAIL_FROM`, `EM
 - **Health Check** — `/health` endpoint for monitoring
 - **Security Headers** — CSP-ready, HSTS, X-Frame-Options, Referrer-Policy
 - **Responsive Design** — Mobile-first, accessible, reduced-motion support
+- .
