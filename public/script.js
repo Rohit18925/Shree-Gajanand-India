@@ -83,7 +83,7 @@ if (set.length > PREVIEW) {
     }, { passive: true });
   }
 
-  /* ---------- 3. Contact form ---------- */
+/* ---------- 3. Contact form ---------- */
   var form = document.getElementById("gajanandEnquiryForm");
   if (form) {
     var btn = document.getElementById("formSubmitBtn");
@@ -107,7 +107,7 @@ if (set.length > PREVIEW) {
       var payload = {};
       new FormData(form).forEach(function (v, k) { payload[k] = v; });
 
-      fetch("/submit-form", {
+      fetch("https://shree-gajanand-contact-api.sgi751.workers.dev/", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify(payload)
@@ -127,3 +127,4 @@ if (set.length > PREVIEW) {
     });
   }
 });
+
