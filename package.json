@@ -2,12 +2,16 @@
   "name": "shree-gajanand-india-website",
   "version": "1.0.0",
   "private": true,
-  "description": "Production-ready website for Shree Gajanand India",
+  "description": "Production-ready website for Shree Gajanand India Pvt. Ltd.",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "check": "node --check server.js && node --check public/script.js"
+    "check": "node --check server.js && node --check public/script.js",
+    "build": "echo 'No build step required - static files served from public/'",
+    "preview": "wrangler pages dev public --compatibility-flags=nodejs_compat",
+    "deploy": "wrangler pages deploy public --project-name=shree-gajanand-india"
   },
   "engines": {
     "node": ">=20"
@@ -16,5 +20,8 @@
   "dependencies": {
     "express": "^5.2.1",
     "nodemailer": "^9.0.3"
+  },
+  "devDependencies": {
+    "wrangler": "^3.80.0"
   }
 }

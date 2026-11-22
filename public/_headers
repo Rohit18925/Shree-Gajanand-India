@@ -1,0 +1,46 @@
+# Cloudflare Pages Headers Configuration
+# These headers are applied at the edge for all responses
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+# Cache static assets for 1 week
+/*.png
+  Cache-Control: public, max-age=604800
+/*.jpg
+  Cache-Control: public, max-age=604800
+/*.jpeg
+  Cache-Control: public, max-age=604800
+/*.webp
+  Cache-Control: public, max-age=604800
+/*.gif
+  Cache-Control: public, max-age=604800
+/*.svg
+  Cache-Control: public, max-age=604800
+/*.ico
+  Cache-Control: public, max-age=604800
+/*.css
+  Cache-Control: public, max-age=604800
+/*.js
+  Cache-Control: public, max-age=604800
+/*.woff
+  Cache-Control: public, max-age=604800
+/*.woff2
+  Cache-Control: public, max-age=604800
+
+# Don't cache HTML files
+/*.html
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+# API routes - no cache
+/api/*
+  Cache-Control: no-cache, no-store, must-revalidate
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, POST, OPTIONS
+  Access-Control-Allow-Headers: Content-Type
