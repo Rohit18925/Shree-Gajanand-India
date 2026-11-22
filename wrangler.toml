@@ -1,13 +1,6 @@
 name = "shreegajanandindia"
-compatibility_date = "2024-11-21"
-compatibility_flags = ["nodejs_compat"]
+compatibility_date = "2026-11-22"
 
-# Cloudflare Pages configuration
-pages_build_output_dir = "public"
+[assets]
+directory = "./public"
 
-# Environment variables (set in Cloudflare dashboard)
-# SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASS
-# EMAIL_FROM, EMAIL_TO, NODE_ENV
-
-[vars]
-NODE_ENV = "production"
