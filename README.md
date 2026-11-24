@@ -64,3 +64,4 @@ A successful API response confirms that Brevo accepted the send request; check t
 ## Contact form protections
 
 The Worker validates required fields, email and phone formats, supports the existing honeypot field, and never exposes the Brevo API key to the browser. Configure Cloudflare rate limiting for `POST /submit-form` before relying on the public form at scale.
+
