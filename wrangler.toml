@@ -17,3 +17,9 @@ run_worker_first = [
 ]
 
 [previews]
+
+keep_vars = true
+
+[vars]
+EMAIL_FROM = "shreegajanandindia751@gmail.com"
+EMAIL_TO = "shreegajanandindia751@gmail.com"
